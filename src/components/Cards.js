@@ -15,6 +15,7 @@ import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddComment from '@material-ui/icons/AddComment'
+import Tag from './Tag'
 
 const styles = theme => ({
   card: {
@@ -83,6 +84,9 @@ class Cards extends React.Component {
           <Typography component="p">
             This is a super interesting post about something going on in my community!
           </Typography>
+
+          <Tag />
+
         </CardContent>
 
         <CardActions className={classes.actions} disableActionSpacing>
