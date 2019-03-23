@@ -30,7 +30,9 @@ class FullScreenDialog extends React.Component {
     open: false,
     title: '',
     content: '',
-    img: ''
+    img: '',
+    tags: [],
+
   };
 
   handleClickOpen = () => {
@@ -42,12 +44,22 @@ class FullScreenDialog extends React.Component {
   };
 
   handleSave = () => {
-    let data = {
-      user_id: this.props.user_id,
-      title: this.state.title,
-      content: this.state.content,
-      img: this.state.img
+    const tags = this.state.tags.map(t => {
+      return {tag_id: t.value}
+    })
+
+    const data = {
+      post: {
+        post_info: {
+          user_id: this.props.user_id,
+          title: this.state.title,
+          content: this.state.content,
+          img: this.state.img,
+        },
+        post_tags_attributes: tags
+      }
     }
+
     this.props.createPost(data)
     this.setState({ 
       open: false,
@@ -59,6 +71,11 @@ class FullScreenDialog extends React.Component {
   };
 
   handleChange = name => event => {
+    name === 'tags' ?
+
+    this.setState({
+      [name]: event,
+    }) :
     this.setState({
       [name]: event.target.value,
     });
@@ -90,7 +107,7 @@ class FullScreenDialog extends React.Component {
               </Button>
             </Toolbar>
           </AppBar>
-          <NewPostForm title={this.state.title} content={this.state.content} tags={this.state.tags} handleChange={this.handleChange}/>
+          <NewPostForm title={this.state.title} content={this.state.content} postTags={this.state.tags} handleChange={this.handleChange}/>
         </Dialog>
       </div>
     );

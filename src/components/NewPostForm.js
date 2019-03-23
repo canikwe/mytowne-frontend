@@ -25,18 +25,10 @@ const styles = theme => ({
 
 
 
-class OutlinedTextFields extends React.Component {
-
-  handleChange = name => event => {
-    
-    debugger
-    // this.setState({
-    //   [name]: event.target.value,
-    // });
-  };
+class OutlinedTextFields extends React.PureComponent {
 
   render() {
-    const { classes, title, content, img, tags, handleChange } = this.props;
+    const { classes, title, content, img, postTags, handleChange } = this.props;
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
@@ -50,8 +42,6 @@ class OutlinedTextFields extends React.Component {
           variant="outlined"
           fullWidth
         />
-
- 
 
         <TextField
           id="outlined-multiline-flexible"
@@ -92,17 +82,7 @@ class OutlinedTextFields extends React.Component {
           variant="outlined"
         />
 
-        {/* <TextField
-          id="outlined-name"
-          label="Tags"
-          className={classes.textField}
-          // value={tags}
-          onChange={this.handleChange('tags')}
-          margin="normal"
-          variant="outlined"
-        /> */}
-
-        <NewPostLabels />
+        <NewPostLabels postTags={postTags} handleChange={handleChange}/>
 
       </form>
     );

@@ -25,18 +25,16 @@ class App extends Component {
   }
 
   createPost = data => {
-    // fetch(`http://localhost:3000/api/v1/posts/`, {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // }).then(res => res.json())
-    // .then(post => this.setState({
-    //   posts: [...this.state.posts, post]
-    // }))
+    fetch(`http://localhost:3000/api/v1/posts/`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json())
+    .then(console.log)
     
-    console.log(data)
+    // console.log(data)
   }
 
   render() {
