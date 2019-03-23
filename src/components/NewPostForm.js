@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import NewPostLabels from './NewPostLabels';
 
 const styles = theme => ({
   container: {
@@ -13,191 +14,103 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
   },
   dense: {
-    marginTop: 19,
+    marginTop: 16,
   },
   menu: {
     width: 200,
   },
 });
 
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
 
-class TextFields extends React.Component {
-  state = {
-    title: '',
-    age: '',
-    content: 'Controlled',
-    currency: 'EUR',
-  };
+
+class OutlinedTextFields extends React.Component {
 
   handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+    
+    debugger
+    // this.setState({
+    //   [name]: event.target.value,
+    // });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, title, content, img, tags, handleChange } = this.props;
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
-          id="standard-name"
+          id="outlined-name"
           label="Title"
           className={classes.textField}
-          value={this.state.title}
-          onChange={this.handleChange('title')}
+          value={title}
+          onChange={handleChange('title')}
           margin="normal"
+          variant="outlined"
+          fullWidth
         />
 
+ 
 
         <TextField
-          id="standard-multiline-flexible"
+          id="outlined-multiline-flexible"
           label="Content"
           multiline
-          rowsMax="20"
-          value={this.state.content}
-          onChange={this.handleChange('content')}
+          rows="10"
+          value={content}
+          onChange={handleChange('content')}
           className={classes.textField}
           margin="normal"
+          helperText="hello"
+          variant="outlined"
+          fullWidth
         />
 
-        {/* <TextField
-          id="standard-multiline-static"
-          label="Multiline"
-          multiline
-          rows="4"
-          defaultValue="Default Value"
-          className={classes.textField}
-          margin="normal"
-        /> */}
-
-
+ 
         <TextField
-          id="standard-with-placeholder"
-          label="With placeholder"
-          placeholder="Placeholder"
-          className={classes.textField}
-          margin="normal"
-        />
-
-        <TextField
-          id="standard-textarea"
-          label="With placeholder multiline"
-          placeholder="Placeholder"
-          multiline
-          className={classes.textField}
-          margin="normal"
-        />
-
-        <TextField
-          id="standard-number"
-          label="Number"
-          value={this.state.age}
-          onChange={this.handleChange('age')}
-          type="number"
-          className={classes.textField}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          margin="normal"
-        />
-
-        <TextField
-          id="standard-search"
-          label="Search field"
-          type="search"
-          className={classes.textField}
-          margin="normal"
-        />
-
-        <TextField
-          id="standard-select-currency"
-          select
-          label="Select"
-          className={classes.textField}
-          value={this.state.currency}
-          onChange={this.handleChange('currency')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          helperText="Please select your currency"
-          margin="normal"
-        >
-          {currencies.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="standard-select-currency-native"
-          select
-          label="Native select"
-          className={classes.textField}
-          value={this.state.currency}
-          onChange={this.handleChange('currency')}
-          SelectProps={{
-            native: true,
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          helperText="Please select your currency"
-          margin="normal"
-        >
-          {currencies.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-        <TextField
-          id="standard-full-width"
+          id="outlined-full-width"
           label="Label"
           style={{ margin: 8 }}
           placeholder="Placeholder"
           helperText="Full width!"
           fullWidth
           margin="normal"
+          variant="outlined"
           InputLabelProps={{
             shrink: true,
           }}
         />
 
         <TextField
-          id="standard-bare"
+          id="outlined-name"
+          label="Image"
           className={classes.textField}
-          defaultValue="Bare"
+          value={img}
+          onChange={handleChange('img')}
           margin="normal"
+          variant="outlined"
         />
+
+        {/* <TextField
+          id="outlined-name"
+          label="Tags"
+          className={classes.textField}
+          // value={tags}
+          onChange={this.handleChange('tags')}
+          margin="normal"
+          variant="outlined"
+        /> */}
+
+        <NewPostLabels />
+
       </form>
     );
   }
 }
 
-TextFields.propTypes = {
+OutlinedTextFields.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TextFields);
+export default withStyles(styles)(OutlinedTextFields);

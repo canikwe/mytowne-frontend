@@ -28,6 +28,9 @@ function Transition(props) {
 class FullScreenDialog extends React.Component {
   state = {
     open: false,
+    title: '',
+    content: '',
+    img: ''
   };
 
   handleClickOpen = () => {
@@ -36,6 +39,29 @@ class FullScreenDialog extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+  handleSave = () => {
+    let data = {
+      user_id: this.props.user_id,
+      title: this.state.title,
+      content: this.state.content,
+      img: this.state.img
+    }
+    this.props.createPost(data)
+    this.setState({ 
+      open: false,
+      title: '',
+      content: '',
+      img: '',
+      tags: []
+     });
+  };
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
   };
 
   render() {
@@ -59,12 +85,12 @@ class FullScreenDialog extends React.Component {
               <Typography variant="h6" color="inherit" className={classes.flex}>
                 New Post
               </Typography>
-              <Button color="inherit" onClick={this.handleClose}>
+              <Button color="inherit" onClick={this.handleSave}>
                 save
               </Button>
             </Toolbar>
           </AppBar>
-          <NewPostForm />
+          <NewPostForm title={this.state.title} content={this.state.content} tags={this.state.tags} handleChange={this.handleChange}/>
         </Dialog>
       </div>
     );

@@ -24,13 +24,28 @@ class App extends Component {
     .then(user => this.setState({user}))
   }
 
+  createPost = data => {
+    // fetch(`http://localhost:3000/api/v1/posts/`, {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(data)
+    // }).then(res => res.json())
+    // .then(post => this.setState({
+    //   posts: [...this.state.posts, post]
+    // }))
+    
+    console.log(data)
+  }
+
   render() {
     return (
       <Router>
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/post/new" component={NewPost} />
+          <Route exact path="/post/new" render={() => <NewPost user_id={this.state.user.id} createPost={this.createPost}/>} />
         </Switch>
       </Router>
     );
