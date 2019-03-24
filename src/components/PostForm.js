@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import NewPostLabels from './NewPostLabels';
+import PostTags from './PostTags';
 
 const styles = theme => ({
   container: {
@@ -52,24 +52,8 @@ class OutlinedTextFields extends React.PureComponent {
           onChange={handleChange('content')}
           className={classes.textField}
           margin="normal"
-          helperText="hello"
           variant="outlined"
           fullWidth
-        />
-
- 
-        <TextField
-          id="outlined-full-width"
-          label="Label"
-          style={{ margin: 8 }}
-          placeholder="Placeholder"
-          helperText="Full width!"
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true,
-          }}
         />
 
         <TextField
@@ -80,9 +64,10 @@ class OutlinedTextFields extends React.PureComponent {
           onChange={handleChange('img')}
           margin="normal"
           variant="outlined"
+          fullWidth
         />
 
-        <NewPostLabels postTags={postTags} handleChange={handleChange}/>
+        <PostTags postTags={postTags} handleChange={handleChange}/>
 
       </form>
     );
