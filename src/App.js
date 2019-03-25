@@ -5,6 +5,7 @@ import Home from './containers/Home'
 import PostFormContainer from './containers/PostFormContainer'
 import TestIndex from './components/TestIndex'
 import './App.css'
+import Profile from './containers/Profile'
 
 class App extends Component {
   constructor(){
@@ -21,9 +22,9 @@ class App extends Component {
     fetch(`http://localhost:3000/api/v1/posts`)
     .then(res => res.json())
     .then(posts => {
-      
+
       //hardcoded featured post for development
-      
+
       this.setState({
       posts: posts,
       featuredPost: posts.slice(-1)[0]
@@ -74,22 +75,22 @@ class App extends Component {
   filterDrafts(){
     return this.state.posts.filter(p => p.id === undefined || p.submitted === false)
   }
-  
+
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
   formatFeaturedPost() {
     let formatedPostTags
-    
+
     if (this.state.featuredPost.id !== undefined) {
       formatedPostTags = this.state.featuredPost.post_tags.map(t => ({...t, label: t.tag_name, value: t.tag_id}))
     }
     return {...this.state.featuredPost, post_tags: formatedPostTags}
   }
-  
+
   //OnClick handler to update the featured post
   updateFeaturedPost = post => {
     this.setState({featuredPost: post})
   }
-  
+
   //Possible feature to save posts before publishing them??
   saveDraft = post => {
     this.setState({posts: [...this.state.posts, post]})
@@ -105,6 +106,7 @@ class App extends Component {
           <Route exact path="/posts/new" render={() => <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} post={{}}/>} />
           <Route exact path="/testing_post_index" render={() => <TestIndex posts={this.state.posts} handleClick={this.updateFeaturedPost} handleDelete={this.deletePost}/>} />
           <Route exact path="/posts/edit" render={() => <PostFormContainer name={"Edit Post"}user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} post={this.formatFeaturedPost()}/>} />
+          <Route exact path="/profile" component={Profile} user={this.state.user} />
         </Switch>
       </Router>
     );

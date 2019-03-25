@@ -6,15 +6,20 @@ class Home extends React.Component {
   constructor(){
     super()
     this.state = {
-      filter: ""
+      filter: []
     }
   }
 
+  handleFilter = (value) => {
+    console.log(value)
+  }
+
   render() {
+    const{ posts } = this.props
     return (
       <React.Fragment>
-        <Filter />
-        <CardContainer />
+        <Filter handleFilter={this.handleFilter} />
+        <CardContainer posts={posts} />
       </React.Fragment>
     )
   }

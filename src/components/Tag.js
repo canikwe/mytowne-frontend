@@ -4,19 +4,17 @@ import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   chip: {
-    marginRight: '0.3%',
-    marginTop: '10%',
     MinWidth: '1vw',
     HorizontalAlignment: 'Center',
   },
 })
 
 const Tag = (props) => {
-
-  const { classes } = props
+  
+  const { classes, tag } = props
   return (
     <Chip
-      label="Generally Speaking"
+      label={tag.name}
       className={classes.chip}
     />
   )

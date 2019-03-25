@@ -11,7 +11,6 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddComment from '@material-ui/icons/AddComment'
@@ -39,7 +38,11 @@ const styles = theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    width: 60,
+    height: 60,
+  },
+  tags: {
+    // display: 'inline-block',
   },
 });
 
@@ -54,15 +57,20 @@ class Cards extends React.Component {
     }))
   }
 
+  parseDate = (dateStr) => {
+    let date = dateStr.split('T')[0].split('-')
+    return date[1] + '-' + date[2] + '-' + date[0]
+  }
+
   render() {
-    const { classes } = this.props
+    console.log(this.props.post)
+    const { classes, post } = this.props
+
     return (
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar aria-label="blank" className={classes.avatar}>
-              R
-            </Avatar>
+            <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} />
           }
           // triple dot menu if we want it
           // action={
@@ -70,58 +78,65 @@ class Cards extends React.Component {
           //     <MoreVertIcon />
           //   </IconButton>
           // }
-          title="Post Title"
-          subheader="The date if we want"
+          title={post.title}
+
+          subheader={
+            this.parseDate(post.created_at)
+          }
         />
 
         <CardMedia
           className={classes.media}
-          image="https://cdn4.iconfinder.com/data/icons/oakcons-2/16/Image-512.png"
-          title="placeholder"
+          image={post.img}
+          title="post image"
         />
 
         <CardContent>
           <Typography component="p">
-            This is a super interesting post about something going on in my community!
+            {post.content}
           </Typography>
 
-          <Tag />
-
-        </CardContent>
-
-        <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="Share">
-            <AddComment />
-          </IconButton>
-          <IconButton
-            className={classnames(classes.expand, {
-              [classes.expandOpen]: this.state.expanded,
+          <div className={classes.tags}>
+            {post.tags.map((tag) => {
+              return <Tag tag={tag} key={tag.id} />
             })}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
+          </div>
 
-        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-          <CardContent>
+          </CardContent>
 
-            <Typography paragraph>Comments:</Typography>
-            <Typography paragraph>
-              Comments could all go down here.
-            </Typography>
+          <CardActions className={classes.actions} disableActionSpacing>
+            <IconButton aria-label="Add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="Share">
+              <AddComment />
+            </IconButton>
+            <IconButton
+              className={classnames(classes.expand, {
+                [classes.expandOpen]: this.state.expanded,
+              })}
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
+              aria-label="Show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
 
-            <Typography paragraph>
-              Comment
-            </Typography>
+          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+            <CardContent>
 
-            <Typography paragraph>
-              Comment
+              <Typography paragraph>Comments:</Typography>
+              <Typography paragraph>
+                Comments could all go down here.
+              </Typography>
+
+              <Typography paragraph>
+                Comment
+              </Typography>
+
+              <Typography paragraph>
+                Comment
             </Typography>
 
             <Typography>
