@@ -161,16 +161,22 @@ const components = {
 };
 
 class IntegrationReactSelect extends React.Component {
-  state = {
-    tags: []
-  };
+  // constructor(props){
+  //   super(props)
+  //   this.state = {
+  //     tags: this.props.tags
+  //   }
+  // }
+  // state = {
+  //   tags: []
+  // };
 
   //fetches all the tags from the DB for the form
-  componentDidMount(){
-    fetch(`http://localhost:3000/api/v1/tags`)
-    .then(res => res.json())
-    .then(tags => this.setState({tags}))
-  }
+  // componentDidMount(){
+  //   fetch(`http://localhost:3000/api/v1/tags`)
+  //   .then(res => res.json())
+  //   .then(tags => this.setState({tags}))
+  // }
 
   handleChange = name => value => {
     this.setState({
@@ -181,7 +187,7 @@ class IntegrationReactSelect extends React.Component {
   render() {
     const { classes, theme, postTags, handleChange} = this.props;
 
-    const formattedTags = this.state.tags.map(tag => ({
+    const formattedTags = this.props.tags.map(tag => ({
       value: tag.id,
       label: tag.name,
     }));
@@ -210,7 +216,7 @@ class IntegrationReactSelect extends React.Component {
             }}
             components={components}
             isMulti
-            onChange={handleChange('tags')}
+            onChange={handleChange('post_tags')}
             options={formattedTags}
             value={postTags}
             placeholder="Select multiple tags"

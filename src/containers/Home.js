@@ -9,10 +9,10 @@ class Home extends React.Component {
   }
 
   render() {
-    const{ posts } = this.props
+    const{ posts, handleFilter, tags } = this.props
     return (
       <React.Fragment>
-        <Filter handleFilter={this.props.handleFilter} />
+        <Filter handleFilter={handleFilter} tags={tags}/>
         <CardContainer posts={posts} />
       </React.Fragment>
     )

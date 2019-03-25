@@ -12,15 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
-const suggestions = [
-  { label: 'General' },
-  { label: 'Events' },
-  { label: 'For Sale' },
-  { label: 'Lost' },
-].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label,
-}));
+
 
 const styles = theme => ({
   root: {
@@ -177,7 +169,7 @@ class Filter extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, tags } = this.props;
 
     const selectStyles = {
       input: base => ({
@@ -188,6 +180,12 @@ class Filter extends React.Component {
         },
       }),
     };
+
+    console.log(tags)
+    const formattedTags = tags.map(suggestion => ({
+      value: suggestion.name,
+      label: suggestion.name,
+    }));
 
     return (
       <div className={classes.root}>
@@ -202,7 +200,7 @@ class Filter extends React.Component {
                 shrink: true,
               },
             }}
-            options={suggestions}
+            options={formattedTags}
             components={components}
             value={this.state.multi}
             onChange={this.handleChange('multi')}

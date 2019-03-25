@@ -28,7 +28,7 @@ const styles = theme => ({
 class OutlinedTextFields extends React.PureComponent {
 
   render() {
-    const { classes, title, content, img, postTags, handleChange } = this.props;
+    const { classes, title, content, img, tags, postTags, handleChange } = this.props;
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
@@ -67,7 +67,7 @@ class OutlinedTextFields extends React.PureComponent {
           fullWidth
         />
 
-        <PostTags postTags={postTags} handleChange={handleChange}/>
+        <PostTags tags={tags} postTags={postTags} handleChange={handleChange}/>
 
       </form>
     );

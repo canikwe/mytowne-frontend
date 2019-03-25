@@ -6,11 +6,8 @@ import PostFormContainer from './containers/PostFormContainer'
 import TestIndex from './components/TestIndex'
 import './App.css'
 import Profile from './containers/Profile'
-<<<<<<< HEAD
 import Login from './containers/Login'
-=======
 import PostShow from './components/PostShow'
->>>>>>> post_show_page
 
 class App extends Component {
   constructor(){
@@ -18,13 +15,11 @@ class App extends Component {
     this.state = {
       user: {},
       posts: [],
-      featuredPost: {},
-<<<<<<< HEAD
+      // featuredPost: {},
       filters: [],
-      allFilters: []
-=======
+      allFilters: [],
+      tags: [],
       loading: true
->>>>>>> post_show_page
     }
   }
 
@@ -45,26 +40,19 @@ class App extends Component {
       console.log(unique)
       this.setState({
       posts: posts,
-<<<<<<< HEAD
-      featuredPost: posts.slice(-1)[0],
+      // featuredPost: posts.slice(-1)[0],
       filters: unique,
-      allFilters: unique
-      })
-    })
-=======
+      allFilters: unique,
       loading: false,
-      featuredPost: posts.slice(-1)[0]
+      // featuredPost: posts.slice(-1)[0],
     })})
->>>>>>> post_show_page
 
     //setting default user for development until Auth in implemented
     fetch(`http://localhost:3000/api/v1/users/1`)
     .then(res => res.json())
-<<<<<<< HEAD
     .then(user => this.setState({user}))
-=======
-    .then(user => this.setState({user: user}, () => console.log(this.state.user)))
->>>>>>> post_show_page
+    .then(this.fetchTags())
+
   }
 
   createPost = data => {
@@ -78,9 +66,12 @@ class App extends Component {
     .then(post => this.setState({
       posts: [...this.state.posts, post]
     }))
+    .then(this.fetchTags())
   }
 
   editPost = (data, postId) => {
+    let s = this.state
+
     fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
       method: "PATCH",
       headers: {
@@ -93,6 +84,14 @@ class App extends Component {
       featuredPost: post,
       posts: this.state.posts.map(p => p.id === post.id ? post : p)
     }))
+    .then(this.fetchTags())
+  }
+
+  fetchTags = () => {
+    
+    fetch(`http://localhost:3000/api/v1/tags`)
+      .then(res => res.json())
+      .then(tags => this.setState({tags: tags}, console.log(tags)))
   }
 
   deletePost = (id) => {
@@ -151,15 +150,15 @@ class App extends Component {
       <Router>
         <Nav />
         <Switch>
-          <Route exact path="/" render={() => <Home posts={this.displayPosts()} handleFilter={this.handleFilter} />} />
-          <Route exact path="/posts/new" render={() => <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} post={{}}/>} />
-          <Route exact path="/testing_post_index" render={() => <TestIndex posts={this.state.posts} handleClick={this.updateFeaturedPost} handleDelete={this.deletePost}/>} />
+          <Route exact path="/" render={() => <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} />} />
+          <Route exact path="/posts/new" render={() => <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} tags={this.state.tags} post={{}}/>} />
+          {/* <Route exact path="/testing_post_index" render={() => <TestIndex posts={this.state.posts} handleClick={this.updateFeaturedPost} handleDelete={this.deletePost}/>} /> */}
           <Route exact path="/posts/:id/edit" render={props => {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
             return this.state.loading ? null : (
-            <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} post={this.formatFeaturedPost(post)}/>)
+            <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
             }} />
           <Route exact path="/posts/:id" render={props => {
             console.log(this.state.posts)

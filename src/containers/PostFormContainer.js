@@ -36,7 +36,6 @@ class FullScreenDialog extends React.Component {
       content: '',
       img: '',
       post_tags: [],
-
     }
   }
 
@@ -77,7 +76,7 @@ class FullScreenDialog extends React.Component {
   }
 
   handleChange = name => event => {
-    name === 'tags' ?
+    name === 'post_tags' ?
     this.setState({
       post_tags: event,
     }) :
@@ -127,7 +126,7 @@ class FullScreenDialog extends React.Component {
   }
 
   render() {
-    const { classes, handleDelete, name, post: {id} } = this.props;
+    const { classes, handleDelete, name, tags, post: {id} } = this.props;
     return (
       <div>
         {/* <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
@@ -142,9 +141,9 @@ class FullScreenDialog extends React.Component {
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+              <Link to={`/posts/${id}`}><IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
                 <CloseIcon />
-              </IconButton>
+              </IconButton></Link>
               <Typography variant="h6" color="inherit" className={classes.flex}>
                 {name}
               </Typography>
@@ -159,7 +158,7 @@ class FullScreenDialog extends React.Component {
               </Button></Link>
             </Toolbar>
           </AppBar>
-          <PostForm title={this.state.title} content={this.state.content} postTags={this.state.post_tags} handleChange={this.handleChange}/>
+          <PostForm title={this.state.title} content={this.state.content} img={this.state.img} tags={tags} postTags={this.state.post_tags} handleChange={this.handleChange}/>
         </Dialog>
       </div>
     );
