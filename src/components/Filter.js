@@ -12,12 +12,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
-
-
 const styles = theme => ({
   root: {
     flexGrow: 1,
     marginBottom: theme.spacing.unit,
+    backgroundColor: '#f4f4f4',
   },
   input: {
     display: 'flex',

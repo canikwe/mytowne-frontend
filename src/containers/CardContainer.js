@@ -2,9 +2,11 @@ import React from 'react'
 import Cards from '../components/Cards'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
+import '../Cards.css'
 
 const styles = theme => ({
   gridItem: {
+    position: 'relative',
     padding: theme.spacing.unit,
   },
 })
@@ -17,6 +19,8 @@ const CardContainer = (props) => {
       {posts.map((post) => {
         return (
           <Grid item xs={4} className={classes.gridItem} key={post.id}>
+            {/* <div className="flatpin">&nbsp;</div> */}
+            <i className="pin" />
             {props.name ? (
               <Cards post={post} name={props.name} avatar={props.avatar} />
             ) : (

@@ -18,10 +18,11 @@ import Tag from './Tag'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
-
 const styles = theme => ({
   card: {
     maxWidth: 400,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   media: {
     height: 0,
@@ -140,7 +141,7 @@ class Cards extends React.Component {
           </IconButton>
           <IconButton
             className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded,
+              [classes.expandOpen]: this.state.expanded,
             })}
             onClick={this.handleExpandClick}
             aria-expanded={this.state.expanded}
@@ -173,9 +174,9 @@ class Cards extends React.Component {
         </Collapse>
 
       </Card>
-      )
-    }
+    )
   }
+}
 
 Cards.propTypes = {
   classes: PropTypes.object.isRequired
