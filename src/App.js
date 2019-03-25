@@ -8,6 +8,10 @@ import './App.css'
 import Profile from './containers/Profile'
 import Login from './containers/Login'
 import PostShow from './components/PostShow'
+<<<<<<< HEAD
+=======
+
+>>>>>>> 675a9eada98d433c7ed4fa70b3c49e6c2213a9a3
 
 class App extends Component {
   constructor(){
@@ -15,10 +19,16 @@ class App extends Component {
     this.state = {
       user: {},
       posts: [],
+<<<<<<< HEAD
       // featuredPost: {},
       filters: [],
       allFilters: [],
       tags: [],
+=======
+      featuredPost: {},
+      filters: [],
+      allFilters: [],
+>>>>>>> 675a9eada98d433c7ed4fa70b3c49e6c2213a9a3
       loading: true
     }
   }
@@ -40,19 +50,31 @@ class App extends Component {
       console.log(unique)
       this.setState({
       posts: posts,
+<<<<<<< HEAD
       // featuredPost: posts.slice(-1)[0],
       filters: unique,
       allFilters: unique,
       loading: false,
       // featuredPost: posts.slice(-1)[0],
     })})
+=======
+      loading: false,
+      featuredPost: posts.slice(-1)[0],
+      filters: unique,
+      allFilters: unique
+      })
+    })
+>>>>>>> 675a9eada98d433c7ed4fa70b3c49e6c2213a9a3
 
     //setting default user for development until Auth in implemented
     fetch(`http://localhost:3000/api/v1/users/1`)
     .then(res => res.json())
     .then(user => this.setState({user}))
+<<<<<<< HEAD
     .then(this.fetchTags())
 
+=======
+>>>>>>> 675a9eada98d433c7ed4fa70b3c49e6c2213a9a3
   }
 
   createPost = data => {
@@ -158,13 +180,17 @@ class App extends Component {
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
             return this.state.loading ? null : (
+<<<<<<< HEAD
             <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
+=======
+              <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} post={this.formatFeaturedPost(post)}/>)
+>>>>>>> 675a9eada98d433c7ed4fa70b3c49e6c2213a9a3
             }} />
           <Route exact path="/posts/:id" render={props => {
             console.log(this.state.posts)
-            let postId = props.match.params.id            
+            let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
-            
+
             console.log("post exists?", post)
             return this.state.loading ? null : (
               <PostShow post={post}

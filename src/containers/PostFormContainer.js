@@ -14,14 +14,17 @@ import PostForm from '../components/PostForm'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
-const styles = {
+const styles = theme => ({
   appBar: {
     position: 'relative',
   },
   flex: {
     flex: 1,
   },
-};
+  button: {
+    margin: theme.spacing.unit,
+  },
+});
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -43,8 +46,8 @@ class FullScreenDialog extends React.Component {
   componentDidMount() {
     const {post: {title, content, img, post_tags}} = this.props
 
-    title !== undefined ? 
-    this.setState({ 
+    title !== undefined ?
+    this.setState({
       open: true,
       title: title,
       content: content,
@@ -52,7 +55,7 @@ class FullScreenDialog extends React.Component {
       post_tags: post_tags,
     }) :
     this.setState({
-      open: true, 
+      open: true,
       title: '',
       content: '',
       img: '',
@@ -66,7 +69,7 @@ class FullScreenDialog extends React.Component {
   };
 
   clearForm = () => {
-    this.setState({ 
+    this.setState({
       open: false,
       title: '',
       content: '',
@@ -93,14 +96,14 @@ class FullScreenDialog extends React.Component {
     this.clearForm()
     this.handleClose()
   };
-  
+
   //Formats post before database fetch
-  formatPost(){    
+  formatPost(){
     const post_tags = this.state.post_tags.map(t => {
       return {tag_id: t.value}
     })
-    
-    
+
+
     const data = {
       post: {
         post_info: {
@@ -147,15 +150,15 @@ class FullScreenDialog extends React.Component {
               <Typography variant="h6" color="inherit" className={classes.flex}>
                 {name}
               </Typography>
-              <Link to='/'><Button color="inherit" onClick={() => handleDelete(id)}>
+              <Button component={ Link } to="/" color="inherit" onClick={() => handleDelete(id)}>
                 delete
-              </Button></Link>
+              </Button>
               {/* <Button color="inherit" onClick={this.save}>
                 save
               </Button> */}
-              <Link to={`/posts/${id}`} ><Button color="inherit" onClick={this.submit}>
+              <Button component= { Link } to={`/posts/${id}`} color="inherit" onClick={this.submit}>
                 submit
-              </Button></Link>
+              </Button>
             </Toolbar>
           </AppBar>
           <PostForm title={this.state.title} content={this.state.content} img={this.state.img} tags={tags} postTags={this.state.post_tags} handleChange={this.handleChange}/>
