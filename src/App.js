@@ -8,6 +8,7 @@ import './App.css'
 import Profile from './containers/Profile'
 import Login from './containers/Login'
 import PostShow from './components/PostShow'
+import EditProfile from './containers/EditProfile'
 
 class App extends Component {
   constructor(){
@@ -37,7 +38,6 @@ class App extends Component {
         })
       })
       let unique = [...new Set(filters)]
-      console.log(unique)
       this.setState({
       posts: posts,
       // featuredPost: posts.slice(-1)[0],
@@ -88,7 +88,7 @@ class App extends Component {
   }
 
   fetchTags = () => {
-    
+
     fetch(`http://localhost:3000/api/v1/tags`)
       .then(res => res.json())
       .then(tags => this.setState({tags: tags}, console.log(tags)))
@@ -99,6 +99,22 @@ class App extends Component {
       method: "DELETE"
     }).then(res => res.json())
     .then(post => this.setState({posts: this.state.posts.filter(p => p.id !== post.id)}))
+  }
+
+  editUser = (data, userId) => {
+
+    fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json())
+    .then(user => this.setState({
+      user
+    }))
+    .then(window.alert('Your changes have been saved!'))
   }
 
   //Filtering POSTS
@@ -158,8 +174,8 @@ class App extends Component {
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
             return this.state.loading ? null : (
-            <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
-            }} />
+              <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
+          }} />
           <Route exact path="/posts/:id" render={props => {
             console.log(this.state.posts)
             let postId = props.match.params.id
@@ -172,6 +188,7 @@ class App extends Component {
             )
           }}/>
           <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
+          <Route exact path="/profile/edit" render={() => <EditProfile user={this.state.user} editUser={this.editUser} />} />
           <Route exact path="/login" component={Login} />
         </Switch>
       </Router>

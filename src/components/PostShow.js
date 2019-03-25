@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Tag from './Tag'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -17,17 +17,17 @@ const styles = theme => ({
 });
 
 const PaperSheet = ({ classes, post }) => {
-  
+
   return (
     <div>
       <Paper className={classes.root} elevation={1}>
-        {post.img !== "" ? 
+        {post.img !== "" ?
         <img src={post.img} alt="featured post"/> : null}
         <Typography variant="h5" component="h3">
           {post.title}
          </Typography>
         <Typography component="p">
-           {post.content} 
+           {post.content}
          </Typography>
          <div className={classes.tags}>
             {post.post_tags.map((tag) => {
