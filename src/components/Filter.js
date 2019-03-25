@@ -15,7 +15,7 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 const suggestions = [
   { label: 'General' },
   { label: 'Events' },
-  { label: 'For Sale' },
+  { label: 'For sale' },
   { label: 'Lost' },
 ].map(suggestion => ({
   value: suggestion.label,
@@ -26,6 +26,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     marginBottom: theme.spacing.unit,
+    backgroundColor: '#f4f4f4',
   },
   input: {
     display: 'flex',
