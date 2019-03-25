@@ -15,6 +15,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddComment from '@material-ui/icons/AddComment'
 import Tag from './Tag'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
 
 const styles = theme => ({
   card: {
@@ -84,7 +87,7 @@ class Cards extends React.Component {
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={post.title.substring(0, 25) + '...'}
+            title={<Link to={`/posts/${post.id}`}>{post.title.substring(0, 25) + '...'}</Link>}
             className={classes.header}
             subheader={
               this.parseDate(post.created_at)

@@ -11,6 +11,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 import PostForm from '../components/PostForm'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 const styles = {
   appBar: {
@@ -39,7 +41,7 @@ class FullScreenDialog extends React.Component {
   }
 
   //State Changes
-  handleClickOpen = () => {
+  componentDidMount() {
     const {post: {title, content, img, post_tags}} = this.props
 
     title !== undefined ? 
@@ -61,6 +63,7 @@ class FullScreenDialog extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
+
   };
 
   clearForm = () => {
@@ -85,9 +88,11 @@ class FullScreenDialog extends React.Component {
 
   //Post submissions
   submit = () => {
+    const postId = this.props.post.id
     //Send post info to App to persist to the database and add to all posts and clear form
-    this.props.handleSubmit(this.formatPost())
+    this.props.handleSubmit(this.formatPost(), postId)
     this.clearForm()
+    this.handleClose()
   };
   
   //Formats post before database fetch
@@ -95,7 +100,8 @@ class FullScreenDialog extends React.Component {
     const post_tags = this.state.post_tags.map(t => {
       return {tag_id: t.value}
     })
-  
+    
+    
     const data = {
       post: {
         post_info: {
@@ -121,12 +127,13 @@ class FullScreenDialog extends React.Component {
   }
 
   render() {
-    const { classes, handleDelete, name } = this.props;
+    const { classes, handleDelete, name, post: {id} } = this.props;
     return (
       <div>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+        {/* <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
           Open full-screen dialog
-        </Button>
+        </Button> */}
+        {/* {this.handleClickOpen()} */}
         <Dialog
           fullScreen
           open={this.state.open}
@@ -141,15 +148,15 @@ class FullScreenDialog extends React.Component {
               <Typography variant="h6" color="inherit" className={classes.flex}>
                 {name}
               </Typography>
-              <Button color="inherit" onClick={handleDelete}>
+              <Link to='/'><Button color="inherit" onClick={() => handleDelete(id)}>
                 delete
-              </Button>
-              <Button color="inherit" onClick={this.save}>
+              </Button></Link>
+              {/* <Button color="inherit" onClick={this.save}>
                 save
-              </Button>
-              <Button color="inherit" onClick={this.submit}>
+              </Button> */}
+              <Link to={`/posts/${id}`} ><Button color="inherit" onClick={this.submit}>
                 submit
-              </Button>
+              </Button></Link>
             </Toolbar>
           </AppBar>
           <PostForm title={this.state.title} content={this.state.content} postTags={this.state.post_tags} handleChange={this.handleChange}/>
