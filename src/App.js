@@ -33,7 +33,7 @@ class App extends Component {
     //setting default user for development until Auth in implemented
     fetch(`http://localhost:3000/api/v1/users/1`)
     .then(res => res.json())
-    .then(user => this.setState({user}))
+    .then(user => this.setState({user}, () => console.log(this.state.user)))
   }
 
   createPost = data => {
@@ -102,11 +102,11 @@ class App extends Component {
       <Router>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" render={() => <Home posts={this.state.posts} />} />
           <Route exact path="/posts/new" render={() => <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} post={{}}/>} />
           <Route exact path="/testing_post_index" render={() => <TestIndex posts={this.state.posts} handleClick={this.updateFeaturedPost} handleDelete={this.deletePost}/>} />
           <Route exact path="/posts/edit" render={() => <PostFormContainer name={"Edit Post"}user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} post={this.formatFeaturedPost()}/>} />
-          <Route exact path="/profile" component={Profile} user={this.state.user} />
+          <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
         </Switch>
       </Router>
     );
