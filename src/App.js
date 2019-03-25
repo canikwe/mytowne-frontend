@@ -6,6 +6,7 @@ import PostFormContainer from './containers/PostFormContainer'
 import TestIndex from './components/TestIndex'
 import './App.css'
 import Profile from './containers/Profile'
+import Login from './containers/Login'
 
 class App extends Component {
   constructor(){
@@ -13,7 +14,9 @@ class App extends Component {
     this.state = {
       user: {},
       posts: [],
-      featuredPost: {}
+      featuredPost: {},
+      filters: [],
+      allFilters: []
     }
   }
 
@@ -24,16 +27,26 @@ class App extends Component {
     .then(posts => {
 
       //hardcoded featured post for development
-
+      let filters = []
+      posts.forEach((post) => {
+        post.post_tags.forEach((post_tag) => {
+          filters.push(post_tag.tag_name)
+        })
+      })
+      let unique = [...new Set(filters)]
+      console.log(unique)
       this.setState({
       posts: posts,
-      featuredPost: posts.slice(-1)[0]
-    })})
+      featuredPost: posts.slice(-1)[0],
+      filters: unique,
+      allFilters: unique
+      })
+    })
 
     //setting default user for development until Auth in implemented
     fetch(`http://localhost:3000/api/v1/users/1`)
     .then(res => res.json())
-    .then(user => this.setState({user}, () => console.log(this.state.user)))
+    .then(user => this.setState({user}))
   }
 
   createPost = data => {
@@ -72,8 +85,26 @@ class App extends Component {
   }
 
   //Filtering POSTS
-  filterDrafts(){
-    return this.state.posts.filter(p => p.id === undefined || p.submitted === false)
+  handleFilter = (filterArr) => {
+    if (filterArr.length === 0) {
+      this.setState({
+        filters: this.state.allFilters
+      })
+    } else {
+      let vals = []
+      filterArr.forEach(category => {
+        vals.push(category.value)
+      })
+      this.setState({
+        filters: vals
+      })
+    }
+  }
+
+  displayPosts = () => {
+    return this.state.posts.filter((post) => {
+      return post.post_tags.some(r => this.state.filters.includes(r.tag_name))
+    })
   }
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
@@ -102,11 +133,12 @@ class App extends Component {
       <Router>
         <Nav />
         <Switch>
-          <Route exact path="/" render={() => <Home posts={this.state.posts} />} />
+          <Route exact path="/" render={() => <Home posts={this.displayPosts()} handleFilter={this.handleFilter} />} />
           <Route exact path="/posts/new" render={() => <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} post={{}}/>} />
           <Route exact path="/testing_post_index" render={() => <TestIndex posts={this.state.posts} handleClick={this.updateFeaturedPost} handleDelete={this.deletePost}/>} />
           <Route exact path="/posts/edit" render={() => <PostFormContainer name={"Edit Post"}user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} post={this.formatFeaturedPost()}/>} />
           <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </Router>
     );

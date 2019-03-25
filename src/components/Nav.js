@@ -1,20 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-// import Switch from '@material-ui/core/Switch';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
+import React from 'react'
+import PropTypes from 'prop-types'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import InputBase from '@material-ui/core/InputBase'
+import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@material-ui/core/Menu'
+import { fade } from '@material-ui/core/styles/colorManipulator'
+import { withStyles } from '@material-ui/core/styles'
+import MenuIcon from '@material-ui/icons/Menu'
+import SearchIcon from '@material-ui/icons/Search'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 
 const styles = theme => ({
   root: {
@@ -44,7 +41,7 @@ const styles = theme => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 3,
+      marginLeft: theme.spacing.unit * 10,
       width: 'auto',
     },
   },
@@ -73,62 +70,54 @@ const styles = theme => ({
     },
   },
   sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
   },
-});
+})
 
 
 class Nav extends React.Component {
   state = {
     auth: true,
     anchorEl: null,
+    searchInput: ''
   }
 
-  handleChange = (e) => {
+  handleSearch = (e) => {
     this.setState({
-      auth: e.target.checked
+      searchInput: e.target.value
     })
   }
 
-  handleMenu = (e) => {
-    this.setState({
-      anchorEl: e.currentTarget
-    })
+  handleProfileMenuOpen = (e) => {
+    this.setState({ anchorEl: e.currentTarget });
   }
 
-  handleClose = () => {
-    this.setState({
-      anchorEl: null
-    })
+  handleMenuClose = () => {
+    this.setState({ anchorEl: null });
   }
+
 
 
   render() {
-    const { classes } = this.props
-    const { auth, anchorEl } = this.state
-    const open = Boolean(anchorEl)
+    const { anchorEl } = this.state;
+    const { classes } = this.props;
+    const isMenuOpen = Boolean(anchorEl);
 
+    const renderMenu = (
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isMenuOpen}
+        onClose={this.handleMenuClose}
+      >
+        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+      </Menu>
+    )
 
-    return (
+      return (
       <div className={classes.root}>
-        <FormGroup>
-          {/* switch to toggle auth and make profile appear/not appear */}
-          {/* <FormControlLabel
-            control={
-              <Switch checked={auth} onChange={this.handleChange} aria-label="LoginSwitch" />
-            }
-            label={auth ? 'Logout' : 'Login'}
-          /> */}
-        </FormGroup>
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
@@ -142,44 +131,29 @@ class Nav extends React.Component {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search..."
+                placeholder="Search…"
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,
                 }}
+                value={this.state.searchInput}
+                onChange={this.handleSearch}
               />
             </div>
-            {auth && (
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My Account</MenuItem>
-                </Menu>
-              </div>
-            )}
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <IconButton
+                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                aria-haspopup="true"
+                onClick={this.handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
           </Toolbar>
         </AppBar>
+        {renderMenu}
       </div>
     )
   }

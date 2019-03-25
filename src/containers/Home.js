@@ -3,27 +3,20 @@ import Filter from '../components/Filter'
 import CardContainer from './CardContainer'
 
 class Home extends React.Component {
-  constructor(){
-    super()
-    this.state = {
-      filter: []
-    }
-  }
 
-  handleFilter = (value) => {
-    console.log(value)
+  componentDidUpdate(prevProps) {
+
   }
 
   render() {
     const{ posts } = this.props
     return (
       <React.Fragment>
-        <Filter handleFilter={this.handleFilter} />
+        <Filter handleFilter={this.props.handleFilter} />
         <CardContainer posts={posts} />
       </React.Fragment>
     )
   }
-
-  }
+}
 
 export default Home

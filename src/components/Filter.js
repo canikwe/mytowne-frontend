@@ -25,7 +25,6 @@ const suggestions = [
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    // height: '100px',
     marginBottom: theme.spacing.unit,
   },
   input: {
