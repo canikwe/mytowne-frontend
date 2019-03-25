@@ -3,7 +3,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Select from 'react-select';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NoSsr from '@material-ui/core/NoSsr';
@@ -13,6 +12,7 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
+import CreatableSelect from 'react-select/lib/Creatable'
 
 const styles = theme => ({
   root: {
@@ -199,8 +199,7 @@ class IntegrationReactSelect extends React.Component {
     return (
       <div className={classes.root}>
         <NoSsr>
-
-          <Select
+          <CreatableSelect
             classes={classes}
             styles={selectStyles}
             textFieldProps={{
@@ -209,13 +208,13 @@ class IntegrationReactSelect extends React.Component {
                 shrink: true,
               },
             }}
-            options={formattedTags}
             components={components}
-            value={postTags}
-            onChange={handleChange('tags')}
-            placeholder="Select multiple tags"
             isMulti
-          />
+            onChange={handleChange('tags')}
+            options={formattedTags}
+            value={postTags}
+            placeholder="Select multiple tags"
+            />
         </NoSsr>
       </div>
     );
