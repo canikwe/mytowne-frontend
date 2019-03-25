@@ -16,8 +16,12 @@ const CardContainer = (props) => {
     <Grid container>
       {posts.map((post) => {
         return (
-          <Grid item xs={3} className={classes.gridItem} key={post.id}>
-            <Cards post={post} />
+          <Grid item xs={4} className={classes.gridItem} key={post.id}>
+            {props.name ? (
+              <Cards post={post} name={props.name} avatar={props.avatar} />
+            ) : (
+              <Cards post={post} />
+            )}
           </Grid>
         )
       })}

@@ -10,11 +10,11 @@ const styles = theme => ({
 })
 
 const Tag = (props) => {
-  
+
   const { classes, tag } = props
   return (
     <Chip
-      label={tag.name}
+      label={tag.tag_name}
       className={classes.chip}
     />
   )

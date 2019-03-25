@@ -15,6 +15,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddComment from '@material-ui/icons/AddComment'
 import Tag from './Tag'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
 
 const styles = theme => ({
   card: {
@@ -63,27 +66,45 @@ class Cards extends React.Component {
   }
 
   render() {
-    console.log(this.props.post)
     const { classes, post } = this.props
 
     return (
       <Card className={classes.card}>
-        <CardHeader
-          avatar={
-            <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} />
-          }
-          // triple dot menu if we want it
-          // action={
-          //   <IconButton>
-          //     <MoreVertIcon />
-          //   </IconButton>
-          // }
-          title={post.title}
+        {post.user ? (
+          <CardHeader
+            avatar={
+              <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} />
+            }
+            // triple dot menu if we want it
+            // action={
+            //   <IconButton>
+            //     <MoreVertIcon />
+            //   </IconButton>
+            // }
+            title={<Link to={`/posts/${post.id}`}>{post.title}</Link>}
 
-          subheader={
-            this.parseDate(post.created_at)
-          }
-        />
+            subheader={
+              this.parseDate(post.created_at)
+            }
+          />
+        ) : (
+          <CardHeader
+            avatar={
+              <Avatar alt={this.props.name} src={this.props.avatar} className={classes.avatar} />
+            }
+            // triple dot menu if we want it
+            // action={
+            //   <IconButton>
+            //     <MoreVertIcon />
+            //   </IconButton>
+            // }
+            title={post.title}
+
+            subheader={
+              this.parseDate(post.created_at)
+            }
+          />
+        )}
 
         <CardMedia
           className={classes.media}
@@ -97,46 +118,46 @@ class Cards extends React.Component {
           </Typography>
 
           <div className={classes.tags}>
-            {post.tags.map((tag) => {
+            {post.post_tags.map((tag) => {
               return <Tag tag={tag} key={tag.id} />
             })}
           </div>
 
-          </CardContent>
+        </CardContent>
 
-          <CardActions className={classes.actions} disableActionSpacing>
-            <IconButton aria-label="Add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="Share">
-              <AddComment />
-            </IconButton>
-            <IconButton
-              className={classnames(classes.expand, {
+        <CardActions className={classes.actions} disableActionSpacing>
+          <IconButton aria-label="Add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="Share">
+            <AddComment />
+          </IconButton>
+          <IconButton
+            className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,
-              })}
-              onClick={this.handleExpandClick}
-              aria-expanded={this.state.expanded}
-              aria-label="Show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
+            })}
+            onClick={this.handleExpandClick}
+            aria-expanded={this.state.expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
 
-          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
+        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+          <CardContent>
 
-              <Typography paragraph>Comments:</Typography>
-              <Typography paragraph>
-                Comments could all go down here.
-              </Typography>
+            <Typography paragraph>Comments:</Typography>
+            <Typography paragraph>
+              Comments could all go down here.
+            </Typography>
 
-              <Typography paragraph>
-                Comment
-              </Typography>
+            <Typography paragraph>
+              Comment
+            </Typography>
 
-              <Typography paragraph>
-                Comment
+            <Typography paragraph>
+              Comment
             </Typography>
 
             <Typography>
