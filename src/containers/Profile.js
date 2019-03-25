@@ -26,7 +26,7 @@ class Profile extends React.Component {
         <Grid container>
           <Grid item xs={6}>
             <Typography variant="h5" component="h3">
-              <img src={user.avatar} alt="user avatar" />
+              <img src={user.avatar} alt="user avatar" /><br />
               {user.name}
             </Typography>
           </Grid>

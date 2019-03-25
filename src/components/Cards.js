@@ -42,7 +42,13 @@ const styles = theme => ({
     height: 60,
   },
   tags: {
-    // display: 'inline-block',
+    marginTop: theme.spacing.unit,
+  },
+  header: {
+
+  },
+  content: {
+
   },
 });
 
@@ -78,8 +84,8 @@ class Cards extends React.Component {
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={post.title}
-
+            title={post.title.substring(0, 25) + '...'}
+            className={classes.header}
             subheader={
               this.parseDate(post.created_at)
             }
@@ -95,7 +101,7 @@ class Cards extends React.Component {
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={post.title}
+            title={post.title.substring(0, 25) + '...'}
 
             subheader={
               this.parseDate(post.created_at)
@@ -109,9 +115,9 @@ class Cards extends React.Component {
           title="post image"
         />
 
-        <CardContent>
+        <CardContent className={classes.content}>
           <Typography component="p">
-            {post.content}
+            {post.content.substring(0, 55) + '...'}
           </Typography>
 
           <div className={classes.tags}>
