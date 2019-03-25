@@ -6,6 +6,7 @@ import PostFormContainer from './containers/PostFormContainer'
 import TestIndex from './components/TestIndex'
 import './App.css'
 import Profile from './containers/Profile'
+import PostShow from './components/PostShow'
 
 class App extends Component {
   constructor(){
@@ -106,6 +107,7 @@ class App extends Component {
           <Route exact path="/posts/new" render={() => <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} post={{}}/>} />
           <Route exact path="/testing_post_index" render={() => <TestIndex posts={this.state.posts} handleClick={this.updateFeaturedPost} handleDelete={this.deletePost}/>} />
           <Route exact path="/posts/edit" render={() => <PostFormContainer name={"Edit Post"}user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} post={this.formatFeaturedPost()}/>} />
+          <Route exact path="/posts/show" render={() => <PostShow post={this.state.featuredPost} />} />
           <Route exact path="/profile" component={Profile} user={this.state.user} />
         </Switch>
       </Router>
