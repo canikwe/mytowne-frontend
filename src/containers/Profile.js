@@ -19,7 +19,6 @@ class Profile extends React.Component {
 
   render() {
     const { classes, user } = this.props
-    console.log(user)
 
     return (
       <Paper className={classes.root} elevation={1}>

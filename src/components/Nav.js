@@ -12,6 +12,7 @@ import { withStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -25,6 +26,7 @@ const styles = theme => ({
     marginRight: 20,
   },
   title: {
+    textDecoration: 'none',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -111,8 +113,8 @@ class Nav extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+        <MenuItem component={ Link } to="/profile" onClick={this.handleMenuClose}>Profile</MenuItem>
+        <MenuItem component={ Link } onClick={this.handleMenuClose}>My account</MenuItem>
       </Menu>
     )
 
@@ -123,7 +125,7 @@ class Nav extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+            <Typography component={ Link } to="/" className={classes.title} variant="h6" color="inherit" noWrap>
               MyTowne
             </Typography>
             <div className={classes.search}>

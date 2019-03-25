@@ -6,11 +6,9 @@ import PostFormContainer from './containers/PostFormContainer'
 import TestIndex from './components/TestIndex'
 import './App.css'
 import Profile from './containers/Profile'
-<<<<<<< HEAD
 import Login from './containers/Login'
-=======
 import PostShow from './components/PostShow'
->>>>>>> post_show_page
+
 
 class App extends Component {
   constructor(){
@@ -19,12 +17,9 @@ class App extends Component {
       user: {},
       posts: [],
       featuredPost: {},
-<<<<<<< HEAD
       filters: [],
-      allFilters: []
-=======
+      allFilters: [],
       loading: true
->>>>>>> post_show_page
     }
   }
 
@@ -45,26 +40,17 @@ class App extends Component {
       console.log(unique)
       this.setState({
       posts: posts,
-<<<<<<< HEAD
+      loading: false,
       featuredPost: posts.slice(-1)[0],
       filters: unique,
       allFilters: unique
       })
     })
-=======
-      loading: false,
-      featuredPost: posts.slice(-1)[0]
-    })})
->>>>>>> post_show_page
 
     //setting default user for development until Auth in implemented
     fetch(`http://localhost:3000/api/v1/users/1`)
     .then(res => res.json())
-<<<<<<< HEAD
     .then(user => this.setState({user}))
-=======
-    .then(user => this.setState({user: user}, () => console.log(this.state.user)))
->>>>>>> post_show_page
   }
 
   createPost = data => {
@@ -159,13 +145,13 @@ class App extends Component {
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
             return this.state.loading ? null : (
-            <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} post={this.formatFeaturedPost(post)}/>)
+              <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} post={this.formatFeaturedPost(post)}/>)
             }} />
           <Route exact path="/posts/:id" render={props => {
             console.log(this.state.posts)
-            let postId = props.match.params.id            
+            let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
-            
+
             console.log("post exists?", post)
             return this.state.loading ? null : (
               <PostShow post={post}
