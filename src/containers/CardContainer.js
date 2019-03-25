@@ -10,34 +10,17 @@ const styles = theme => ({
 })
 
 const CardContainer = (props) => {
-  const{ classes } = props
+  const{ classes, posts } = props
 
   return (
     <Grid container>
-      <Grid item xs={3} className={classes.gridItem}>
-        <Cards />
-      </Grid>
-      <Grid item xs={3} className={classes.gridItem}>
-        <Cards />
-      </Grid>
-      <Grid item xs={3} className={classes.gridItem}>
-        <Cards />
-      </Grid>
-      <Grid item xs={3} className={classes.gridItem}>
-        <Cards />
-      </Grid>
-      <Grid item xs={3} className={classes.gridItem}>
-        <Cards />
-      </Grid>
-      <Grid item xs={3} className={classes.gridItem}>
-        <Cards />
-      </Grid>
-      <Grid item xs={3} className={classes.gridItem}>
-        <Cards />
-      </Grid>
-      <Grid item xs={3} className={classes.gridItem}>
-        <Cards />
-      </Grid>
+      {posts.map((post) => {
+        return (
+          <Grid item xs={3} className={classes.gridItem} key={post.id}>
+            <Cards post={post} />
+          </Grid>
+        )
+      })}
     </Grid>
   )
 }

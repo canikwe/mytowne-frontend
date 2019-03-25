@@ -4,6 +4,7 @@ import Nav from './components/Nav'
 import Home from './containers/Home'
 import NewPost from './containers/NewPost'
 import './App.css'
+import Profile from './containers/Profile'
 
 class App extends Component {
   constructor(){
@@ -29,8 +30,9 @@ class App extends Component {
       <Router>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" render={() => <Home posts={this.state.posts} />} />
           <Route exact path="/post/new" component={NewPost} />
+          <Route exact path="/profile" component={Profile} user={this.state.user} />
         </Switch>
       </Router>
     );

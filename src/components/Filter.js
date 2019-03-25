@@ -174,7 +174,7 @@ class Filter extends React.Component {
   handleChange = name => value => {
     this.setState({
       [name]: value,
-    });
+    }, () => this.props.handleFilter(this.state.multi))
   };
 
   render() {
