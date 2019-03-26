@@ -102,8 +102,8 @@ class Nav extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { classes, searchInput, handleSearch } = this.props;
-    const isMenuOpen = Boolean(anchorEl);
+    const { classes, searchInput, handleSearch } = this.props
+    const isMenuOpen = Boolean(anchorEl)
 
     const renderMenu = (
       <Menu

@@ -19,7 +19,7 @@ const CardContainer = (props) => {
     <Grid container>
       {posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map((post) => {
         return (
-          <Grid item xs={4} className={classes.gridItem} key={post.id}>
+          <Grid item xs={12} sm={4} className={classes.gridItem} key={post.id}>
             {/* <div className="flatpin">&nbsp;</div> */}
             <i className="pin" />
             {props.name ? (

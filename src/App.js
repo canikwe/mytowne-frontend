@@ -113,6 +113,13 @@ class App extends Component {
     .then(window.alert('Your changes have been saved!'))
   }
 
+  deleteUser = (id) => {
+    fetch(`http://localhost:3000/api/v1/users/${id}`, {
+      method: "DELETE"
+    }).then(res => res.json())
+    .then(user => this.setState({user: {}}))
+  }
+
   //Filtering POSTS
   handleFilter = (filterArr) => {
     if (filterArr.length === 0) {
@@ -187,7 +194,7 @@ class App extends Component {
             )
           }}/>
           <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
-          <Route exact path="/profile/edit" render={() => <EditProfile user={this.state.user} editUser={this.editUser} />} />
+          <Route exact path="/profile/edit" render={() => <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />} />
           <Route exact path="/login" component={Login} />
         </Switch>
       </Router>

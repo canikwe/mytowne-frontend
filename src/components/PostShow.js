@@ -36,7 +36,7 @@ class AlertDialogSlide extends React.Component {
   state = {
     open: true,
   };
-  
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -54,25 +54,25 @@ class AlertDialogSlide extends React.Component {
           open={this.state.open}
           TransitionComponent={Transition}
           keepMounted
-          onClose={this.handleClose}
+          // onClose={this.handleClose}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-        {post.img !== "" ?
-        <img src={post.img} alt="featured post"/> : null}
+          {post.img !== "" ?
+            <img src={post.img} alt="featured post"/> : null}
           <DialogTitle id="alert-dialog-slide-title">
             {post.title}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-            {post.content}
+              {post.content}
             </DialogContentText>
           </DialogContent>
-            <div>
-              {post.post_tags.map((tag) => {
-                return <Tag tag={tag} key={tag.id} />
-              })}
-            </div>
+          <div>
+            {post.post_tags.map((tag) => {
+              return <Tag tag={tag} key={tag.id} />
+            })}
+          </div>
           <DialogActions>
             <IconButton component={ Link } to={'/'} onClick={this.handleClose} color="primary" className={classes.button} aria-label="Back">
               <BackIcon />
@@ -82,7 +82,7 @@ class AlertDialogSlide extends React.Component {
             </IconButton>
             <IconButton component={ Link } to="/" onClick={() => handleDelete(post.id)} className={classes.button} aria-label="Delete">
               <DeleteIcon />
-           </IconButton>
+            </IconButton>
           </DialogActions>
         </Dialog>
       </div>
