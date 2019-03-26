@@ -77,6 +77,12 @@ class Cards extends React.Component {
 
     return (
       <Card className={classes.card}>
+        <CardMedia
+          className={classes.media}
+          image={post.img === "" ? './placeholder.png' : post.img}
+          title="post image"
+        />
+
         {post.user ? (
           <CardHeader
             avatar={
@@ -113,11 +119,7 @@ class Cards extends React.Component {
           />
         )}
 
-        <CardMedia
-          className={classes.media}
-          image={post.img === "" ? './placeholder.png' : post.img}
-          title="post image"
-        />
+
 
         <CardContent className={classes.content}>
           <Typography component="p">
