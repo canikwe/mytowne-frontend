@@ -184,7 +184,7 @@ class App extends Component {
 
             return this.state.loading ? null : (
               <PostShow post={post} handleDelete={this.deletePost}/>
-              )
+            )
           }}/>
           <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
           <Route exact path="/profile/edit" render={() => <EditProfile user={this.state.user} editUser={this.editUser} />} />

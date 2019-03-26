@@ -44,54 +44,84 @@ const styles = theme => ({
   },
 })
 
-const Login = (props) => {
-  const { classes } = props;
+class Login extends React.Component {
+  state = {
+    username: '',
+    password: ''
+  }
 
-  return (
-    <main className={classes.main}>
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Log In
-        </Typography>
-        <form className={classes.form}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input name="password" type="password" id="password" autoComplete="current-password" />
-          </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember Me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+
+
+  render() {
+    const { classes } = this.props
+
+    return (
+      <main className={classes.main}>
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Log In
-          </Button>
-        </form>
-      </Paper>
-      <br/>
+          </Typography>
+          <form className={classes.form}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="username">Username</InputLabel>
+              <Input
+                id="username"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                autoComplete="username"
+                autoFocus
+              />
+            </FormControl>
 
-      <Paper>
-        <Typography variant="h5">
-          About MyTowne:
-        </Typography>
-        <Typography variant="body1">
-          Information and description all goes in here. Will come back to format this to be side-by-side with the login form.
-        </Typography>
-      </Paper>
-    </main>
-  );
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                autoComplete="current-password"
+              />
+            </FormControl>
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember Me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Log In
+            </Button>
+          </form>
+        </Paper>
+        <br/>
+
+        <Paper className={classes.paper}>
+          <Typography variant="h5">
+            About MyTowne:
+          </Typography>
+          <Typography variant="body1">
+            Information and description all goes in here. Will come back to format this to be side-by-side with the login form.
+          </Typography>
+        </Paper>
+      </main>
+    );
+  }
 }
 
 Login.propTypes = {

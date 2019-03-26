@@ -6,13 +6,12 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
+  page: {
+    height: '100vh',
+  },
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    backgroundColor: '#f4f4f4',
-    height: '100vw'
-  },
-  item: {
     backgroundColor: '#f4f4f4',
   },
   textField: {
@@ -38,6 +37,10 @@ class EditProfile extends React.Component {
       avatar: '',
       bio: ''
     }
+  }
+
+  componentDidMount() {
+    document.getElementById('root').style.backgroundColor='#f4f4f4'
   }
 
   componentDidUpdate(prevProps) {
@@ -68,9 +71,9 @@ class EditProfile extends React.Component {
   render() {
     const { classes } = this.props
     return(
-      <div className={classes.container}>
-        <Grid container spacing={24}>
-          <Grid item xs={12} sm={6} className={classes.item}>
+      <div className={classes.page}>
+        <Grid container spacing={24} className={classes.container}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Name"
               name="name"
@@ -80,7 +83,7 @@ class EditProfile extends React.Component {
               margin="normal"
             />
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.item}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Birthday"
               name="birth_date"
@@ -95,7 +98,7 @@ class EditProfile extends React.Component {
               margin="normal"
             />
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.item}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Email"
               name="email"
@@ -105,7 +108,7 @@ class EditProfile extends React.Component {
               margin="normal"
             />
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.item}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Username"
               name="username"
@@ -115,7 +118,7 @@ class EditProfile extends React.Component {
               margin="normal"
             />
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.item}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Town"
               name="town"
@@ -126,7 +129,7 @@ class EditProfile extends React.Component {
               // disabled
             />
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.item}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Avatar URL"
               name="avatar"
@@ -136,7 +139,7 @@ class EditProfile extends React.Component {
               margin="normal"
             />
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.item}>
+          <Grid item xs={12} sm={6}>
             <TextField
               label="Biography"
               name="bio"
@@ -147,7 +150,7 @@ class EditProfile extends React.Component {
               multiline
             />
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.item}>
+          <Grid item xs={12} sm={6}>
             <Button
               variant="contained"
               color="primary"
