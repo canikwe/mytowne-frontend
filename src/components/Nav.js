@@ -98,11 +98,16 @@ class Nav extends React.Component {
     this.setState({ anchorEl: null });
   }
 
+  logout = () => {
+    this.props.handleLogout()
+    this.handleMenuClose()
+  }
+
 
 
   render() {
     const { anchorEl } = this.state;
-    const { classes, searchInput, handleSearch } = this.props
+    const { classes, searchInput, handleSearch, loggedIn } = this.props
     const isMenuOpen = Boolean(anchorEl)
 
     const renderMenu = (
@@ -116,6 +121,7 @@ class Nav extends React.Component {
         <MenuItem component= { Link } to="/posts/new" onClick={this.handleMenuClose}>New Post</MenuItem>
         <MenuItem component={ Link } to="/profile" onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem component={ Link } to="/profile/edit" onClick={this.handleMenuClose}>My account</MenuItem>
+        <MenuItem component={ Link } to="/login" onClick={this.logout}>Log Out</MenuItem>
       </Menu>
     )
 
@@ -145,14 +151,18 @@ class Nav extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+              {loggedIn ? (
+                <IconButton
+                  aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              ) : (
+                null
+              )}
             </div>
           </Toolbar>
         </AppBar>

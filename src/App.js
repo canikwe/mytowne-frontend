@@ -21,13 +21,27 @@ class App extends Component {
       allFilters: [],
       tags: [],
       loading: true,
-      searchInput: ''
+      searchInput: '',
     }
   }
 
-  //Fetch requests
-  componentDidMount(){
-    fetch(`http://localhost:3000/api/v1/posts`)
+  componentDidMount() {
+    let token = localStorage.getItem('token')
+    if (token) {
+      this.fetchUser(token)
+      this.fetchPosts(token)
+    }
+  }
+
+
+  // Fetch requests
+  fetchPosts = (token) => {
+    fetch(`http://localhost:3000/api/v1/posts`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
     .then(res => res.json())
     .then(posts => {
 
@@ -44,8 +58,9 @@ class App extends Component {
       filters: unique,
       allFilters: unique,
       loading: false,
+      tags: unique
     })})
-
+  }
     //setting default user for development until Auth in implemented
 
     // fetch(`http://localhost:3000/api/v1/users/1`)
@@ -53,13 +68,12 @@ class App extends Component {
     // .then(user => this.setState({user}))
     // .then(this.fetchTags())
 
-  }
-
   createPost = data => {
     fetch(`http://localhost:3000/api/v1/posts/`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(data)
     }).then(res => res.json())
@@ -77,6 +91,7 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(data)
     }).then(res => res.json())
@@ -89,14 +104,22 @@ class App extends Component {
 
   fetchTags = () => {
 
-    fetch(`http://localhost:3000/api/v1/tags`)
+    fetch(`http://localhost:3000/api/v1/tags`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+    })
       .then(res => res.json())
       .then(tags => this.setState({tags}))
   }
 
   deletePost = (id) => {
     fetch(`http://localhost:3000/api/v1/posts/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
     }).then(res => res.json())
     .then(post => this.setState({posts: this.state.posts.filter(p => p.id !== post.id)}))
   }
@@ -108,6 +131,7 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify(data)
     }).then(res => res.json())
@@ -119,9 +143,13 @@ class App extends Component {
 
   deleteUser = (id) => {
     fetch(`http://localhost:3000/api/v1/users/${id}`, {
-      method: "DELETE"
-    }).then(res => res.json())
-    .then(user => this.setState({user: {}}))
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+    })
+    .then(res => res.json())
+    .then(user => this.handleLogout())
   }
 
   //Filtering POSTS
@@ -175,45 +203,72 @@ class App extends Component {
   }
 
   handleLogin = (username, pw) => {
-    fetch(`http://localhost:3000/api/v1/login/`, {
+    console.log(username)
+    console.log(pw)
+    fetch(`http://localhost:3000/api/v1/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: JSON.stringify({username: username, password: pw})
+      body: JSON.stringify({ user: { username: username, password: pw }})
     })
     .then(res => res.json())
     .then(data => {
-      if (data.id !== undefined) {
-        this.setState({user: data})
+      if (data.error) {
+        alert(data.error)
       } else {
-        alert(data)
+        localStorage.setItem('token', data.jwt)
+        this.fetchUser(data.jwt)
+        this.fetchPosts(data.jwt)
       }
     })
+  }
+
+  fetchUser = (token) => {
+    fetch('http://localhost:3000/api/v1/profile', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+    .then(res => res.json())
+    .then(data => this.setState({
+      user: data.user
+    }))
+  }
+
+  handleLogout = () => {
+    this.setState({ user: {} })
+    localStorage.clear()
   }
 
   render() {
     return (
       <Router>
-        <Nav handleSearch={this.handleSearch} searchInput={this.state.searchInput}/>
+        <Nav
+          handleSearch={this.handleSearch}
+          searchInput={this.state.searchInput}
+          handleLogout={this.handleLogout}
+          loggedIn={isEmpty(this.state.user) ? false : true}
+        />
         <Switch>
           <Route exact path="/login" render={() => {
             return isEmpty(this.state.user) ? <Login handleLogin={this.handleLogin}/> :
             <Redirect to="/" />
-            }} />
+          }} />
 
           <Route exact path="/" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
             <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} />
-            }} />
+          }} />
 
           <Route exact path="/posts/new" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
             <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} tags={this.state.tags} post={{}}/>
-            }} />
-            
-            {/* Unsure how to authenticate this */}
+          }} />
+
+          {/* Unsure how to authenticate this */}
           <Route exact path="/posts/:id/edit" render={props => {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
@@ -236,12 +291,12 @@ class App extends Component {
           <Route exact path="/profile" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
             <Profile user={this.state.user} />
-            }} />
+          }} />
 
           <Route exact path="/profile/edit" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
             <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
-            }} />
+          }} />
         </Switch>
       </Router>
     );

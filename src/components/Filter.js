@@ -181,8 +181,10 @@ class Filter extends React.Component {
     };
 
     const formattedTags = tags.map(suggestion => ({
-      value: suggestion.name,
-      label: suggestion.name,
+      // value: suggestion.name,
+      value: suggestion,
+      // label: suggestion.name,
+      label: suggestion,
     }));
 
     return (
