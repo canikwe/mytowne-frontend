@@ -52,8 +52,6 @@ class AlertDialogSlide extends React.Component {
 
   render() {
     const { classes, post, handleDelete, user } = this.props
-    // debugger
-    console.log(user.id === post.user.id)
     return (
       <div>
 

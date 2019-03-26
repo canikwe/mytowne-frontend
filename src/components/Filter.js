@@ -169,7 +169,7 @@ class Filter extends React.Component {
 
   render() {
     const { classes, theme, tags } = this.props;
-
+    
     const selectStyles = {
       input: base => ({
         ...base,
@@ -180,11 +180,11 @@ class Filter extends React.Component {
       }),
     };
 
-    const formattedTags = tags.map(suggestion => ({
+    const formattedTags = tags.map(tag => ({
       // value: suggestion.name,
-      value: suggestion,
+      value: tag.name,
       // label: suggestion.name,
-      label: suggestion,
+      label: tag.name,
     }));
 
     return (
