@@ -13,7 +13,6 @@ import Slide from '@material-ui/core/Slide';
 import PostForm from '../components/PostForm'
 import { Link } from "react-router-dom";
 
-
 const styles = theme => ({
   appBar: {
     position: 'relative',
@@ -129,11 +128,12 @@ class FullScreenDialog extends React.Component {
   }
 
   render() {
-    const { classes, handleDelete, name, tags, post: {id} } = this.props;
+    const { classes, name, tags, post: {id} } = this.props;
     return (
       <div>
         <Dialog
-          fullScreen
+          // fullScreen
+          maxWidth='xl'
           open={this.state.open}
           onClose={this.handleClose}
           TransitionComponent={Transition}
@@ -146,9 +146,6 @@ class FullScreenDialog extends React.Component {
               <Typography variant="h6" color="inherit" className={classes.flex}>
                 {name}
               </Typography>
-              <Button component={ Link } to="/" color="inherit" onClick={() => handleDelete(id)}>
-                delete
-              </Button>
               <Button component= { Link } to={id === undefined ? '/' : `/posts/${id}`} color="inherit" onClick={this.submit}>
                 submit
               </Button>

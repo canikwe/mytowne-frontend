@@ -146,16 +146,16 @@ class App extends Component {
     return {...post, post_tags: formatedPostTags}
   }
 
-  //OnClick handler to update the featured post
-  updateFeaturedPost = post => {
-    this.setState({featuredPost: post}, () => <PostShow post={this.state.featuredPost} />)
-  }
+  // //OnClick handler to update the featured post
+  // updateFeaturedPost = post => {
+  //   this.setState({featuredPost: post}, () => <PostShow post={this.state.featuredPost} />)
+  // }
 
   //Possible feature to save posts before publishing them??
-  saveDraft = post => {
-    this.setState({posts: [...this.state.posts, post]})
-    console.log(post)
-  }
+  // saveDraft = post => {
+  //   this.setState({posts: [...this.state.posts, post]})
+  //   console.log(post)
+  // }
 
     handleSearch = (e) => {
     this.setState({
@@ -183,9 +183,8 @@ class App extends Component {
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
             return this.state.loading ? null : (
-              <PostShow post={post}
-              />
-            )
+              <PostShow post={post} handleDelete={this.deletePost}/>
+              )
           }}/>
           <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
           <Route exact path="/profile/edit" render={() => <EditProfile user={this.state.user} editUser={this.editUser} />} />
