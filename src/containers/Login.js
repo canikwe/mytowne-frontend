@@ -59,7 +59,7 @@ class Login extends React.Component {
 
 
   render() {
-    const { classes } = this.props
+    const { classes, handleLogin } = this.props
 
     return (
       <main className={classes.main}>
@@ -104,6 +104,10 @@ class Login extends React.Component {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={(e) => {
+                e.preventDefault()
+                handleLogin(this.state.username, this.state.password)}
+              }
             >
               Log In
             </Button>

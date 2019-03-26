@@ -46,7 +46,9 @@ class AlertDialogSlide extends React.Component {
   };
 
   render() {
-    const { classes, post, handleDelete } = this.props
+    const { classes, post, handleDelete, user } = this.props
+    // debugger
+    console.log(user.id === post.user.id)
     return (
       <div>
 
@@ -77,12 +79,16 @@ class AlertDialogSlide extends React.Component {
             <IconButton component={ Link } to={'/'} onClick={this.handleClose} color="primary" className={classes.button} aria-label="Back">
               <BackIcon />
             </IconButton>
+            {user.id === post.user.id ? 
+            <React.Fragment>
             <IconButton component={ Link } to={`/posts/${post.id}/edit`} onClick={this.handleClose} color="primary"className={classes.button} aria-label="Edit">
               <EditIcon />
             </IconButton>
             <IconButton component={ Link } to="/" onClick={() => handleDelete(post.id)} className={classes.button} aria-label="Delete">
               <DeleteIcon />
            </IconButton>
+           </React.Fragment>
+            : null }
           </DialogActions>
         </Dialog>
       </div>

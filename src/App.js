@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Nav from './components/Nav'
 import Home from './containers/Home'
 import PostFormContainer from './containers/PostFormContainer'
@@ -8,6 +8,8 @@ import Profile from './containers/Profile'
 import Login from './containers/Login'
 import PostShow from './components/PostShow'
 import EditProfile from './containers/EditProfile'
+import {isEmpty} from 'lodash'
+
 
 class App extends Component {
   constructor(){
@@ -45,10 +47,11 @@ class App extends Component {
     })})
 
     //setting default user for development until Auth in implemented
-    fetch(`http://localhost:3000/api/v1/users/1`)
-    .then(res => res.json())
-    .then(user => this.setState({user}))
-    .then(this.fetchTags())
+
+    // fetch(`http://localhost:3000/api/v1/users/1`)
+    // .then(res => res.json())
+    // .then(user => this.setState({user}))
+    // .then(this.fetchTags())
 
   }
 
@@ -61,7 +64,8 @@ class App extends Component {
       body: JSON.stringify(data)
     }).then(res => res.json())
     .then(post => this.setState({
-      posts: [...this.state.posts, post]
+      posts: [...this.state.posts, post],
+      user: {...this.state.user, posts: [...this.state.user.posts, post]}
     }))
     .then(this.fetchTags())
   }
@@ -163,13 +167,46 @@ class App extends Component {
     })
   }
 
+  handleLogin = (username, pw) => {
+    fetch(`http://localhost:3000/api/v1/login/`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({username: username, password: pw})
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.id !== undefined) {
+        this.setState({user: data})
+      } else {
+        alert(data)
+      }
+    })
+  }
+
   render() {
     return (
       <Router>
         <Nav handleSearch={this.handleSearch} searchInput={this.state.searchInput}/>
         <Switch>
-          <Route exact path="/" render={() => <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} />} />
-          <Route exact path="/posts/new" render={() => <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} tags={this.state.tags} post={{}}/>} />
+          <Route exact path="/login" render={() => {
+            return isEmpty(this.state.user) ? <Login handleLogin={this.handleLogin}/> :
+            <Redirect to="/" />
+            }} />
+
+          <Route exact path="/" render={() => {
+            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} />
+            }} />
+
+          <Route exact path="/posts/new" render={() => {
+            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} tags={this.state.tags} post={{}}/>
+            }} />
+            
+            {/* Unsure how to authenticate this */}
           <Route exact path="/posts/:id/edit" render={props => {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
@@ -177,18 +214,28 @@ class App extends Component {
             return this.state.loading ? null : (
               <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
           }} />
+
+          {/* Unsure how to authentcate this */}
           <Route exact path="/posts/:id" render={props => {
             console.log(this.state.posts)
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
             return this.state.loading ? null : (
-              <PostShow post={post} handleDelete={this.deletePost}/>
+              <PostShow post={post} handleDelete={this.deletePost} user={this.state.user}/>
             )
-          }}/>
-          <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
-          <Route exact path="/profile/edit" render={() => <EditProfile user={this.state.user} editUser={this.editUser} />} />
-          <Route exact path="/login" component={Login} />
+          }} />
+
+
+          <Route exact path="/profile" render={() => {
+            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            <Profile user={this.state.user} />
+            }} />
+
+          <Route exact path="/profile/edit" render={() => {
+            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            <EditProfile user={this.state.user} editUser={this.editUser} />
+            }} />
         </Switch>
       </Router>
     );
