@@ -28,8 +28,9 @@ class App extends Component {
   componentDidMount() {
     let token = localStorage.getItem('token')
     if (token) {
-      this.fetchUser(token)
       this.fetchPosts(token)
+      this.fetchUser(token)
+      this.fetchTags(token)
     }
   }
 
@@ -58,7 +59,6 @@ class App extends Component {
       filters: unique,
       allFilters: unique,
       loading: false,
-      tags: unique
     })})
   }
 

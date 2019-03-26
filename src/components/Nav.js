@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom'
 const styles = theme => ({
   root: {
     width: '100%',
-    backgroundImage: 'url(https://img.freepik.com/free-photo/wooden-textured-background_53876-14865.jpg?size=626&ext=jpg)'
+    background: "rgba(76, 175, 80, 0.3)" /* Green background with 30% opacity */
   },
   grow: {
     flexGrow: 1,

@@ -28,8 +28,9 @@ const styles = theme => ({
 class OutlinedTextFields extends React.PureComponent {
 
   render() {
+    console.log(this.props)
     const { classes, title, content, img, tags, postTags, handleChange } = this.props;
-
+    console.log(postTags)
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
