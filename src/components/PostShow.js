@@ -17,7 +17,8 @@ import Slide from '@material-ui/core/Slide';
 
 //Tag and Link imports
 import Tag from './Tag'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import '../PostShow.css'
 
 const styles = theme => ({
   fab: {
@@ -26,6 +27,10 @@ const styles = theme => ({
   extendedIcon: {
     marginRight: theme.spacing.unit,
   },
+  media: {
+    maxWidth: '100%',
+    maxHeight: '500px'
+  }
 });
 
 function Transition(props) {
@@ -59,9 +64,10 @@ class AlertDialogSlide extends React.Component {
           // onClose={this.handleClose}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
+          classes={{paper: 'box'}}
         >
         {post.img !== "" ?
-        <img src={post.img} alt="featured post"/> : null}
+        <img src={post.img} className={classes.media} alt="featured post"/> : null}
           <DialogTitle id="alert-dialog-slide-title">
             {post.title}
           </DialogTitle>
@@ -70,7 +76,7 @@ class AlertDialogSlide extends React.Component {
             {post.content}
             </DialogContentText>
           </DialogContent>
-            <div>
+            <div style={{'margin': '0 0 0 20px'}}>
               {post.post_tags.map((tag) => {
                 return <Tag tag={tag} key={tag.id} />
               })}

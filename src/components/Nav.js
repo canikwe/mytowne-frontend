@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
-import MenuIcon from '@material-ui/icons/Menu'
+import PeopleIcon from '@material-ui/icons/People'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { Link } from 'react-router-dom'
@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom'
 const styles = theme => ({
   root: {
     width: '100%',
+    backgroundImage: 'url(https://img.freepik.com/free-photo/wooden-textured-background_53876-14865.jpg?size=626&ext=jpg)'
   },
   grow: {
     flexGrow: 1,
@@ -121,11 +122,11 @@ class Nav extends React.Component {
 
       return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar classes={{root: classes.root}} position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
+            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer"> */}
+              <PeopleIcon style={{"margin": "0 10px 0 0"}}/>
+            {/* </IconButton> */}
             <Typography component={ Link } to="/" className={classes.title} variant="h6" color="inherit" noWrap>
               MyTowne
             </Typography>

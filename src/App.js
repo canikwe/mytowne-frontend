@@ -48,10 +48,10 @@ class App extends Component {
 
     //setting default user for development until Auth in implemented
 
-    // fetch(`http://localhost:3000/api/v1/users/1`)
-    // .then(res => res.json())
-    // .then(user => this.setState({user}))
-    // .then(this.fetchTags())
+    fetch(`http://localhost:3000/api/v1/users/9`)
+    .then(res => res.json())
+    .then(user => this.setState({user}))
+    .then(this.fetchTags())
 
   }
 
@@ -188,7 +188,7 @@ class App extends Component {
       if (data.id !== undefined) {
         this.setState({user: data})
       } else {
-        alert(data)
+        alert(data.errors)
       }
     })
   }
