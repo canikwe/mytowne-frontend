@@ -61,12 +61,6 @@ class App extends Component {
       tags: unique
     })})
   }
-    //setting default user for development until Auth in implemented
-
-    fetch(`http://localhost:3000/api/v1/users/9`)
-    .then(res => res.json())
-    .then(user => this.setState({user}))
-    .then(this.fetchTags())
 
   createPost = data => {
     fetch(`http://localhost:3000/api/v1/posts/`, {
@@ -218,13 +212,9 @@ class App extends Component {
       if (data.error) {
         alert(data.error)
       } else {
-<<<<<<< HEAD
         localStorage.setItem('token', data.jwt)
         this.fetchUser(data.jwt)
         this.fetchPosts(data.jwt)
-=======
-        alert(data.errors)
->>>>>>> index_styling
       }
     })
   }
