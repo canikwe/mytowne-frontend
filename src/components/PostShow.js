@@ -36,7 +36,7 @@ class AlertDialogSlide extends React.Component {
   state = {
     open: true,
   };
-
+  
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -60,39 +60,35 @@ class AlertDialogSlide extends React.Component {
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          {post.img !== "" ?
-            <img src={post.img} alt="featured post"/> : null}
+        {post.img !== "" ?
+        <img src={post.img} alt="featured post"/> : null}
           <DialogTitle id="alert-dialog-slide-title">
             {post.title}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              {post.content}
+            {post.content}
             </DialogContentText>
           </DialogContent>
-          <div>
-            {post.post_tags.map((tag) => {
-              return <Tag tag={tag} key={tag.id} />
-            })}
-          </div>
+            <div>
+              {post.post_tags.map((tag) => {
+                return <Tag tag={tag} key={tag.id} />
+              })}
+            </div>
           <DialogActions>
             <IconButton component={ Link } to={'/'} onClick={this.handleClose} color="primary" className={classes.button} aria-label="Back">
               <BackIcon />
             </IconButton>
             {user.id === post.user.id ? 
             <React.Fragment>
-            <IconButton component={ Link } to={`/posts/${post.id}/edit`} onClick={this.handleClose} color="primary"className={classes.button} aria-label="Edit">
-              <EditIcon />
-            </IconButton>
-            <IconButton component={ Link } to="/" onClick={() => handleDelete(post.id)} className={classes.button} aria-label="Delete">
-              <DeleteIcon />
-<<<<<<< HEAD
-            </IconButton>
-=======
-           </IconButton>
+              <IconButton component={ Link } to={`/posts/${post.id}/edit`} onClick={this.handleClose} color="primary"className={classes.button} aria-label="Edit">
+                <EditIcon />
+              </IconButton>
+              <IconButton component={ Link } to="/" onClick={() => handleDelete(post.id)} className={classes.button} aria-label="Delete">
+                <DeleteIcon />
+              </IconButton>
            </React.Fragment>
             : null }
->>>>>>> user_login
           </DialogActions>
         </Dialog>
       </div>

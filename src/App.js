@@ -231,14 +231,7 @@ class App extends Component {
             return this.state.loading ? null : (
               <PostShow post={post} handleDelete={this.deletePost} user={this.state.user}/>
             )
-<<<<<<< HEAD
-          }}/>
-          <Route exact path="/profile" render={() => <Profile user={this.state.user} />} />
-          <Route exact path="/profile/edit" render={() => <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />} />
-          <Route exact path="/login" component={Login} />
-=======
           }} />
-
 
           <Route exact path="/profile" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
@@ -247,9 +240,8 @@ class App extends Component {
 
           <Route exact path="/profile/edit" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
-            <EditProfile user={this.state.user} editUser={this.editUser} />
+            <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
             }} />
->>>>>>> user_login
         </Switch>
       </Router>
     );
