@@ -41,7 +41,7 @@ class AlertDialogSlide extends React.Component {
   state = {
     open: true,
   };
-  
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -85,7 +85,7 @@ class AlertDialogSlide extends React.Component {
             <IconButton component={ Link } to={'/'} onClick={this.handleClose} color="primary" className={classes.button} aria-label="Back">
               <BackIcon />
             </IconButton>
-            {user.id === post.user.id ? 
+            {user.id === post.user.id ?
             <React.Fragment>
               <IconButton component={ Link } to={`/posts/${post.id}/edit`} onClick={this.handleClose} color="primary"className={classes.button} aria-label="Edit">
                 <EditIcon />

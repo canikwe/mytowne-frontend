@@ -20,7 +20,7 @@ import Grid from '@material-ui/core/Grid'
 const styles = theme => ({
   media: {
     height: 'auto',
-    maxWidth: '100%',
+    maxWidth: '75%',
     margin: theme.spacing.unit,
   },
 })
@@ -57,7 +57,7 @@ class Profile extends React.Component {
         aria-describedby="alert-dialog-slide-description"
       >
         <Grid container style={{height: 'auto'}}>
-          <Grid item xs={5}>
+          <Grid item xs={5} style={{textAlign: 'center'}}>
             {user.avatar !== "" ?
               <img className={classes.media} src={user.avatar} alt="user avatar"/> : null}
           </Grid>

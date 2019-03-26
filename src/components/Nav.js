@@ -131,7 +131,7 @@ class Nav extends React.Component {
         <AppBar classes={{root: classes.root}} position="static">
           <Toolbar>
             {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer"> */}
-              <PeopleIcon style={{"margin": "0 10px 0 0"}}/>
+            <PeopleIcon style={{"margin": "0 10px 0 0"}}/>
             {/* </IconButton> */}
             <Typography component={ Link } to="/" className={classes.title} variant="h6" color="inherit" noWrap>
               MyTowne
