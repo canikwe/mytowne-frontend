@@ -114,7 +114,7 @@ class Cards extends React.Component {
 
         <CardMedia
           className={classes.media}
-          image={post.img}
+          image={post.img === "" ? './placeholder.png' : post.img}
           title="post image"
         />
 

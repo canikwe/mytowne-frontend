@@ -21,7 +21,7 @@ const PaperSheet = ({ classes, post }) => {
   return (
     <div>
       <Paper className={classes.root} elevation={1}>
-        {post.img !== "" ? 
+        {post.img !== "" || post.img !== undefined ? 
         <img src={post.img} alt="featured post"/> : null}
         <Typography variant="h5" component="h3">
           {post.title}

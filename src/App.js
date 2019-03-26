@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Nav from './components/Nav'
 import Home from './containers/Home'
 import PostFormContainer from './containers/PostFormContainer'
-import TestIndex from './components/TestIndex'
 import './App.css'
 import Profile from './containers/Profile'
 import Login from './containers/Login'
@@ -15,11 +14,11 @@ class App extends Component {
     this.state = {
       user: {},
       posts: [],
-      // featuredPost: {},
       filters: [],
       allFilters: [],
       tags: [],
-      loading: true
+      loading: true,
+      searchInput: ''
     }
   }
 
@@ -29,7 +28,6 @@ class App extends Component {
     .then(res => res.json())
     .then(posts => {
 
-      //hardcoded featured post for development
       let filters = []
       posts.forEach((post) => {
         post.post_tags.forEach((post_tag) => {
@@ -37,14 +35,12 @@ class App extends Component {
         })
       })
       let unique = [...new Set(filters)]
-      console.log(unique)
+      // console.log(unique)
       this.setState({
       posts: posts,
-      // featuredPost: posts.slice(-1)[0],
       filters: unique,
       allFilters: unique,
       loading: false,
-      // featuredPost: posts.slice(-1)[0],
     })})
 
     //setting default user for development until Auth in implemented
@@ -70,7 +66,6 @@ class App extends Component {
   }
 
   editPost = (data, postId) => {
-    let s = this.state
 
     fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
       method: "PATCH",
@@ -91,7 +86,7 @@ class App extends Component {
     
     fetch(`http://localhost:3000/api/v1/tags`)
       .then(res => res.json())
-      .then(tags => this.setState({tags: tags}, console.log(tags)))
+      .then(tags => this.setState({tags}))
   }
 
   deletePost = (id) => {
@@ -121,7 +116,7 @@ class App extends Component {
   displayPosts = () => {
     return this.state.posts.filter((post) => {
       return post.post_tags.some(r => this.state.filters.includes(r.tag_name))
-    })
+    }).filter(p => p.title.includes(this.state.searchInput))
   }
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
@@ -145,14 +140,19 @@ class App extends Component {
     console.log(post)
   }
 
+    handleSearch = (e) => {
+    this.setState({
+      searchInput: e.target.value
+    })
+  }
+
   render() {
     return (
       <Router>
-        <Nav />
+        <Nav handleSearch={this.handleSearch} searchInput={this.state.searchInput}/>
         <Switch>
           <Route exact path="/" render={() => <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} />} />
           <Route exact path="/posts/new" render={() => <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} tags={this.state.tags} post={{}}/>} />
-          {/* <Route exact path="/testing_post_index" render={() => <TestIndex posts={this.state.posts} handleClick={this.updateFeaturedPost} handleDelete={this.deletePost}/>} /> */}
           <Route exact path="/posts/:id/edit" render={props => {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
@@ -165,7 +165,6 @@ class App extends Component {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
-            console.log("post exists?", post)
             return this.state.loading ? null : (
               <PostShow post={post}
               />

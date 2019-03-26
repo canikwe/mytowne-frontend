@@ -132,10 +132,6 @@ class FullScreenDialog extends React.Component {
     const { classes, handleDelete, name, tags, post: {id} } = this.props;
     return (
       <div>
-        {/* <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-          Open full-screen dialog
-        </Button> */}
-        {/* {this.handleClickOpen()} */}
         <Dialog
           fullScreen
           open={this.state.open}
@@ -144,19 +140,16 @@ class FullScreenDialog extends React.Component {
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
-              <Link to={`/posts/${id}`}><IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+              <IconButton component={ Link } to="/" color="inherit" onClick={this.handleClose} aria-label="Close">
                 <CloseIcon />
-              </IconButton></Link>
+              </IconButton>
               <Typography variant="h6" color="inherit" className={classes.flex}>
                 {name}
               </Typography>
               <Button component={ Link } to="/" color="inherit" onClick={() => handleDelete(id)}>
                 delete
               </Button>
-              {/* <Button color="inherit" onClick={this.save}>
-                save
-              </Button> */}
-              <Button component= { Link } to={`/posts/${id}`} color="inherit" onClick={this.submit}>
+              <Button component= { Link } to={id === undefined ? '/' : `/posts/${id}`} color="inherit" onClick={this.submit}>
                 submit
               </Button>
             </Toolbar>
