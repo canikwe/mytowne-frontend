@@ -2,7 +2,7 @@ import React from 'react'
 import Filter from '../components/Filter'
 import CardContainer from './CardContainer'
 
-class Home extends React.Component {
+class Home extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
 

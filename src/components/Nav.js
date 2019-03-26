@@ -102,7 +102,7 @@ class Nav extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { classes } = this.props;
+    const { classes, searchInput, handleSearch } = this.props;
     const isMenuOpen = Boolean(anchorEl);
 
     const renderMenu = (
@@ -113,6 +113,7 @@ class Nav extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
+        <MenuItem component= { Link } to="/posts/new" onClick={this.handleMenuClose}>New Post</MenuItem>
         <MenuItem component={ Link } to="/profile" onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem component={ Link } to="/profile/edit" onClick={this.handleMenuClose}>My account</MenuItem>
       </Menu>
@@ -133,13 +134,13 @@ class Nav extends React.Component {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search…"
+                placeholder="Search Posts…"
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,
                 }}
-                value={this.state.searchInput}
-                onChange={this.handleSearch}
+                value={searchInput}
+                onChange={handleSearch}
               />
             </div>
             <div className={classes.grow} />
