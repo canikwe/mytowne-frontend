@@ -62,8 +62,6 @@ class EditProfile extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.user.name)
-    console.log(this.state.name)
     if (this.props.user.name !== this.state.name) {
       this.setState({
         name: this.props.user.name,
@@ -129,6 +127,7 @@ class EditProfile extends React.Component {
                   name="name"
                   className={classes.textField}
                   value={this.state.name}
+                  defaultValue=" "
                   onChange={this.handleChange}
                   margin="normal"
                 />
@@ -154,6 +153,7 @@ class EditProfile extends React.Component {
                   name="email"
                   className={classes.textField}
                   value={this.state.email}
+                  defaultValue=" "
                   onChange={this.handleChange}
                   margin="normal"
                 />
@@ -164,6 +164,7 @@ class EditProfile extends React.Component {
                   name="username"
                   className={classes.textField}
                   value={this.state.username}
+                  defaultValue=" "
                   onChange={this.handleChange}
                   margin="normal"
                 />
@@ -174,6 +175,7 @@ class EditProfile extends React.Component {
                   name="town"
                   className={classes.textField}
                   value={this.state.town}
+                  defaultValue=" "
                   onChange={this.handleChange}
                   margin="normal"
                   // disabled
@@ -185,6 +187,7 @@ class EditProfile extends React.Component {
                   name="avatar"
                   className={classes.textField}
                   value={this.state.avatar}
+                  defaultValue=" "
                   onChange={this.handleChange}
                   margin="normal"
                 />
@@ -195,6 +198,7 @@ class EditProfile extends React.Component {
                   name="bio"
                   className={classes.textField}
                   value={this.state.bio}
+                  defaultValue=" "
                   onChange={this.handleChange}
                   margin="normal"
                   multiline
