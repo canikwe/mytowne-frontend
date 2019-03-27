@@ -132,10 +132,8 @@ class FullScreenDialog extends React.Component {
     return (
       <div>
         <Dialog
-          // fullScreen
           maxWidth='xl'
           open={this.state.open}
-          onClose={this.handleClose}
           TransitionComponent={Transition}
         >
           <AppBar className={classes.appBar}>

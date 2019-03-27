@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom'
 const styles = theme => ({
   root: {
     width: '100%',
-    // background: "rgba(76, 175, 80, 0.3)" /* Green background with 30% opacity */
+    // backgroundColor: "#2E7D32" /* Green background with 30% opacity */
   },
   grow: {
     flexGrow: 1,

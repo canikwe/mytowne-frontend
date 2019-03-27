@@ -16,7 +16,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     marginBottom: theme.spacing.unit,
-    backgroundColor: '#f4f4f4',
+    backgroundColor: 'rgba(204, 224, 255, 0.4)',
   },
   input: {
     display: 'flex',
@@ -181,9 +181,7 @@ class Filter extends React.Component {
     };
 
     const formattedTags = tags.map(tag => ({
-      // value: suggestion.name,
       value: tag.name,
-      // label: suggestion.name,
       label: tag.name,
     }));
 

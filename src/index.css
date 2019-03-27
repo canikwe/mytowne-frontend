@@ -6,12 +6,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: #f4f4f4; */
-  background-image: url('cork-board.jpg');
   background-size: cover;
+  background-image: url('http://idahoptv.org/images/backgrounds/backgroundMountains.png');
+  background-attachment: fixed
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+a {
+  color: black;
+  text-decoration: none
+}
+
+a:hover {
+  text-decoration: underline
 }

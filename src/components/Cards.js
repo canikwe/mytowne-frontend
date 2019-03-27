@@ -1,26 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
+// import CardActions from '@material-ui/core/CardActions';
+// import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import AddComment from '@material-ui/icons/AddComment'
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+// import AddComment from '@material-ui/icons/AddComment'
 import Tag from './Tag'
 import { Link } from "react-router-dom";
+import Divider from '@material-ui/core/Divider';
 
 
 const styles = theme => ({
   card: {
-    maxWidth: 400,
+    width: 250,
+    height: 350,
     marginLeft: 'auto',
     marginRight: 'auto',
   },
@@ -74,12 +76,11 @@ class Cards extends React.Component {
 
   render() {
     const { classes, post } = this.props
-
     return (
       <Card className={classes.card}>
         <CardMedia
           className={classes.media}
-          image={post.img === "" ? './placeholder.png' : post.img}
+          image={post.img === "" ? 'https://imbindonesia.com/images/placeholder/camera.jpg' : post.img}
           title="post image"
         />
 
@@ -125,6 +126,7 @@ class Cards extends React.Component {
           <Typography component="p">
             {post.content.substring(0, 55) + '...'}
           </Typography>
+          <Divider />
 
           <div className={classes.tags}>
             {post.post_tags.map((tag) => {
@@ -133,7 +135,7 @@ class Cards extends React.Component {
           </div>
 
         </CardContent>
-
+{/* 
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton aria-label="Add to favorites">
             <FavoriteIcon />
@@ -173,7 +175,7 @@ class Cards extends React.Component {
               Another Comment Here
             </Typography>
           </CardContent>
-        </Collapse>
+        </Collapse> */}
 
       </Card>
     )
