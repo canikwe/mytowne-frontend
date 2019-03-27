@@ -14,6 +14,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
+
 
 //Tag and Link imports
 import Tag from './Tag'
@@ -30,6 +33,10 @@ const styles = theme => ({
   media: {
     maxWidth: '100%',
     maxHeight: '500px'
+  },
+  avatar: {
+    width: 60,
+    height: 60,
   }
 });
 
@@ -52,6 +59,7 @@ class AlertDialogSlide extends React.Component {
 
   render() {
     const { classes, post, handleDelete, user } = this.props
+    console.log(post)
     return (
       <div>
 
@@ -70,11 +78,20 @@ class AlertDialogSlide extends React.Component {
             {post.title}
           </DialogTitle>
           <DialogContent>
+
+            <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} /> <span>{post.user.username}</span>
+                        
             <DialogContentText id="alert-dialog-slide-description">
             {post.content}
             </DialogContentText>
           </DialogContent>
-            <div style={{'margin': '0 0 0 20px'}}>
+          <Divider />
+          {/* <div style={{'margin': '10px 0 0 20px'}}>
+            <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} /> <span>{post.user.name}</span>
+          </div>
+          <Divider /> */}
+
+            <div style={{'margin': '10px 0 0 20px'}}>
               {post.post_tags.map((tag) => {
                 return <Tag tag={tag} key={tag.id} />
               })}

@@ -95,7 +95,7 @@ class Cards extends React.Component {
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={<Link to={`/posts/${post.id}`}>{post.title.substring(0, 25) + '...'}</Link>}
+            title={<Link to={`/posts/${post.id}`}>{post.title.substring(0, 15) + '...'}</Link>}
             className={classes.header}
             subheader={
               this.parseDate(post.created_at)

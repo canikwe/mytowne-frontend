@@ -25,10 +25,11 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    marginTop: theme.spacing.unit * 20,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   avatar: {
@@ -115,14 +116,14 @@ class Login extends React.Component {
         </Paper>
         <br/>
 
-        <Paper className={classes.paper}>
+        {/* <Paper className={classes.paper}>
           <Typography variant="h5">
             About MyTowne:
           </Typography>
           <Typography variant="body1">
             Information and description all goes in here. Will come back to format this to be side-by-side with the login form.
           </Typography>
-        </Paper>
+        </Paper> */}
       </main>
     );
   }
