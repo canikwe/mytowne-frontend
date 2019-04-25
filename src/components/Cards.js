@@ -29,6 +29,7 @@ const styles = theme => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     marginBottom: 0,
+    overflow: 'auto',
     display: 'flex',
     flexDirection: 'column'
   },

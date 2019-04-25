@@ -39,6 +39,7 @@ class OutlinedTextFields extends React.PureComponent {
           onChange={handleChange('title')}
           margin="normal"
           variant="outlined"
+          inputProps={{maxLength: 40}}
           fullWidth
         />
 
