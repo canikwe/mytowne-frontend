@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Nav from './components/Nav'
 import Home from './containers/Home'
 import PostFormContainer from './containers/PostFormContainer'
@@ -197,8 +197,7 @@ class App extends Component {
   }
 
   handleLogin = (username, pw) => {
-    console.log(username)
-    console.log(pw)
+
     fetch(`http://localhost:3000/api/v1/login`, {
       method: "POST",
       headers: {
@@ -238,8 +237,11 @@ class App extends Component {
   }
 
   render() {
+
+
+
     return (
-      <Router>
+      <React.Fragment>
         <Nav
           handleSearch={this.handleSearch}
           searchInput={this.state.searchInput}
@@ -292,7 +294,7 @@ class App extends Component {
             <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
           }} />
         </Switch>
-      </Router>
+      </React.Fragment>
     );
   }
 }

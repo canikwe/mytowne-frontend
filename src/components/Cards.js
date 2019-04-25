@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import Tag from './Tag'
 import { Link } from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
+import AvImg from '../images/avatar_placeholder.png'
 
 
 const styles = theme => ({
@@ -75,6 +76,7 @@ class Cards extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     const { classes, post } = this.props
     return (
       <Card className={classes.card}>
@@ -87,7 +89,7 @@ class Cards extends React.Component {
         {post.user ? (
           <CardHeader
             avatar={
-              <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} />
+              <Avatar alt={post.user.name} src={post.user.avatar !== '' ? post.user.avatar : AvImg} className={classes.avatar} />
             }
             // triple dot menu if we want it
             // action={
@@ -104,7 +106,7 @@ class Cards extends React.Component {
         ) : (
           <CardHeader
             avatar={
-              <Avatar alt={this.props.name} src={this.props.avatar} className={classes.avatar} />
+              <Avatar alt={this.props.name} src={this.props.avatar !== '' ? this.props.avatar : AvImg} className={classes.avatar} />
             }
             // triple dot menu if we want it
             // action={
