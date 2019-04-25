@@ -16,12 +16,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography'
 
 
 //Tag and Link imports
 import Tag from './Tag'
 import { Link } from "react-router-dom"
 import '../PostShow.css'
+
+//Misc.
+import AvImg from '../images/avatar_placeholder.png'
 
 const styles = theme => ({
   fab: {
@@ -31,12 +35,16 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
   },
   media: {
-    maxWidth: '100%',
-    maxHeight: '500px'
+    width: '100%',
+    maxHeight: '300px'
   },
   avatar: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
+  },
+  content: {
+    padding: '10px',
+    margin: '10px'
   }
 });
 
@@ -44,7 +52,7 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class AlertDialogSlide extends React.Component {
+class PostShow extends React.Component {
   state = {
     open: true,
   };
@@ -72,30 +80,37 @@ class AlertDialogSlide extends React.Component {
           aria-describedby="alert-dialog-slide-description"
           classes={{paper: 'box'}}
         >
+          <Typography >
         {post.img !== "" ?
         <img src={post.img} className={classes.media} alt="featured post"/> : null}
-          <DialogTitle id="alert-dialog-slide-title">
-            {post.title}
-          </DialogTitle>
-          <DialogContent>
+          {/* <DialogTitle classes={{margin: 0}}>
+          {post.title}
+        </DialogTitle> */}
+        <div style={{'margin': '5px'}}>
+            <Typography component='h3' variant='headline'>{post.title}</Typography>
 
-            <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} /> <span>{post.user.username}</span>
+            <Avatar alt={post.user.name} src={post.user.avatar === '' ? AvImg : post.user.avatar} className={classes.avatar} /> 
+            
+            <Typography component='span' variant="subheading" gutterBottom align="right">{post.user.username}</Typography>
                         
             <DialogContentText id="alert-dialog-slide-description">
             {post.content}
             </DialogContentText>
-          </DialogContent>
-          <Divider />
           {/* <div style={{'margin': '10px 0 0 20px'}}>
             <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} /> <span>{post.user.name}</span>
-          </div>
+            </div>
           <Divider /> */}
 
-            <div style={{'margin': '10px 0 0 20px'}}>
+            <div style={{'margin': '5px 0 0 0'}}>
               {post.post_tags.map((tag) => {
                 return <Tag tag={tag} key={tag.id} />
               })}
             </div>
+
+            </div>
+              </Typography>
+                      <Divider />
+
           <DialogActions>
             <IconButton component={ Link } to={'/'} onClick={this.handleClose} color="primary" className={classes.button} aria-label="Back">
               <BackIcon />
@@ -117,8 +132,8 @@ class AlertDialogSlide extends React.Component {
   }
 }
 
-AlertDialogSlide.propTypes = {
+PostShow.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AlertDialogSlide);
+export default withStyles(styles)(PostShow);

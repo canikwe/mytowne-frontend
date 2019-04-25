@@ -143,7 +143,7 @@ class App extends Component {
       }
     })
     .then(res => res.json())
-    .then(user => this.handleLogout())
+    .then(this.handleLogout)
   }
 
   //Filtering POSTS
@@ -179,18 +179,7 @@ class App extends Component {
     return {...post, post_tags: formatedPostTags}
   }
 
-  // //OnClick handler to update the featured post
-  // updateFeaturedPost = post => {
-  //   this.setState({featuredPost: post}, () => <PostShow post={this.state.featuredPost} />)
-  // }
-
-  //Possible feature to save posts before publishing them??
-  // saveDraft = post => {
-  //   this.setState({posts: [...this.state.posts, post]})
-  //   console.log(post)
-  // }
-
-    handleSearch = (e) => {
+  handleSearch = (e) => {
     this.setState({
       searchInput: e.target.value
     })

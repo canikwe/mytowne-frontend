@@ -4,9 +4,9 @@ import CardContainer from './CardContainer'
 
 class Home extends React.PureComponent {
 
-  componentDidUpdate(prevProps) {
+  // componentDidUpdate(prevProps) {
 
-  }
+  // }
 
   render() {
     const{ posts, handleFilter, tags } = this.props

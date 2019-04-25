@@ -38,7 +38,7 @@ const styles = theme => ({
     paddingTop: '56.25%', // 16:9
   },
   actions: {
-    display: 'flex',
+    display: 'flex'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -65,6 +65,7 @@ const styles = theme => ({
   },
   content: {
     display: 'flex',
+    justifyContent: 'flex-start',
     height: '100%'
   },
 });
@@ -125,7 +126,7 @@ class Cards extends React.Component {
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={<Link to={`/posts/${post.id}`}>{post.title.substring(0, 25) + '...'}</Link>}
+            title={post.title}
 
             subheader={
               this.parseDate(post.created_at)
