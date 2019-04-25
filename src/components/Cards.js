@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 // import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -24,9 +25,12 @@ import moment from 'moment'
 const styles = theme => ({
   card: {
     width: 250,
-    height: 350,
+    height: 300,
     marginLeft: 'auto',
     marginRight: 'auto',
+    marginBottom: 0,
+    display: 'flex',
+    flexDirection: 'column'
   },
   media: {
     height: 0,
@@ -46,17 +50,21 @@ const styles = theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    width: 60,
-    height: 60,
+    width: 40,
+    height: 40,
   },
   tags: {
-    marginTop: theme.spacing.unit,
+    padding: '5px',
+    display: 'flex',
+    alignItems: 'flex-end',
+    borderTop: '1px solid lightgrey'
   },
   header: {
 
   },
   content: {
-
+    display: 'flex',
+    height: '100%'
   },
 });
 
@@ -86,6 +94,7 @@ class Cards extends React.Component {
           image={post.img === "" ? 'https://imbindonesia.com/images/placeholder/camera.jpg' : post.img}
           title="post image"
         />
+        <CardActionArea component={ Link } to={`/posts/${post.id}`} className={classes.content}>
 
         {post.user ? (
           <CardHeader
@@ -98,7 +107,7 @@ class Cards extends React.Component {
             //     <MoreVertIcon />
             //   </IconButton>
             // }
-            title={<Link to={`/posts/${post.id}`}>{post.title.substring(0, 15) + '...'}</Link>}
+            title={post.title}
             className={classes.header}
             subheader={
               moment(post.created_at).calendar()
@@ -122,22 +131,22 @@ class Cards extends React.Component {
             }
           />
         )}
+    </CardActionArea>
 
 
-
-        <CardContent className={classes.content}>
-          <Typography component="p">
+        {/* <CardContent className={classes.content}> */}
+          {/* <Typography component="p">
             {post.content.substring(0, 55) + '...'}
-          </Typography>
-          <Divider />
-
+          </Typography> */}
+          
+          {/* <Divider /> */}
           <div className={classes.tags}>
             {post.post_tags.map((tag) => {
               return <Tag tag={tag} key={tag.id} />
             })}
           </div>
 
-        </CardContent>
+        {/* </CardContent> */}
 {/* 
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton aria-label="Add to favorites">
