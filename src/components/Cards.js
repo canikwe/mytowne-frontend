@@ -18,6 +18,7 @@ import Tag from './Tag'
 import { Link } from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import AvImg from '../images/avatar_placeholder.png'
+import moment from 'moment'
 
 
 const styles = theme => ({
@@ -100,7 +101,7 @@ class Cards extends React.Component {
             title={<Link to={`/posts/${post.id}`}>{post.title.substring(0, 15) + '...'}</Link>}
             className={classes.header}
             subheader={
-              this.parseDate(post.created_at)
+              moment(post.created_at).calendar()
             }
           />
         ) : (
