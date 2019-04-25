@@ -219,7 +219,7 @@ class IntegrationReactSelect extends React.Component {
             onChange={handleChange('post_tags')}
             options={formattedTags}
             value={postTags}
-            placeholder="Select multiple tags"
+            placeholder="Select or Create Tags"
             />
         </NoSsr>
       </div>

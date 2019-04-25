@@ -134,8 +134,10 @@ class Nav extends React.Component {
             <PeopleIcon style={{"margin": "0 10px 0 0"}}/>
             {/* </IconButton> */}
             <Typography component={ Link } to="/" className={classes.title} variant="h6" color="inherit" noWrap>
-              MyTowne
+              myTowne
             </Typography>
+            {localStorage.token === undefined ?
+            null :
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -150,6 +152,8 @@ class Nav extends React.Component {
                 onChange={handleSearch}
               />
             </div>
+            }
+
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               {loggedIn ? (
