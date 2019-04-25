@@ -236,6 +236,7 @@ class App extends Component {
           searchInput={this.state.searchInput}
           handleLogout={this.handleLogout}
           loggedIn={isEmpty(this.state.user) ? false : true}
+          user={this.state.user}
         />
         <Switch>
           <Route exact path="/login" render={() => {

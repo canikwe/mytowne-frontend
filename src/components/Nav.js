@@ -108,7 +108,7 @@ class Nav extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { classes, searchInput, handleSearch, loggedIn } = this.props
+    const { classes, searchInput, handleSearch, loggedIn, user } = this.props
     const isMenuOpen = Boolean(anchorEl)
 
     const renderMenu = (
@@ -134,7 +134,7 @@ class Nav extends React.Component {
             <PeopleIcon style={{"margin": "0 10px 0 0"}}/>
             {/* </IconButton> */}
             <Typography component={ Link } to="/" className={classes.title} variant="h6" color="inherit" noWrap>
-              myTowne
+              myTowne{user.town !== undefined ? ` (${user.town})` : null}
             </Typography>
             {localStorage.token === undefined ?
             null :
