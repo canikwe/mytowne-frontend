@@ -166,7 +166,7 @@ class App extends Component {
   displayPosts = () => {
     return this.state.posts.filter((post) => {
       return post.post_tags.some(r => this.state.filters.includes(r.tag_name))
-    }).filter(p => p.title.includes(this.state.searchInput))
+    }).filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
   }
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
