@@ -5,9 +5,9 @@ myTowne is a community bulletin board written with a React-JS frontend and a Rai
 [myTowne](https://www.youtube.com/watch?v=O_ioFWLxHQQ&feature=youtu.be)
 
 ## Installation
-Please note, this application requires both the front and backend. Click [here](https://github.com/canikwe/mytowne-backend) for instructions on installing and setting up the backend. **Please follow all backend instructions _before_ proceeding with frontend installation**
+Please note, this application requires both the front and backend. Click [here](https://github.com/canikwe/mytowne-backend) for instructions on installing and setting up the backend. **Please follow all backend instructions _before_ proceeding with frontend installation**.
 
-Animagus utilizes several packages for styling and functionality. Please use the package manager [npm](https://www.npmjs.com) to install all dependencies.
+myTowne utilizes several packages for styling and functionality. Please use the package manager [npm](https://www.npmjs.com) to install all dependencies.
 
 To start, please clone or download the repository to your computer. If you are already in your computer's terminal, cd into the directory. If you are in your computers Finder or Explorer, right-click and select an option to open the directory in your terminal.
 
