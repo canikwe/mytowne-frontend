@@ -18,6 +18,14 @@ Run `npm install` to install all package dependencies.
 
 To run the app in development mode, type `npm start` in your terminal. If backend setup instructions are complete, and the development server is up and running, the terminal should prompt you to run the frontend on localhost:3001. Select Y to load the app on your browser.
 
+![myTowneLogin](https://media.giphy.com/media/l5IJhLxhIYZBiSQxqx/giphy.gif)
+
+![myTowneFilter](https://media.giphy.com/media/YRPpXDCNa0kAQVE02P/giphy.gif)
+
+![myTowneSearch](https://media.giphy.com/media/QvjK6Vq5k1R1XxdemI/giphy.gif)
+
+![myTownePost](https://media.giphy.com/media/huaefzHRrDQH36bY0M/giphy.gif)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
