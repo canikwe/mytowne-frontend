@@ -25,7 +25,7 @@ import moment from 'moment'
 const styles = theme => ({
   card: {
     width: 250,
-    height: 300,
+    height: 330,
     marginLeft: 'auto',
     marginRight: 'auto',
     marginBottom: 0,
@@ -100,8 +100,10 @@ class Cards extends React.Component {
 
         {post.user ? (
           <CardHeader
-            avatar={
-              <Avatar alt={post.user.name} src={post.user.avatar !== '' ? post.user.avatar : AvImg} className={classes.avatar} />
+            avatar={ post.user.avatar !== '' ?
+              <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} />
+              :
+              <Avatar alt={post.user.name} className={classes.avatar}>{post.user.name.slice(0, 1)}</Avatar>
             }
             // triple dot menu if we want it
             // action={
