@@ -89,7 +89,11 @@ class PostShow extends React.Component {
         <div style={{'margin': '5px'}}>
             <Typography component='h3' variant='headline'>{post.title}</Typography>
 
-            <Avatar alt={post.user.name} src={post.user.avatar === '' ? AvImg : post.user.avatar} className={classes.avatar} /> 
+            {post.user.avatar === '' ?
+              <Avatar alt={post.user.name} className={classes.avatar}>{post.user.name.slice(0, 1)}</Avatar>
+            :
+              <Avatar alt={post.user.name} src={post.user.avatar} className={classes.avatar} /> 
+            }
             
             <Typography component='span' variant="subheading" gutterBottom align="right">{post.user.username}</Typography>
                         
