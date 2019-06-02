@@ -203,6 +203,7 @@ class App extends Component {
         localStorage.setItem('token', data.jwt)
         this.fetchUser(data.jwt)
         this.fetchPosts(data.jwt)
+        this.fetchTags()
       }
     })
   }
