@@ -6,6 +6,7 @@ import PostFormContainer from './containers/PostFormContainer'
 import './App.css'
 import Profile from './containers/Profile'
 import Login from './containers/Login'
+import Loading from './components/Loading'
 import PostShow from './components/PostShow'
 import EditProfile from './containers/EditProfile'
 import {isEmpty} from 'lodash'
@@ -26,6 +27,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    
     let token = localStorage.getItem('token')
     if (token) {
       this.fetchPosts(token)
@@ -241,12 +243,12 @@ class App extends Component {
         />
         <Switch>
           <Route exact path="/login" render={() => {
-            return isEmpty(this.state.user) ? <Login handleLogin={this.handleLogin}/> :
+            return !localStorage.token && isEmpty(this.state.user) ? <Login handleLogin={this.handleLogin}/> :
             <Redirect to="/" />
           }} />
 
           <Route exact path="/" render={() => {
-            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            return !localStorage.token && isEmpty(this.state.user) ? <Redirect to="/login" /> :
             <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} />
           }} />
 
