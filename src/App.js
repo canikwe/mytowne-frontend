@@ -165,31 +165,36 @@ class App extends Component {
     }
   }
 
-  displayPosts = () => {
-    const state = this.state
-    // debugger
+  handleTagFilter = () => {
     const tagFilter = []
     
     if (this.state.filters.length > 0) {
       this.state.posts.forEach(post => {
         const tagCheck = []
         const tags = post.post_tags.map(t => t.tag_name) // map all tag names to an unnested array
-
+  
         this.state.filters.forEach(f => { // check to see if the filter tag is included in the post's tags
           tags.includes(f) ? tagCheck.push(true) : tagCheck.push(false)
         })
-
+  
         return tagCheck.includes(false) ? null : tagFilter.push(post) // only include post if all filter tags are present
       })
-      return tagFilter.filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) // check for searchTerm
+      return tagFilter
     } else {
-      return this.state.posts.filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
-    }
+      return this.state.posts
+    } 
+  }
+  
+  displayPosts = () => {
+    // check for searchTerm
+    return this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
 
     // return this.state.posts.filter((post) => {
     //   return post.post_tags.some(r => this.state.filters.includes(r.tag_name))
     // }).filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
   }
+
+
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
   formatFeaturedPost(post) {
