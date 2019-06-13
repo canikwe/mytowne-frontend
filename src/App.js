@@ -49,20 +49,21 @@ class App extends Component {
     Fetch.GET(token)
     .then(posts => {
 
-      let filters = []
-      posts.forEach((post) => {
-        post.post_tags.forEach((post_tag) => {
-          filters.push(post_tag.tag_name)
-        })
-      })
-      let unique = [...new Set(filters)]
+      // let filters = []
+      // posts.forEach((post) => {
+      //   post.post_tags.forEach((post_tag) => {
+      //     filters.push(post_tag.tag_name)
+      //   })
+      // })
+      // let unique = [...new Set(filters)]
       // console.log(unique)
       this.setState({
       posts: posts,
       // filters: unique,
-      allFilters: unique,
+      // allFilters: unique,
       loading: false,
-    })})
+      })
+    })
   }
 
   createPost = (data) => {
@@ -213,7 +214,9 @@ class App extends Component {
         alert(data.error)
       } else {
         localStorage.setItem('token', data.jwt)
-        this.fetchUser(data.jwt)
+        // this.fetchUser(data.jwt) // Why do a second fetch request for the user when they are already returned in the response? 
+
+        this.setState({user: data.user})
         this.fetchPosts(data.jwt)
         this.fetchTags()
       }

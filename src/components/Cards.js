@@ -6,18 +6,18 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
+// import CardContent from '@material-ui/core/CardContent';
 // import CardActions from '@material-ui/core/CardActions';
 // import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 // import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import AddComment from '@material-ui/icons/AddComment'
 import Tag from './Tag'
 import { Link } from "react-router-dom";
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 import AvImg from '../images/avatar_placeholder.png'
 import moment from 'moment'
 

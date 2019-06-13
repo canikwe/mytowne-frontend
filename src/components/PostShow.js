@@ -10,9 +10,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 //Modal style imports
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+// import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
@@ -25,7 +25,7 @@ import { Link } from "react-router-dom"
 import '../PostShow.css'
 
 //Misc.
-import AvImg from '../images/avatar_placeholder.png'
+// import AvImg from '../images/avatar_placeholder.png'
 
 const styles = theme => ({
   fab: {
