@@ -138,12 +138,14 @@ class App extends Component {
 
 
   deletePost = (id) => {
-    fetch(`http://localhost:3000/api/v1/posts/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      }
-    }).then(res => res.json())
+    // fetch(`http://localhost:3000/api/v1/posts/${id}`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //   }
+    // }).then(res => res.json())
+
+    Fetch.DELETE(id, 'posts/')
     .then(post => this.setState({posts: this.state.posts.filter(p => p.id !== post.id)}))
   }
 
@@ -236,7 +238,7 @@ class App extends Component {
     //   body: JSON.stringify(data)
     // })
     // .then(res => res.json())
-    
+
     Fetch.POST(data, 'login')
     .then(data => {
       if (data.error) {
@@ -251,8 +253,6 @@ class App extends Component {
       }
     })
   }
-
-
 
   handleLogout = () => {
     this.setState({ user: {} })

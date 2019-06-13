@@ -35,4 +35,13 @@ export default class Fetch {
     })
     .then(res => res.json())
   }
+
+  static DELETE(id, route){
+    return fetch(this.URL() + route + id, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+    }).then(res => res.json())
+  }
 }
