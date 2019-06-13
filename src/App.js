@@ -147,24 +147,16 @@ class App extends Component {
     .then(this.handleLogout)
   }
 
-  //Filtering POSTS
-  handleFilter = (filterArr) => {
-    // debugger
-    if (filterArr.length === 0) {
-      this.setState({
-        filters: this.state.allFilters
-      })
-    } else {
-      let vals = []
-      filterArr.forEach(category => {
-        vals.push(category.value)
-      })
-      this.setState({
-        filters: vals
-      })
-    }
+  //Converting the filter array to tag names and setting state
+  handleFilter = filterArr => {
+    let vals = []
+    
+    filterArr.forEach(category => vals.push(category.value))
+    
+    this.setState({filters: vals})
   }
-
+  
+  //Filtering POSTS
   handleTagFilter = () => {
     const tagFilter = []
     
@@ -193,8 +185,6 @@ class App extends Component {
     //   return post.post_tags.some(r => this.state.filters.includes(r.tag_name))
     // }).filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
   }
-
-
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
   formatFeaturedPost(post) {
