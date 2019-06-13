@@ -6,7 +6,6 @@ import PostFormContainer from './containers/PostFormContainer'
 import './App.css'
 import Profile from './containers/Profile'
 import Login from './containers/Login'
-import Loading from './components/Loading'
 import PostShow from './components/PostShow'
 import EditProfile from './containers/EditProfile'
 import {isEmpty} from 'lodash'
@@ -58,7 +57,7 @@ class App extends Component {
       // console.log(unique)
       this.setState({
       posts: posts,
-      filters: unique,
+      // filters: unique,
       allFilters: unique,
       loading: false,
     })})
@@ -150,6 +149,7 @@ class App extends Component {
 
   //Filtering POSTS
   handleFilter = (filterArr) => {
+    // debugger
     if (filterArr.length === 0) {
       this.setState({
         filters: this.state.allFilters
@@ -166,9 +166,29 @@ class App extends Component {
   }
 
   displayPosts = () => {
-    return this.state.posts.filter((post) => {
-      return post.post_tags.some(r => this.state.filters.includes(r.tag_name))
-    }).filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
+    const state = this.state
+    // debugger
+    const tagFilter = []
+    
+    if (this.state.filters.length > 0) {
+      this.state.posts.forEach(post => {
+        const tagCheck = []
+        const tags = post.post_tags.map(t => t.tag_name) // map all tag names to an unnested array
+
+        this.state.filters.forEach(f => { // check to see if the filter tag is included in the post's tags
+          tags.includes(f) ? tagCheck.push(true) : tagCheck.push(false)
+        })
+
+        return tagCheck.includes(false) ? null : tagFilter.push(post) // only include post if all filter tags are present
+      })
+      return tagFilter.filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) // check for searchTerm
+    } else {
+      return this.state.posts.filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
+    }
+
+    // return this.state.posts.filter((post) => {
+    //   return post.post_tags.some(r => this.state.filters.includes(r.tag_name))
+    // }).filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
   }
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
