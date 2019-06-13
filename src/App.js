@@ -136,7 +136,7 @@ class App extends Component {
   }
 
 
-
+  // refactored to use Fetch class
   deletePost = (id) => {
     // fetch(`http://localhost:3000/api/v1/posts/${id}`, {
     //   method: "DELETE",
@@ -149,20 +149,21 @@ class App extends Component {
     .then(post => this.setState({posts: this.state.posts.filter(p => p.id !== post.id)}))
   }
 
+  // refactored to use Fetch class
   editUser = (data, userId) => {
 
-    fetch(`http://localhost:3000/api/v1/users/${userId}`, {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify(data)
-    }).then(res => res.json())
-    .then(user => this.setState({
-      user
-    }))
+    // fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //   },
+    //   body: JSON.stringify(data)
+    // }).then(res => res.json())
+
+    Fetch.PATCH(data, userId, 'users/')
+    .then(user => this.setState({user}))
     .then(window.alert('Your changes have been saved!'))
   }
 

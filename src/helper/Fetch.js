@@ -36,12 +36,19 @@ export default class Fetch {
     .then(res => res.json())
   }
 
+  static PATCH(data, id, route) {
+    return fetch(this.URL() + route + id, {
+      method: 'PATCH',
+      headers: this.headers(),
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+  }
+
   static DELETE(id, route){
     return fetch(this.URL() + route + id, {
       method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      }
+      headers: this.headers()
     }).then(res => res.json())
   }
 }
