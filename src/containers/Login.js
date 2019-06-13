@@ -107,7 +107,10 @@ class Login extends React.Component {
               className={classes.submit}
               onClick={(e) => {
                 e.preventDefault()
-                handleLogin(this.state.username, this.state.password)}
+                handleLogin({user: {
+                  username: this.state.username, password: this.state.password
+                }
+                })}
               }
             >
               Log In

@@ -29,7 +29,7 @@ export default class Fetch {
 
   static POST(data, route) {
     return fetch(this.URL() + route, {
-      methid: 'POST',
+      method: 'POST',
       headers: this.headers(),
       body: JSON.stringify(data)
     })

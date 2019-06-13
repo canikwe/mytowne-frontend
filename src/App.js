@@ -225,17 +225,19 @@ class App extends Component {
   handleSearch = (e) => this.setState({searchInput: e.target.value})
 
 
-  /////// refactor to reuse Fetch.POST function
-  handleLogin = (username, pw) => {
-    fetch(`http://localhost:3000/api/v1/login`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({ user: { username: username, password: pw }})
-    })
-    .then(res => res.json())
+  // refactor to reuse Fetch.POST function
+  handleLogin = (data) => {
+    // fetch(`http://localhost:3000/api/v1/login`, {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //   },
+    //   body: JSON.stringify(data)
+    // })
+    // .then(res => res.json())
+    
+    Fetch.POST(data, 'login')
     .then(data => {
       if (data.error) {
         alert(data.error)
