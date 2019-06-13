@@ -80,6 +80,20 @@ class App extends Component {
     .then(data => this.setState({user: data.user}))
   }
 
+  //refactored to use Fetch class
+  fetchTags = () => {
+
+    // fetch(`http://localhost:3000/api/v1/tags`, {
+    //   method: 'GET',
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //   }
+    // })
+    //   .then(res => res.json())
+    Fetch.GET('tags')
+    .then(tags => this.setState({tags}))
+  }
+
   createPost = (data) => {
     fetch(`http://localhost:3000/api/v1/posts/`, {
       method: "POST",
@@ -114,18 +128,7 @@ class App extends Component {
     .then(this.fetchTags())
   }
 
-  fetchTags = () => {
 
-    // fetch(`http://localhost:3000/api/v1/tags`, {
-    //   method: 'GET',
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //   }
-    // })
-    //   .then(res => res.json())
-      Fetch.GET('tags')
-      .then(tags => this.setState({tags}))
-  }
 
   deletePost = (id) => {
     fetch(`http://localhost:3000/api/v1/posts/${id}`, {
