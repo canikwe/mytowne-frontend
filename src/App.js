@@ -8,7 +8,8 @@ import Profile from './containers/Profile'
 import Login from './containers/Login'
 import PostShow from './components/PostShow'
 import EditProfile from './containers/EditProfile'
-import {isEmpty} from 'lodash'
+import { isEmpty } from 'lodash'
+import Fetch from './helper/Fetch'
 
 
 class App extends Component {
@@ -26,7 +27,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    
     let token = localStorage.getItem('token')
     if (token) {
       this.fetchPosts(token)
@@ -35,16 +35,18 @@ class App extends Component {
     }
   }
 
-
   // Fetch requests
   fetchPosts = (token) => {
-    fetch(`http://localhost:3000/api/v1/posts`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    .then(res => res.json())
+    // fetch(`http://localhost:3000/api/v1/posts`, {
+    //   method: 'GET',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   }
+    // })
+    // .then(res => res.json())
+
+    // Possible refactor to move all fetch requests to Fetch Class
+    Fetch.GET(token)
     .then(posts => {
 
       let filters = []
@@ -63,7 +65,7 @@ class App extends Component {
     })})
   }
 
-  createPost = data => {
+  createPost = (data) => {
     fetch(`http://localhost:3000/api/v1/posts/`, {
       method: "POST",
       headers: {
@@ -148,11 +150,9 @@ class App extends Component {
   }
 
   //Converting the filter array to tag names and setting state
-  handleFilter = filterArr => {
+  handleFilter = (filterArr) => {
     let vals = []
-    
     filterArr.forEach(category => vals.push(category.value))
-    
     this.setState({filters: vals})
   }
   
@@ -177,8 +177,8 @@ class App extends Component {
     } 
   }
   
+  // Check for searchTerm
   displayPosts = () => {
-    // check for searchTerm
     return this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
 
     // return this.state.posts.filter((post) => {
@@ -187,7 +187,7 @@ class App extends Component {
   }
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
-  formatFeaturedPost(post) {
+  formatFeaturedPost = (post) => {
     let formatedPostTags
 
     if (post.id !== undefined) {
@@ -196,14 +196,9 @@ class App extends Component {
     return {...post, post_tags: formatedPostTags}
   }
 
-  handleSearch = (e) => {
-    this.setState({
-      searchInput: e.target.value
-    })
-  }
+  handleSearch = (e) => this.setState({searchInput: e.target.value})
 
   handleLogin = (username, pw) => {
-
     fetch(`http://localhost:3000/api/v1/login`, {
       method: "POST",
       headers: {
@@ -244,9 +239,6 @@ class App extends Component {
   }
 
   render() {
-
-
-
     return (
       <React.Fragment>
         <Nav
