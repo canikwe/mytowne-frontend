@@ -29,14 +29,14 @@ class App extends Component {
   componentDidMount() {
     let token = localStorage.getItem('token')
     if (token) {
-      this.fetchPosts(token)
-      this.fetchUser(token)
-      this.fetchTags(token)
+      this.fetchPosts()
+      this.fetchUser()
+      this.fetchTags()
     }
   }
 
   // Fetch requests
-  fetchPosts = (token) => {
+  fetchPosts = () => {
     // fetch(`http://localhost:3000/api/v1/posts`, {
     //   method: 'GET',
     //   headers: {
@@ -223,7 +223,7 @@ class App extends Component {
     })
   }
 
-  fetchUser = (token) => {
+  fetchUser = () => {
     // fetch('http://localhost:3000/api/v1/profile', {
     //   method: 'GET',
     //   headers: {
@@ -234,9 +234,7 @@ class App extends Component {
 
     //refactored to use Fetch class
     Fetch.GET('profile')
-    .then(data => this.setState({
-      user: data.user
-    }))
+    .then(data => this.setState({user: data.user}))
   }
 
   handleLogout = () => {
