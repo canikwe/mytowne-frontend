@@ -46,7 +46,7 @@ class App extends Component {
     // .then(res => res.json())
 
     // Possible refactor to move all fetch requests to Fetch Class
-    Fetch.GET(token)
+    Fetch.GET('posts')
     .then(posts => {
 
       // let filters = []
@@ -224,13 +224,16 @@ class App extends Component {
   }
 
   fetchUser = (token) => {
-    fetch('http://localhost:3000/api/v1/profile', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
-    .then(res => res.json())
+    // fetch('http://localhost:3000/api/v1/profile', {
+    //   method: 'GET',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   }
+    // })
+    // .then(res => res.json())
+
+    //refactored to use Fetch class
+    Fetch.GET('profile')
     .then(data => this.setState({
       user: data.user
     }))

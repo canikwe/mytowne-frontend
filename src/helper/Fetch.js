@@ -6,8 +6,12 @@ export default class Fetch {
     return localStorage.getItem('token')
   }
 
-  static GET() {
-    return fetch(`http://localhost:3000/api/v1/posts`, {
+  static URL() {
+    return 'http://localhost:3000/api/v1/'
+  }
+
+  static GET(route) {
+    return fetch(this.URL() + route, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${this.token()}`,
