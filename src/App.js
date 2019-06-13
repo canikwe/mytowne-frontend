@@ -94,19 +94,26 @@ class App extends Component {
     .then(tags => this.setState({tags}))
   }
 
+  //refactored to use Fetch class
   createPost = (data) => {
-    fetch(`http://localhost:3000/api/v1/posts/`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify(data)
-    }).then(res => res.json())
-    .then(post => this.setState({
-      posts: [...this.state.posts, post],
-      user: {...this.state.user, posts: [...this.state.user.posts, post]}
-    }))
+    // fetch(`http://localhost:3000/api/v1/posts/`, {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //   },
+    //   body: JSON.stringify(data)
+    // }).then(res => res.json())
+
+    Fetch.POST(data, 'posts')
+    .then(post => {
+      // console.log(post)
+      this.setState({
+        posts: [...this.state.posts, post],
+        user: {...this.state.user,
+        posts: [...this.state.user.posts, post]}
+      })
+    })
     .then(this.fetchTags())
   }
 
@@ -217,6 +224,8 @@ class App extends Component {
 
   handleSearch = (e) => this.setState({searchInput: e.target.value})
 
+
+  /////// refactor to reuse Fetch.POST function
   handleLogin = (username, pw) => {
     fetch(`http://localhost:3000/api/v1/login`, {
       method: "POST",
