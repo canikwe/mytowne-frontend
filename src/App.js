@@ -66,6 +66,20 @@ class App extends Component {
     })
   }
 
+  //refactored to use Fetch class
+  fetchUser = () => {
+    // fetch('http://localhost:3000/api/v1/profile', {
+    //   method: 'GET',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   }
+    // })
+    // .then(res => res.json())
+
+    Fetch.GET('profile')
+    .then(data => this.setState({user: data.user}))
+  }
+
   createPost = (data) => {
     fetch(`http://localhost:3000/api/v1/posts/`, {
       method: "POST",
@@ -102,13 +116,14 @@ class App extends Component {
 
   fetchTags = () => {
 
-    fetch(`http://localhost:3000/api/v1/tags`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      }
-    })
-      .then(res => res.json())
+    // fetch(`http://localhost:3000/api/v1/tags`, {
+    //   method: 'GET',
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //   }
+    // })
+    //   .then(res => res.json())
+      Fetch.GET('tags')
       .then(tags => this.setState({tags}))
   }
 
@@ -223,19 +238,7 @@ class App extends Component {
     })
   }
 
-  fetchUser = () => {
-    // fetch('http://localhost:3000/api/v1/profile', {
-    //   method: 'GET',
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   }
-    // })
-    // .then(res => res.json())
 
-    //refactored to use Fetch class
-    Fetch.GET('profile')
-    .then(data => this.setState({user: data.user}))
-  }
 
   handleLogout = () => {
     this.setState({ user: {} })
