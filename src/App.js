@@ -3,13 +3,13 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import Nav from './components/Nav'
 import Home from './containers/Home'
 import PostFormContainer from './containers/PostFormContainer'
-import './App.css'
 import Profile from './containers/Profile'
 import Login from './containers/Login'
 import PostShow from './components/PostShow'
 import EditProfile from './containers/EditProfile'
 import { isEmpty } from 'lodash'
 import Fetch from './helper/Fetch'
+import './App.css'
 
 
 class App extends Component {
@@ -81,7 +81,7 @@ class App extends Component {
     // .then(res => res.json())
 
     Fetch.GET('profile')
-    .then(data => this.setState({user: data.user}))
+    .then(data => this.setState({ user: data.user }))
   }
 
   //refactored to use Fetch class
@@ -95,7 +95,7 @@ class App extends Component {
     // })
     //   .then(res => res.json())
     Fetch.GET('tags')
-    .then(tags => this.setState({tags}))
+    .then(tags => this.setState({ tags }))
   }
 
   //refactored to use Fetch class
@@ -121,24 +121,26 @@ class App extends Component {
     .then(this.fetchTags())
   }
 
+  // refactored to use Fetch class
   editPost = (data, postId) => {
 
-    fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify(data)
-    }).then(res => res.json())
+    // fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json',
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //   },
+    //   body: JSON.stringify(data)
+    // }).then(res => res.json())
+
+    Fetch.PATCH(data, postId, 'posts/')
     .then(post => this.setState({
       featuredPost: post,
       posts: this.state.posts.map(p => p.id === post.id ? post : p)
     }))
     .then(this.fetchTags())
   }
-
 
   // refactored to use Fetch class
   deletePost = (id) => {
@@ -150,7 +152,7 @@ class App extends Component {
     // }).then(res => res.json())
 
     Fetch.DELETE(id, 'posts/')
-    .then(post => this.setState({posts: this.state.posts.filter(p => p.id !== post.id)}))
+    .then(post => this.setState({ posts: this.state.posts.filter(p => p.id !== post.id) }))
   }
 
   // refactored to use Fetch class
@@ -167,10 +169,11 @@ class App extends Component {
     // }).then(res => res.json())
 
     Fetch.PATCH(data, userId, 'users/')
-    .then(user => this.setState({user}))
+    .then(user => this.setState({ user }))
     .then(window.alert('Your changes have been saved!'))
   }
 
+  // refactored to use Fetch class
   deleteUser = (id) => {
     // fetch(`http://localhost:3000/api/v1/users/${id}`, {
     //   method: "DELETE",
@@ -188,7 +191,7 @@ class App extends Component {
   handleFilter = (filterArr) => {
     let vals = []
     filterArr.forEach(category => vals.push(category.value))
-    this.setState({filters: vals})
+    this.setState({ filters: vals })
   }
   
   //Filtering POSTS
@@ -231,8 +234,7 @@ class App extends Component {
     return {...post, post_tags: formatedPostTags}
   }
 
-  handleSearch = (e) => this.setState({searchInput: e.target.value})
-
+  handleSearch = (e) => this.setState({ searchInput: e.target.value })
 
   // refactor to reuse Fetch.POST function
   handleLogin = (data) => {
@@ -254,14 +256,12 @@ class App extends Component {
         localStorage.setItem('token', data.jwt)
         // this.fetchUser(data.jwt) // Why do a second fetch request for the user when they are already returned in the response? 
 
-        this.setState({user: data.user})
+        this.setState({ user: data.user })
         this.fetchPosts(data.jwt)
         this.fetchTags()
       }
     })
   }
-
-
 
   handleLogout = () => {
     localStorage.clear()

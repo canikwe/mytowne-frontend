@@ -1,5 +1,3 @@
-// import React, { PureComponent } from 'react'
-
 export default class Fetch {
 
   static token() {
@@ -21,7 +19,7 @@ export default class Fetch {
     return fetch(this.URL() + route, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${this.token()}`,
+        Authorization: `Bearer ${this.token()}`
       }
     })
     .then(res => res.json()) 
