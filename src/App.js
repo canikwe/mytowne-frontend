@@ -15,15 +15,19 @@ import Fetch from './helper/Fetch'
 class App extends Component {
   constructor(){
     super()
-    this.state = {
+    this.state = this.initialState()
+  }
+
+  initialState = () => {
+    return ({
       user: {},
       posts: [],
       filters: [],
       allFilters: [],
       tags: [],
       loading: true,
-      searchInput: '',
-    }
+      searchInput: ''
+    })
   }
 
   componentDidMount() {
@@ -168,13 +172,15 @@ class App extends Component {
   }
 
   deleteUser = (id) => {
-    fetch(`http://localhost:3000/api/v1/users/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      }
-    })
-    .then(res => res.json())
+    // fetch(`http://localhost:3000/api/v1/users/${id}`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //   }
+    // })
+
+    Fetch.DELETE(id, 'users/')
+    // .then(res => res.json())
     .then(this.handleLogout)
   }
 
@@ -255,9 +261,11 @@ class App extends Component {
     })
   }
 
+
+
   handleLogout = () => {
-    this.setState({ user: {} })
     localStorage.clear()
+    this.setState(this.initialState())
   }
 
   render() {

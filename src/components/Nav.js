@@ -136,7 +136,7 @@ class Nav extends React.Component {
             <Typography component={ Link } to="/" className={classes.title} variant="h6" color="inherit" noWrap>
               myTowne{user.town !== undefined ? ` (${user.town})` : null}
             </Typography>
-            {localStorage.token === undefined ?
+            {!loggedIn ?
             null :
             <div className={classes.search}>
               <div className={classes.searchIcon}>
