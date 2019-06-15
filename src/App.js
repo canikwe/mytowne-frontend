@@ -95,7 +95,13 @@ class App extends Component {
     // })
     //   .then(res => res.json())
     Fetch.GET('tags')
-    .then(tags => this.setState({ tags }))
+    .then(tags => { 
+      tags.sort((a, b) => {
+        return a['name'].localeCompare(b['name'])
+      })
+      
+      this.setState({ tags })
+    })
   }
 
   //refactored to use Fetch class
