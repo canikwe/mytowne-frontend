@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import { isEmpty } from 'lodash'
 import Nav from './components/Nav'
+import Login from './containers/Login'
 import Home from './containers/Home'
+import PostShow from './components/PostShow'
 import PostFormContainer from './containers/PostFormContainer'
 import Profile from './containers/Profile'
-import Login from './containers/Login'
-import PostShow from './components/PostShow'
 import EditProfile from './containers/EditProfile'
-import { isEmpty } from 'lodash'
 import Fetch from './helper/Fetch'
 import './App.css'
 
@@ -86,7 +86,6 @@ class App extends Component {
 
   //refactored to use Fetch class
   fetchTags = () => {
-
     // fetch(`http://localhost:3000/api/v1/tags`, {
     //   method: 'GET',
     //   headers: {
@@ -99,7 +98,7 @@ class App extends Component {
       tags.sort((a, b) => {
         return a['name'].localeCompare(b['name'])
       })
-      
+
       this.setState({ tags })
     })
   }
