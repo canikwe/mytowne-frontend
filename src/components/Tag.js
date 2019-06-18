@@ -2,7 +2,7 @@ import React from 'react'
 import Chip from '@material-ui/core/Chip'
 import { withStyles } from '@material-ui/core/styles'
 
-const styles = theme => ({
+const styles = () => ({
   chip: {
     MinWidth: '1vw',
     HorizontalAlignment: 'Center',

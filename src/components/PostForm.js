@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 // import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import PostTags from './PostTags';
+// import PostTags from './PostTags';
 
 const styles = theme => ({
   container: {
@@ -27,7 +27,7 @@ const styles = theme => ({
 
 const PostForm = (props) => {
 
-  const { classes, title, content, img, tags, postTags, handleChange } = props;
+  const { classes, title, content, img, handleChange } = props;
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <TextField
@@ -66,7 +66,7 @@ const PostForm = (props) => {
         fullWidth
       />
 
-      <PostTags tags={tags} postTags={postTags} handleChange={handleChange}/>
+      {/* <PostTags tags={tags} postTags={postTags} handleChange={handleChange}/> */}
 
     </form>
   );

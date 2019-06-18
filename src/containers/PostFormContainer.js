@@ -11,6 +11,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 import PostForm from '../components/PostForm'
+import PostTags from '../components/PostTags';
+
 import { Link } from "react-router-dom";
 
 const styles = theme => ({
@@ -127,6 +129,13 @@ class PostFormContainer extends React.Component {
     this.clearForm()
   }
 
+  formattedTags = () => {
+    return this.props.tags.map(tag => ({
+      value: tag.id,
+      label: tag.name
+    }))
+  }
+
   render() {
     const { classes, name, tags, post: {id} } = this.props;
     return (
@@ -149,7 +158,10 @@ class PostFormContainer extends React.Component {
               </Button>
             </Toolbar>
           </AppBar>
-          <PostForm title={this.state.title} content={this.state.content} img={this.state.img} tags={tags} postTags={this.state.post_tags} handleChange={this.handleChange}/>
+          <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
+
+          <PostTags formattedTags={this.formattedTags()} postTags={this.state.post_tags} handleChange={this.handleChange}/>
+
         </Dialog>
       </div>
     );

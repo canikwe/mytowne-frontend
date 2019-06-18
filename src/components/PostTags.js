@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types, react/jsx-handler-names */
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -62,7 +62,7 @@ const styles = theme => ({
   },
 });
 
-function NoOptionsMessage(props) {
+const NoOptionsMessage = props => {
   return (
     <Typography
       color="textSecondary"
@@ -74,11 +74,11 @@ function NoOptionsMessage(props) {
   );
 }
 
-function inputComponent({ inputRef, ...props }) {
+const inputComponent = ({ inputRef, ...props }) => {
   return <div ref={inputRef} {...props} />;
 }
 
-function Control(props) {
+const Control = props => {
   return (
     <TextField
       fullWidth
@@ -96,7 +96,7 @@ function Control(props) {
   );
 }
 
-function Option(props) {
+const Option = props => {
   return (
     <MenuItem
       buttonRef={props.innerRef}
@@ -112,7 +112,7 @@ function Option(props) {
   );
 }
 
-function Placeholder(props) {
+const Placeholder = props => {
   return (
     <Typography
       color="textSecondary"
@@ -124,11 +124,11 @@ function Placeholder(props) {
   );
 }
 
-function ValueContainer(props) {
+const ValueContainer = props => {
   return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
 
-function MultiValue(props) {
+const MultiValue = props => {
   return (
     <Chip
       tabIndex={-1}
@@ -142,7 +142,7 @@ function MultiValue(props) {
   );
 }
 
-function Menu(props) {
+const Menu = props => {
   return (
     <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
       {props.children}
@@ -160,7 +160,7 @@ const components = {
   ValueContainer,
 };
 
-class IntegrationReactSelect extends React.Component {
+class PostTags extends PureComponent {
   // constructor(props){
   //   super(props)
   //   this.state = {
@@ -179,18 +179,20 @@ class IntegrationReactSelect extends React.Component {
   // }
 
   handleChange = name => value => {
+    
     this.setState({
       [name]: value,
     });
   };
 
   render() {
-    const { classes, theme, postTags, handleChange} = this.props;
+    const { classes, theme, formattedTags, postTags, handleChange} = this.props;
+    
 
-    const formattedTags = this.props.tags.map(tag => ({
-      value: tag.id,
-      label: tag.name,
-    }));
+    // const formattedTags = this.props.tags.map(tag => ({
+    //   value: tag.id,
+    //   label: tag.name,
+    // }));
 
     const selectStyles = {
       input: base => ({
@@ -227,9 +229,9 @@ class IntegrationReactSelect extends React.Component {
   }
 }
 
-IntegrationReactSelect.propTypes = {
+PostTags.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(IntegrationReactSelect);
+export default withStyles(styles, { withTheme: true })(PostTags);
