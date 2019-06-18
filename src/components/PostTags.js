@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types, react/jsx-handler-names */
 
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -160,73 +160,41 @@ const components = {
   ValueContainer,
 };
 
-class PostTags extends PureComponent {
-  // constructor(props){
-  //   super(props)
-  //   this.state = {
-  //     tags: this.props.tags
-  //   }
-  // }
-  // state = {
-  //   tags: []
-  // };
+const PostTags = ({ classes, theme, formattedTags, postTags, handleChange }) => {
 
-  //fetches all the tags from the DB for the form
-  // componentDidMount(){
-  //   fetch(`http://localhost:3000/api/v1/tags`)
-  //   .then(res => res.json())
-  //   .then(tags => this.setState({tags}))
-  // }
-
-  handleChange = name => value => {
-    
-    this.setState({
-      [name]: value,
-    });
+  const selectStyles = {
+    input: base => ({
+      ...base,
+      color: theme.palette.text.primary,
+      '& input': {
+        font: 'inherit',
+      },
+    }),
   };
 
-  render() {
-    const { classes, theme, formattedTags, postTags, handleChange} = this.props;
-    
+  return (
+    <div className={classes.root}>
+      <NoSsr>
+        <CreatableSelect
+          classes={classes}
+          styles={selectStyles}
+          textFieldProps={{
+            label: 'Tags',
+            InputLabelProps: {
+              shrink: true,
+            },
+          }}
+          components={components}
+          isMulti
+          onChange={handleChange('post_tags')}
+          options={formattedTags}
+          value={postTags}
+          placeholder="Select or Create Tags"
+          />
+      </NoSsr>
+    </div>
+  );
 
-    // const formattedTags = this.props.tags.map(tag => ({
-    //   value: tag.id,
-    //   label: tag.name,
-    // }));
-
-    const selectStyles = {
-      input: base => ({
-        ...base,
-        color: theme.palette.text.primary,
-        '& input': {
-          font: 'inherit',
-        },
-      }),
-    };
-
-    return (
-      <div className={classes.root}>
-        <NoSsr>
-          <CreatableSelect
-            classes={classes}
-            styles={selectStyles}
-            textFieldProps={{
-              label: 'Tags',
-              InputLabelProps: {
-                shrink: true,
-              },
-            }}
-            components={components}
-            isMulti
-            onChange={handleChange('post_tags')}
-            options={formattedTags}
-            value={postTags}
-            placeholder="Select or Create Tags"
-            />
-        </NoSsr>
-      </div>
-    );
-  }
 }
 
 PostTags.propTypes = {

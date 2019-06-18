@@ -137,7 +137,7 @@ class PostFormContainer extends React.Component {
   }
 
   render() {
-    const { classes, name, tags, post: {id} } = this.props;
+    const { classes, name, post: {id} } = this.props;
     return (
       <div>
         <Dialog
