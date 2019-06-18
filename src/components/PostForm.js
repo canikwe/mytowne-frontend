@@ -25,57 +25,56 @@ const styles = theme => ({
 
 
 
-class OutlinedTextFields extends React.PureComponent {
+const PostForm = (props) => {
 
-  render() {
-    const { classes, title, content, img, tags, postTags, handleChange } = this.props;
-    return (
-      <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="outlined-name"
-          label="Title"
-          className={classes.textField}
-          value={title}
-          onChange={handleChange('title')}
-          margin="normal"
-          variant="outlined"
-          inputProps={{maxLength: 40}}
-          fullWidth
-        />
+  const { classes, title, content, img, tags, postTags, handleChange } = props;
+  return (
+    <form className={classes.container} noValidate autoComplete="off">
+      <TextField
+        id="outlined-name"
+        label="Title"
+        className={classes.textField}
+        value={title}
+        onChange={handleChange('title')}
+        margin="normal"
+        variant="outlined"
+        inputProps={{maxLength: 40}}
+        fullWidth
+      />
 
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Content"
-          multiline
-          rows="10"
-          value={content}
-          onChange={handleChange('content')}
-          className={classes.textField}
-          margin="normal"
-          variant="outlined"
-          fullWidth
-        />
+      <TextField
+        id="outlined-multiline-flexible"
+        label="Content"
+        multiline
+        rows="10"
+        value={content}
+        onChange={handleChange('content')}
+        className={classes.textField}
+        margin="normal"
+        variant="outlined"
+        fullWidth
+      />
 
-        <TextField
-          id="outlined-name"
-          label="Image"
-          className={classes.textField}
-          value={img}
-          onChange={handleChange('img')}
-          margin="normal"
-          variant="outlined"
-          fullWidth
-        />
+      <TextField
+        id="outlined-name"
+        label="Image"
+        className={classes.textField}
+        value={img}
+        onChange={handleChange('img')}
+        margin="normal"
+        variant="outlined"
+        fullWidth
+      />
 
-        <PostTags tags={tags} postTags={postTags} handleChange={handleChange}/>
+      <PostTags tags={tags} postTags={postTags} handleChange={handleChange}/>
 
-      </form>
-    );
-  }
+    </form>
+  );
+
 }
 
-OutlinedTextFields.propTypes = {
+PostForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(OutlinedTextFields);
+export default withStyles(styles)(PostForm);
