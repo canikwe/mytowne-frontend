@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -78,7 +78,7 @@ const styles = theme => ({
 })
 
 
-class Nav extends React.Component {
+class Nav extends PureComponent {
   state = {
     auth: true,
     anchorEl: null,

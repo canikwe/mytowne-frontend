@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
@@ -37,7 +37,7 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class EditProfile extends React.Component {
+class EditProfile extends PureComponent {
   constructor(props) {
     super(props)
 

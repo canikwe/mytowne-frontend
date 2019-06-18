@@ -25,11 +25,11 @@ const styles = theme => ({
   },
 });
 
-function Transition(props) {
+const transition = props => {
   return <Slide direction="up" {...props} />;
 }
 
-class FullScreenDialog extends React.Component {
+class PostFormContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -134,7 +134,7 @@ class FullScreenDialog extends React.Component {
         <Dialog
           maxWidth='xl'
           open={this.state.open}
-          TransitionComponent={Transition}
+          TransitionComponent={transition}
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
@@ -156,8 +156,8 @@ class FullScreenDialog extends React.Component {
   }
 }
 
-FullScreenDialog.propTypes = {
+PostFormContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FullScreenDialog);
+export default withStyles(styles)(PostFormContainer);

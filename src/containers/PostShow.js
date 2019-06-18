@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 //Button style imports
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -48,22 +48,20 @@ const styles = theme => ({
   }
 });
 
-function Transition(props) {
+function transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class PostShow extends React.Component {
-  state = {
-    open: true,
-  };
+class PostShow extends PureComponent {
+  state = { open: true }
 
   handleClickOpen = () => {
-    this.setState({ open: true });
-  };
+    this.setState({ open: true })
+  }
 
   handleClose = () => {
-    this.setState({ open: false });
-  };
+    this.setState({ open: false })
+  }
 
   render() {
     const { classes, post, handleDelete, user } = this.props
@@ -73,7 +71,7 @@ class PostShow extends React.Component {
 
         <Dialog
           open={this.state.open}
-          TransitionComponent={Transition}
+          TransitionComponent={transition}
           keepMounted
           // onClose={this.handleClose}
           aria-labelledby="alert-dialog-slide-title"

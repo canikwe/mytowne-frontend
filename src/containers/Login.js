@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -45,19 +45,17 @@ const styles = theme => ({
   },
 })
 
-class Login extends React.Component {
+class Login extends PureComponent {
   state = {
     username: '',
     password: ''
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
-
-
 
   render() {
     const { classes, handleLogin } = this.props

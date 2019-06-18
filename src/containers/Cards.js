@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 // import classnames from 'classnames';
@@ -70,7 +70,7 @@ const styles = theme => ({
   },
 });
 
-class Cards extends React.Component {
+class Cards extends PureComponent {
   state = {
     expanded: false
   }
@@ -81,10 +81,6 @@ class Cards extends React.Component {
     }))
   }
 
-  parseDate = (dateStr) => {
-    let date = dateStr.split('T')[0].split('-')
-    return date[1] + '-' + date[2] + '-' + date[0]
-  }
 
   render() {
     // console.log(this.props)
@@ -131,7 +127,7 @@ class Cards extends React.Component {
             title={post.title}
 
             subheader={
-              this.parseDate(post.created_at)
+              moment(post.created_at).calendar()
             }
           />
         )}
