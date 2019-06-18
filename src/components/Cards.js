@@ -87,14 +87,14 @@ class Cards extends React.Component {
   }
 
   render() {
-    // console.log(this.props)
+    console.log(this.props)
     const { classes, post } = this.props
     return (
       <Card className={classes.card}>
         <CardMedia
           className={classes.media}
           image={post.img === "" ? 'https://imbindonesia.com/images/placeholder/camera.jpg' : post.img}
-          title="post image"
+          title={post.title + " - image"}
         />
         <CardActionArea component={ Link } to={`/posts/${post.id}`} className={classes.content}>
 
