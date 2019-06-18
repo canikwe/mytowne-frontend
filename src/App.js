@@ -39,84 +39,34 @@ class App extends Component {
     }
   }
 
-  // Fetch requests
   fetchPosts = () => {
-    // fetch(`http://localhost:3000/api/v1/posts`, {
-    //   method: 'GET',
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   }
-    // })
-    // .then(res => res.json())
-
-    // Possible refactor to move all fetch requests to Fetch Class
     Fetch.GET('posts')
     .then(posts => {
-
-      // let filters = []
-      // posts.forEach((post) => {
-      //   post.post_tags.forEach((post_tag) => {
-      //     filters.push(post_tag.tag_name)
-      //   })
-      // })
-      // let unique = [...new Set(filters)]
-      // console.log(unique)
       this.setState({
       posts: posts,
-      // filters: unique,
-      // allFilters: unique,
-      loading: false,
+      loading: false
       })
     })
   }
 
-  //refactored to use Fetch class
   fetchUser = () => {
-    // fetch('http://localhost:3000/api/v1/profile', {
-    //   method: 'GET',
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   }
-    // })
-    // .then(res => res.json())
-
     Fetch.GET('profile')
     .then(data => this.setState({ user: data.user }))
   }
 
-  //refactored to use Fetch class
   fetchTags = () => {
-    // fetch(`http://localhost:3000/api/v1/tags`, {
-    //   method: 'GET',
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //   }
-    // })
-    //   .then(res => res.json())
     Fetch.GET('tags')
     .then(tags => { 
       tags.sort((a, b) => {
         return a['name'].localeCompare(b['name'])
       })
-
       this.setState({ tags })
     })
   }
 
-  //refactored to use Fetch class
   createPost = (data) => {
-    // fetch(`http://localhost:3000/api/v1/posts/`, {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //   },
-    //   body: JSON.stringify(data)
-    // }).then(res => res.json())
-
     Fetch.POST(data, 'posts')
     .then(post => {
-      // console.log(post)
       this.setState({
         posts: [...this.state.posts, post],
         user: {...this.state.user,
@@ -126,18 +76,7 @@ class App extends Component {
     .then(this.fetchTags())
   }
 
-  // refactored to use Fetch class
   editPost = (data, postId) => {
-
-    // fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //   },
-    //   body: JSON.stringify(data)
-    // }).then(res => res.json())
 
     Fetch.PATCH(data, postId, 'posts/')
     .then(post => this.setState({
@@ -147,46 +86,18 @@ class App extends Component {
     .then(this.fetchTags())
   }
 
-  // refactored to use Fetch class
   deletePost = (id) => {
-    // fetch(`http://localhost:3000/api/v1/posts/${id}`, {
-    //   method: "DELETE",
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //   }
-    // }).then(res => res.json())
-
     Fetch.DELETE(id, 'posts/')
     .then(post => this.setState({ posts: this.state.posts.filter(p => p.id !== post.id) }))
   }
 
-  // refactored to use Fetch class
   editUser = (data, userId) => {
-
-    // fetch(`http://localhost:3000/api/v1/users/${userId}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //   },
-    //   body: JSON.stringify(data)
-    // }).then(res => res.json())
-
     Fetch.PATCH(data, userId, 'users/')
     .then(user => this.setState({ user }))
     .then(window.alert('Your changes have been saved!'))
   }
 
-  // refactored to use Fetch class
   deleteUser = (id) => {
-    // fetch(`http://localhost:3000/api/v1/users/${id}`, {
-    //   method: "DELETE",
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //   }
-    // })
-
     Fetch.DELETE(id, 'users/')
     // .then(res => res.json())
     .then(this.handleLogout)
@@ -223,10 +134,6 @@ class App extends Component {
   // Check for searchTerm
   displayPosts = () => {
     return this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
-
-    // return this.state.posts.filter((post) => {
-    //   return post.post_tags.some(r => this.state.filters.includes(r.tag_name))
-    // }).filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase()))
   }
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
@@ -243,24 +150,12 @@ class App extends Component {
 
   // refactor to reuse Fetch.POST function
   handleLogin = (data) => {
-    // fetch(`http://localhost:3000/api/v1/login`, {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json',
-    //   },
-    //   body: JSON.stringify(data)
-    // })
-    // .then(res => res.json())
-
     Fetch.POST(data, 'login')
     .then(data => {
       if (data.error) {
         alert(data.error)
       } else {
         localStorage.setItem('token', data.jwt)
-        // this.fetchUser(data.jwt) // Why do a second fetch request for the user when they are already returned in the response? 
-
         this.setState({ user: data.user })
         this.fetchPosts(data.jwt)
         this.fetchTags()

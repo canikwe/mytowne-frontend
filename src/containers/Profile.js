@@ -25,14 +25,12 @@ const styles = theme => ({
   },
 })
 
-function Transition(props) {
+const transition = (props) => {
   return <Slide direction="up" {...props} />;
 }
 
 class Profile extends React.Component {
-  state = {
-    open: true
-  }
+  state = { open: true }
 
   handleClickOpen = () => {
     this.setState({ open: true })
@@ -48,7 +46,7 @@ class Profile extends React.Component {
     return (
       <Dialog
         open={this.state.open}
-        TransitionComponent={Transition}
+        TransitionComponent={transition}
         keepMounted
         fullWidth
         maxWidth={false}
