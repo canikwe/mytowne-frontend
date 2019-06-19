@@ -77,7 +77,6 @@ class PostShow extends PureComponent {
           aria-describedby="alert-dialog-slide-description"
           classes={{paper: 'box'}}
         >
-          <Typography >
         {post.img !== "" ?
         <img src={post.img} className={classes.media} alt="featured post"/> : null}
           {/* <DialogTitle classes={{margin: 0}}>
@@ -109,7 +108,6 @@ class PostShow extends PureComponent {
             </div>
 
             </div>
-              </Typography>
               
               <Divider />
 

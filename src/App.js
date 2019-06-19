@@ -148,7 +148,6 @@ class App extends Component {
 
   handleSearch = (e) => this.setState({ searchInput: e.target.value })
 
-  // refactor to reuse Fetch.POST function
   handleLogin = (data) => {
     Fetch.POST(data, 'login')
     .then(data => {
@@ -191,7 +190,7 @@ class App extends Component {
 
           <Route exact path="/posts/new" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
-            <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} handleSave={this.saveDraft} tags={this.state.tags} post={{}}/>
+            <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} tags={this.state.tags} post={{}}/>
           }} />
 
           {/* Unsure how to authenticate this */}
@@ -200,7 +199,7 @@ class App extends Component {
             let post = this.state.posts.find(p => p.id === parseInt(postId))
             
             return this.state.loading ? null : (
-              <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
+              <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
           }} />
 
           {/* Unsure how to authentcate this */}
