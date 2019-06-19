@@ -23,11 +23,8 @@ const styles = theme => ({
   },
 });
 
+const PostForm = ({ classes, title, content, img, handleChange }) => {
 
-
-const PostForm = (props) => {
-
-  const { classes, title, content, img, handleChange } = props;
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <TextField
@@ -65,8 +62,6 @@ const PostForm = (props) => {
         variant="outlined"
         fullWidth
       />
-
-      {/* <PostTags tags={tags} postTags={postTags} handleChange={handleChange}/> */}
 
     </form>
   );

@@ -48,7 +48,7 @@ const styles = theme => ({
   }
 });
 
-function transition(props) {
+const transition = props => {
   return <Slide direction="up" {...props} />;
 }
 
@@ -65,7 +65,6 @@ class PostShow extends PureComponent {
 
   render() {
     const { classes, post, handleDelete, user } = this.props
-    console.log(post)
     return (
       <div>
 
@@ -111,7 +110,8 @@ class PostShow extends PureComponent {
 
             </div>
               </Typography>
-                      <Divider />
+              
+              <Divider />
 
           <DialogActions>
             <IconButton component={ Link } to={'/'} onClick={this.handleClose} color="primary" className={classes.button} aria-label="Back">

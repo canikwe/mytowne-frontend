@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import CardContainer from '../components/CardContainer'
 import { Link } from 'react-router-dom'
 //Button style imports
@@ -29,7 +29,7 @@ const transition = (props) => {
   return <Slide direction="up" {...props} />;
 }
 
-class Profile extends React.Component {
+class Profile extends PureComponent {
   state = { open: true }
 
   handleClickOpen = () => {

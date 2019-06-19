@@ -104,8 +104,6 @@ class Nav extends PureComponent {
     this.handleMenuClose()
   }
 
-
-
   render() {
     const { anchorEl } = this.state;
     const { classes, searchInput, handleSearch, loggedIn, user } = this.props

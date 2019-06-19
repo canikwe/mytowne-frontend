@@ -198,7 +198,7 @@ class App extends Component {
           <Route exact path="/posts/:id/edit" render={props => {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
-
+            
             return this.state.loading ? null : (
               <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleSave={this.saveDraft} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
           }} />
