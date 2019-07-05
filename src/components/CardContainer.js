@@ -12,8 +12,7 @@ const styles = theme => ({
   },
 })
 
-const CardContainer = (props) => {
-  const { classes, posts } = props
+const CardContainer = ({ classes, posts, name, avatar }) => {
 
   return (
     <Grid container direction="row" justify="space-evenly" alignItems="center">
@@ -22,8 +21,8 @@ const CardContainer = (props) => {
           <Grid item xs={12} sm="auto"className={classes.gridItem} key={post.id}>
             {/* <div className="flatpin">&nbsp;</div> */}
             <i className="pin" />
-            {props.name ? (
-              <Cards post={post} name={props.name} avatar={props.avatar} />
+            { name ? (
+              <Cards post={post} name={name} avatar={avatar} />
             ) : (
               <Cards post={post} />
             )}

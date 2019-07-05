@@ -42,6 +42,17 @@ class App extends Component {
   fetchPosts = () => {
     Fetch.GET('posts')
     .then(posts => {
+      //testing to see if working with a tags hash might cut down on fetch requests for tags to the server and be more performative...
+
+      const tags = {}
+
+      posts.forEach(post => {
+        post.post_tags.forEach(t => {
+          tags[t.tag_id] = t.tag_name
+        })
+      })
+      
+      debugger
       this.setState({
       posts: posts,
       loading: false

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select from 'react-select';
@@ -156,7 +156,7 @@ const components = {
   ValueContainer,
 };
 
-class Filter extends React.Component {
+class Filter extends Component {
   state = {
     multi: null,
   };
