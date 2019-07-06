@@ -52,7 +52,7 @@ class App extends Component {
         })
       })
       
-      debugger
+      // debugger
       this.setState({
       posts: posts,
       loading: false
