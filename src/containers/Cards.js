@@ -17,7 +17,6 @@ class Cards extends PureComponent {
     }))
   }
 
-
   render() {
     const { post } = this.props
     
@@ -34,17 +33,13 @@ class Cards extends PureComponent {
           <Link to={`/posts/${post.id}`}>Click for More...</Link>
           <hr/>
           <p>Post Tags Will go here... eventually</p>
-          <div >
+          <div className='tag-container'>
             {post.post_tags.map((tag) => {
               return <Tag tag={tag} key={tag.id} />
             })}
           </div>
         </div>
-          
-
-
-          </Fragment>
-
+      </Fragment>
     )
   }
 }
