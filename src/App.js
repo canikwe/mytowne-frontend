@@ -79,9 +79,7 @@ class App extends Component {
     Fetch.POST(data, 'posts')
     .then(post => {
       this.setState({
-        posts: [...this.state.posts, post],
-        user: {...this.state.user,
-        posts: [...this.state.user.posts, post]}
+        posts: [...this.state.posts, post]
       })
     })
     .then(this.fetchTags())
@@ -91,7 +89,7 @@ class App extends Component {
 
     Fetch.PATCH(data, postId, 'posts/')
     .then(post => this.setState({
-      featuredPost: post,
+      // featuredPost: post,
       posts: this.state.posts.map(p => p.id === post.id ? post : p)
     }))
     .then(this.fetchTags())
@@ -178,6 +176,10 @@ class App extends Component {
     this.setState(this.initialState())
   }
 
+  userPosts = () => {
+    return this.state.posts.filter(p => p.user.id == this.state.user.id)
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -226,7 +228,7 @@ class App extends Component {
 
           <Route exact path="/profile" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
-            <Profile user={this.state.user} />
+            <Profile user={this.state.user} userPosts={this.userPosts()}/>
           }} />
 
           <Route exact path="/profile/edit" render={() => {

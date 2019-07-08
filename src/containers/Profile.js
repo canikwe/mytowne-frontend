@@ -41,7 +41,7 @@ class Profile extends PureComponent {
   }
 
   render() {
-    const { classes, user } = this.props
+    const { classes, user, userPosts } = this.props
 
     return (
       <Dialog
@@ -73,7 +73,7 @@ class Profile extends PureComponent {
           <Grid item xs={12}>
             <div style={{width: '100%', height: '5px'}}/>
             {user.posts ? (
-              <CardContainer posts={user.posts} name={user.name} avatar={user.avatar} />
+              <CardContainer posts={ userPosts } name={ user.name } avatar={ user.avatar } />
             ) : null}
             <DialogActions>
               <IconButton component={ Link } to={'/'} onClick={this.handleClose} color="primary" className={classes.button} aria-label="Back">
