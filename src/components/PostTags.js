@@ -160,7 +160,7 @@ const styles = theme => ({
 //   ValueContainer,
 // };
 
-const PostTags = ({ classes, theme, formattedTags, postTags, handleChange }) => {
+const PostTags = ({ classes, theme, formattedTags, postTags, handleChange, createTags }) => {
 
   const selectStyles = {
     input: base => ({
@@ -185,6 +185,7 @@ const PostTags = ({ classes, theme, formattedTags, postTags, handleChange }) => 
             },
           }}
           // components={components}
+          onCreateOption={createTags}
           isMulti
           onChange={handleChange('post_tags')}
           options={formattedTags}

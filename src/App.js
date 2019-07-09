@@ -44,13 +44,13 @@ class App extends Component {
     .then(posts => {
       //testing to see if working with a tags hash might cut down on fetch requests for tags to the server and be more performative...
 
-      const tags = {}
+      // const tags = {}
 
-      posts.forEach(post => {
-        post.post_tags.forEach(t => {
-          tags[t.tag_id] = t.tag_name
-        })
-      })
+      // posts.forEach(post => {
+      //   post.post_tags.forEach(t => {
+      //     tags[t.tag_id] = t.tag_name
+      //   })
+      // })
       
       // debugger
       this.setState({
@@ -78,12 +78,23 @@ class App extends Component {
   // compare post_tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
   addNewTags = (postTags) => {
     let tags = [...this.state.tags]
+    let posts = [...this.state.posts]
+    let hello = posts.map(p => p.post_tags)
+    debugger
     postTags.forEach(pt => {
       const newTag = tags.find(tag => tag.id == pt.tag_id)
       return newTag === undefined ? tags = [...tags, {id: pt.tag_id, name: pt.tag_name}] : tags
     })
     return tags
   }
+
+  // removeUnusedTags = () => {
+  //   let tags = []
+
+  //   this.state.posts.forEach(post_tag => {
+
+  //   })
+  // }
 
   createPost = (data) => {
     Fetch.POST(data, 'posts')

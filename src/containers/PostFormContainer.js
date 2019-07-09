@@ -40,6 +40,8 @@ class PostFormContainer extends React.Component {
       content: '',
       img: '',
       post_tags: [],
+      newPostTags: [],
+      deletedPostTags: [],
     }
   }
 
@@ -54,6 +56,8 @@ class PostFormContainer extends React.Component {
       content: content,
       img: img,
       post_tags: post_tags,
+      newPostTags: [],
+      deletedPostTags: [],
     }) :
     this.setState({
       open: true,
@@ -61,6 +65,8 @@ class PostFormContainer extends React.Component {
       content: '',
       img: '',
       post_tags: [],
+      newPostTags: [],
+      deletedPostTags: [],
     })
   };
 
@@ -75,11 +81,16 @@ class PostFormContainer extends React.Component {
       title: '',
       content: '',
       img: '',
-      post_tags: []
+      post_tags: [],
+      newPostTags: [],
+      deletedPostTags: [],
      });
   }
 
   handleChange = name => event => {
+    const state = this.state
+    debugger
+
     name === 'post_tags' ?
     this.setState({
       post_tags: event,
@@ -97,6 +108,15 @@ class PostFormContainer extends React.Component {
     this.clearForm()
     this.handleClose()
   };
+
+  //return any postTags that were removed during edit
+
+  //return any postTags that were added during edit/create
+  createTags = (tagName) => { //make fecth request to PostTags. It's the cleanest way to accomplish this
+    this.setState({
+      newPostTags: [...this.state.newPostTags, {value: tagName, label: tagName}]
+    })
+  }
 
   //Formats post before database fetch
   formatPost(){
@@ -136,6 +156,11 @@ class PostFormContainer extends React.Component {
     }))
   }
 
+  allPostTags = () => {
+    // debugger
+    return [...this.state.post_tags, ...this.state.newPostTags]
+  }
+
   render() {
     const { classes, name, post: {id} } = this.props;
     return (
@@ -160,7 +185,7 @@ class PostFormContainer extends React.Component {
           </AppBar>
           <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
 
-          <PostTags formattedTags={this.formattedTags()} postTags={this.state.post_tags} handleChange={this.handleChange}/>
+          <PostTags formattedTags={this.formattedTags()} postTags={this.allPostTags()} handleChange={this.handleChange} createTags={this.createTags}/>
 
         </Dialog>
       </div>
