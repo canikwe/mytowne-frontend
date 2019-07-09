@@ -75,24 +75,36 @@ class App extends Component {
     })
   }
 
+  // compare post_tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
+  addNewTags = (postTags) => {
+    let tags = [...this.state.tags]
+    postTags.forEach(pt => {
+      const newTag = tags.find(tag => tag.id == pt.tag_id)
+      return newTag === undefined ? tags = [...tags, {id: pt.tag_id, name: pt.tag_name}] : tags
+    })
+    return tags
+  }
+
   createPost = (data) => {
     Fetch.POST(data, 'posts')
     .then(post => {
+      const tags = this.addNewTags(post.post_tags)
       this.setState({
-        posts: [...this.state.posts, post]
+        posts: [...this.state.posts, post],
+        tags: tags
       })
     })
-    .then(this.fetchTags())
   }
 
   editPost = (data, postId) => {
-
     Fetch.PATCH(data, postId, 'posts/')
-    .then(post => this.setState({
-      // featuredPost: post,
-      posts: this.state.posts.map(p => p.id === post.id ? post : p)
-    }))
-    .then(this.fetchTags())
+    .then(post => {
+      const tags = this.addNewTags(post.post_tags)
+      this.setState({
+      posts: this.state.posts.map(p => p.id === post.id ? post : p),
+      tags: tags
+      })
+    })
   }
 
   deletePost = (id) => {
