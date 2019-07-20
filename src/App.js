@@ -78,25 +78,34 @@ class App extends Component {
   // compare post_tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
   addNewTags = (postTags) => {
     let tags = [...this.state.tags]
-    let posts = [...this.state.posts]
-    let hello = posts.map(p => p.post_tags)
-    debugger
     postTags.forEach(pt => {
       const newTag = tags.find(tag => tag.id == pt.tag_id)
       return newTag === undefined ? tags = [...tags, {id: pt.tag_id, name: pt.tag_name}] : tags
     })
     return tags
   }
+  
+  removeUnusedTags = (newPost, oldPost) => {
+    let newPostTags = newPost.post.post_tags_attributes.map(tag => tag.tag_id)
+    let oldPostTags = oldPost.post_tags.map(tag => tag.tag_id)
+    let deletedTags = []
 
-  // removeUnusedTags = () => {
-  //   let tags = []
+    oldPostTags.forEach(pt => {
+      return !newPostTags.includes(pt) ? deletedTags.push(pt) : null
+    })
 
-  //   this.state.posts.forEach(post_tag => {
+    //debugger
+    // this.state.posts.forEach(p => {
+    //   return p.post_tags
+    // }).flat()
+    // debugger
 
-  //   })
-  // }
+    // postTags.forEach(post_tag => {
 
-  createPost = (data) => {
+    // })
+  }
+
+  createPost = (data, post) => {
     Fetch.POST(data, 'posts')
     .then(post => {
       const tags = this.addNewTags(post.post_tags)
@@ -106,11 +115,16 @@ class App extends Component {
       })
     })
   }
-
-  editPost = (data, postId) => {
-    Fetch.PATCH(data, postId, 'posts/')
-    .then(post => {
-      const tags = this.addNewTags(post.post_tags)
+  
+  editPost = (data, post, deletedPost) => {
+    debugger
+    // this.removeUnusedTags(data, post)
+    // debugger
+    Fetch.PATCH(data, post.id, 'posts/')
+    .then(resp => {
+      const { post, tags } = resp
+      
+      // const tags = this.addNewTags(post.post_tags)
       this.setState({
       posts: this.state.posts.map(p => p.id === post.id ? post : p),
       tags: tags
@@ -169,14 +183,14 @@ class App extends Component {
   }
 
   //Adds values and labels to the featured post object so the tags render correctly in the edit form
-  formatFeaturedPost = (post) => {
-    let formatedPostTags
+  // formatFeaturedPost = (post) => {
+  //   let formatedPostTags
 
-    if (post.id !== undefined) {
-      formatedPostTags = post.post_tags.map(t => ({...t, label: t.tag_name, value: t.tag_id}))
-    }
-    return {...post, post_tags: formatedPostTags}
-  }
+  //   if (post.id !== undefined) {
+  //     formatedPostTags = post.post_tags.map(t => ({...t, label: t.tag_name, value: t.tag_id}))
+  //   }
+  //   return {...post, post_tags: formatedPostTags} //format postTags in PostFormContainer so you can keep state as single source of truth. State must be kept up to date (controlled) in it's pure state so it can be used to communicate easily with the database. The formatted postTags should be for component display only. Any information passed to the db should come from state, not from the formatted post_tags => that's what's causing the post_params error on edit
+  // }
 
   handleSearch = (e) => this.setState({ searchInput: e.target.value })
 
@@ -202,6 +216,8 @@ class App extends Component {
   userPosts = () => {
     return this.state.posts.filter(p => p.user.id == this.state.user.id)
   }
+
+
 
   render() {
     return (
@@ -235,7 +251,7 @@ class App extends Component {
             let post = this.state.posts.find(p => p.id === parseInt(postId))
             
             return this.state.loading ? null : (
-              <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleDelete={this.deletePost} tags={this.state.tags} post={this.formatFeaturedPost(post)}/>)
+              <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleDelete={this.deletePost} handleNewTags={this.handleNewTags} tags={this.state.tags} post={post} />)
           }} />
 
           {/* Unsure how to authentcate this */}

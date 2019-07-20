@@ -11,7 +11,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 import PostForm from '../components/PostForm'
-import PostTags from '../components/PostTags';
+import PostTags from '../components/PostTags'
+import TagsContainer from '../components/ReactTagAutoComplete'
 
 import { Link } from "react-router-dom";
 
@@ -40,14 +41,13 @@ class PostFormContainer extends React.Component {
       content: '',
       img: '',
       post_tags: [],
-      newPostTags: [],
-      deletedPostTags: [],
+      tags: []
     }
   }
 
   //State Changes
   componentDidMount() {
-    const {post: {title, content, img, post_tags}} = this.props
+    const {post: {title, content, img, post_tags, tags}} = this.props
 
     title !== undefined ?
     this.setState({
@@ -58,6 +58,7 @@ class PostFormContainer extends React.Component {
       post_tags: post_tags,
       newPostTags: [],
       deletedPostTags: [],
+      tags: tags
     }) :
     this.setState({
       open: true,
@@ -67,6 +68,7 @@ class PostFormContainer extends React.Component {
       post_tags: [],
       newPostTags: [],
       deletedPostTags: [],
+      tags: []
     })
   };
 
@@ -84,13 +86,13 @@ class PostFormContainer extends React.Component {
       post_tags: [],
       newPostTags: [],
       deletedPostTags: [],
+      tags: []
      });
   }
 
   handleChange = name => event => {
-    const state = this.state
-    debugger
 
+    // debugger
     name === 'post_tags' ?
     this.setState({
       post_tags: event,
@@ -102,9 +104,9 @@ class PostFormContainer extends React.Component {
 
   //Post submissions
   submit = () => {
-    const postId = this.props.post.id
+    const post = this.props.post
     //Send post info to App to persist to the database and add to all posts and clear form
-    this.props.handleSubmit(this.formatPost(), postId)
+    this.props.handleSubmit(this.formatPost(), post, this.state.deletedPostTags)
     this.clearForm()
     this.handleClose()
   };
@@ -112,17 +114,18 @@ class PostFormContainer extends React.Component {
   //return any postTags that were removed during edit
 
   //return any postTags that were added during edit/create
-  createTags = (tagName) => { //make fecth request to PostTags. It's the cleanest way to accomplish this
-    this.setState({
-      newPostTags: [...this.state.newPostTags, {value: tagName, label: tagName}]
-    })
+  addPostTags = () => {
+    //debugger
   }
+
+
 
   //Formats post before database fetch
   formatPost(){
-    const post_tags = this.state.post_tags.map(t => {
-      return {tag_id: t.value}
-    })
+    //debugger
+    // const post_tags = this.state.post_tags.map(t => {
+    //   return {tag_id: t.value}
+    // })
 
 
     const data = {
@@ -133,7 +136,8 @@ class PostFormContainer extends React.Component {
           content: this.state.content,
           img: this.state.img,
         },
-        post_tags_attributes: post_tags
+        post_tags_attributes: this.state.tags
+        // post_tags_attributes: this.state.post_tags
       }
     }
     return data
@@ -150,19 +154,65 @@ class PostFormContainer extends React.Component {
   }
 
   formattedTags = () => {
-    return this.props.tags.map(tag => ({
-      value: tag.id,
-      label: tag.name
-    }))
+
+    return this.props.tags.map(tag => this.formatTags(tag))
   }
 
-  allPostTags = () => {
-    // debugger
-    return [...this.state.post_tags, ...this.state.newPostTags]
+  formatTags = postTag => {
+    let value
+    let label
+    if (postTag.id && postTag.tag_name) {
+      value = postTag.id
+      label = postTag.tag_name
+    } else if (!postTag.id) {
+      value = postTag.value
+      label = postTag.label
+    } else {
+      value = postTag.value
+      label = postTag.name
+    }
+
+    // let value = postTag.id === undefined ? postTag.value : postTag.id
+    // let label = postTag.id === undefined ? postTag.label : postTag.tag_name
+    return { ...postTag, label: label, value: value }
+  }
+
+  displayPostTags = () => {
+    return this.state.post_tags.map(tag => this.formatTags(tag))
+  }
+
+  handleTagDelete = (i) => {
+    const { tags } = this.state;
+    const deletedTag = tags.find((tag, index) => index == i)
+    
+
+    this.setState({
+      tags: tags.map((tag, index) => index == i ? {...tag, status: 'delete'} : tag)
+    })
+
+    // this.setState({
+    //   tags: tags.filter((tag, index) => index !== i)
+    // })
+
+    // if (deletedTag.id !== undefined) {
+    //   deletedTag['status'] = 'delete'
+    //   this.setState({deletedPostTags: [...this.state.deletedPostTags, deletedTag]})
+    // }
+
+  }
+
+  handleTagAddition = (tag) => {
+    this.setState({ tags: [...this.state.tags, {...tag, status: 'add'}]})
+  }
+
+  filterTags = () => {
+    return this.state.tags.filter(tag => tag.status != 'delete')
   }
 
   render() {
-    const { classes, name, post: {id} } = this.props;
+
+    const { classes, name, tags, post } = this.props
+
     return (
       <div>
         <Dialog
@@ -178,14 +228,16 @@ class PostFormContainer extends React.Component {
               <Typography variant="h6" color="inherit" className={classes.flex}>
                 {name}
               </Typography>
-              <Button component= { Link } to={id === undefined ? '/' : `/posts/${id}`} color="inherit" onClick={this.submit}>
+              <Button component= { Link } to={post.id === undefined ? '/' : `/posts/${post.id}`} color="inherit" onClick={this.submit}>
                 submit
               </Button>
             </Toolbar>
           </AppBar>
           <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
 
-          <PostTags formattedTags={this.formattedTags()} postTags={this.allPostTags()} handleChange={this.handleChange} createTags={this.createTags}/>
+          <TagsContainer tagSuggestions={tags} tags={this.filterTags()} handleTagDelete={ this.handleTagDelete} handleTagAddition={this.handleTagAddition}/>
+
+          {/* <PostTags formattedTags={this.formattedTags()} postTags={this.displayPostTags()} handleChange={this.handleChange}/> */}
 
         </Dialog>
       </div>
