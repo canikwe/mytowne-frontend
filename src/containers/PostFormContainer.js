@@ -11,7 +11,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 import PostForm from '../components/PostForm'
-import PostTags from '../components/PostTags'
 import TagsContainer from '../components/ReactTagAutoComplete'
 
 import { Link } from "react-router-dom";
@@ -35,99 +34,56 @@ const transition = props => {
 class PostFormContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      open: false,
-      title: '',
-      content: '',
-      img: '',
-      post_tags: [],
-      tags: []
-    }
+    this.state = this.clearState()
   }
 
-  //State Changes
+  // Update form with post info if post is being edited (indicated by the presence of a post id)
   componentDidMount() {
-    const {post: {title, content, img, post_tags, tags}} = this.props
+    const {post: {id, title, content, img, post_tags, tags}} = this.props
 
-    title !== undefined ?
+    id !== undefined ?
     this.setState({
       open: true,
       title: title,
       content: content,
       img: img,
-      post_tags: post_tags,
-      newPostTags: [],
-      deletedPostTags: [],
       tags: tags
     }) :
     this.setState({
-      open: true,
-      title: '',
-      content: '',
-      img: '',
-      post_tags: [],
-      newPostTags: [],
-      deletedPostTags: [],
-      tags: []
+      open: true
     })
-  };
+  }
 
   handleClose = () => {
     this.setState({ open: false });
+  }
 
-  };
-
-  clearForm = () => {
-    this.setState({
+  clearState = () => {
+    return ({
       open: false,
       title: '',
       content: '',
       img: '',
-      post_tags: [],
-      newPostTags: [],
-      deletedPostTags: [],
       tags: []
-     });
+    })
   }
 
-  handleChange = name => event => {
-
-    // debugger
-    name === 'post_tags' ?
-    this.setState({
-      post_tags: event,
-    }) :
+  handleChange = name => event => { // refactor to remove Material
     this.setState({
       [name]: event.target.value,
-    });
-  };
-
-  //Post submissions
-  submit = () => {
-    const post = this.props.post
-    //Send post info to App to persist to the database and add to all posts and clear form
-    this.props.handleSubmit(this.formatPost(), post, this.state.deletedPostTags)
-    this.clearForm()
-    this.handleClose()
-  };
-
-  //return any postTags that were removed during edit
-
-  //return any postTags that were added during edit/create
-  addPostTags = () => {
-    //debugger
+    })
   }
 
-
+  // Send post info to App to persist to the database and add to all posts, clear form, close modal
+  submit = () => {
+    const post = this.props.post
+    this.props.handleSubmit(this.formatPost(), post, this.state.deletedPostTags)
+    this.handleClose()
+    this.setState(this.clearState())
+  }
 
   //Formats post before database fetch
-  formatPost(){
-    //debugger
-    // const post_tags = this.state.post_tags.map(t => {
-    //   return {tag_id: t.value}
-    // })
-
-
+  formatPost = () => {
     const data = {
       post: {
         post_info: {
@@ -137,7 +93,6 @@ class PostFormContainer extends React.Component {
           img: this.state.img,
         },
         post_tags_attributes: this.state.tags
-        // post_tags_attributes: this.state.post_tags
       }
     }
     return data
@@ -153,52 +108,10 @@ class PostFormContainer extends React.Component {
     this.clearForm()
   }
 
-  formattedTags = () => {
-
-    return this.props.tags.map(tag => this.formatTags(tag))
-  }
-
-  formatTags = postTag => {
-    let value
-    let label
-    if (postTag.id && postTag.tag_name) {
-      value = postTag.id
-      label = postTag.tag_name
-    } else if (!postTag.id) {
-      value = postTag.value
-      label = postTag.label
-    } else {
-      value = postTag.value
-      label = postTag.name
-    }
-
-    // let value = postTag.id === undefined ? postTag.value : postTag.id
-    // let label = postTag.id === undefined ? postTag.label : postTag.tag_name
-    return { ...postTag, label: label, value: value }
-  }
-
-  displayPostTags = () => {
-    return this.state.post_tags.map(tag => this.formatTags(tag))
-  }
-
   handleTagDelete = (i) => {
-    const { tags } = this.state;
-    const deletedTag = tags.find((tag, index) => index == i)
-    
-
     this.setState({
-      tags: tags.map((tag, index) => index == i ? {...tag, status: 'delete'} : tag)
+      tags: this.state.tags.map((tag, index) => index == i ? {...tag, status: 'delete'} : tag)
     })
-
-    // this.setState({
-    //   tags: tags.filter((tag, index) => index !== i)
-    // })
-
-    // if (deletedTag.id !== undefined) {
-    //   deletedTag['status'] = 'delete'
-    //   this.setState({deletedPostTags: [...this.state.deletedPostTags, deletedTag]})
-    // }
-
   }
 
   handleTagAddition = (tag) => {
@@ -210,7 +123,6 @@ class PostFormContainer extends React.Component {
   }
 
   render() {
-
     const { classes, name, tags, post } = this.props
 
     return (
@@ -236,8 +148,6 @@ class PostFormContainer extends React.Component {
           <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
 
           <TagsContainer tagSuggestions={tags} tags={this.filterTags()} handleTagDelete={ this.handleTagDelete} handleTagAddition={this.handleTagAddition}/>
-
-          {/* <PostTags formattedTags={this.formattedTags()} postTags={this.displayPostTags()} handleChange={this.handleChange}/> */}
 
         </Dialog>
       </div>
