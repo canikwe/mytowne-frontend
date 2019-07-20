@@ -11,7 +11,6 @@ import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
 import './App.css'
 
-
 class App extends Component {
   constructor(){
     super()
@@ -42,17 +41,6 @@ class App extends Component {
   fetchPosts = () => {
     Fetch.GET('posts')
     .then(posts => {
-      //testing to see if working with a tags hash might cut down on fetch requests for tags to the server and be more performative...
-
-      // const tags = {}
-
-      // posts.forEach(post => {
-      //   post.post_tags.forEach(t => {
-      //     tags[t.tag_id] = t.tag_name
-      //   })
-      // })
-      
-      // debugger
       this.setState({
       posts: posts,
       loading: false
@@ -84,26 +72,6 @@ class App extends Component {
     })
     return tags
   }
-  
-  removeUnusedTags = (newPost, oldPost) => {
-    let newPostTags = newPost.post.post_tags_attributes.map(tag => tag.tag_id)
-    let oldPostTags = oldPost.post_tags.map(tag => tag.tag_id)
-    let deletedTags = []
-
-    oldPostTags.forEach(pt => {
-      return !newPostTags.includes(pt) ? deletedTags.push(pt) : null
-    })
-
-    //debugger
-    // this.state.posts.forEach(p => {
-    //   return p.post_tags
-    // }).flat()
-    // debugger
-
-    // postTags.forEach(post_tag => {
-
-    // })
-  }
 
   createPost = (data, post) => {
     Fetch.POST(data, 'posts')
@@ -117,14 +85,10 @@ class App extends Component {
   }
   
   editPost = (data, post, deletedPost) => {
-    debugger
-    // this.removeUnusedTags(data, post)
-    // debugger
     Fetch.PATCH(data, post.id, 'posts/')
     .then(resp => {
       const { post, tags } = resp
       
-      // const tags = this.addNewTags(post.post_tags)
       this.setState({
       posts: this.state.posts.map(p => p.id === post.id ? post : p),
       tags: tags
@@ -182,16 +146,6 @@ class App extends Component {
     return this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
   }
 
-  //Adds values and labels to the featured post object so the tags render correctly in the edit form
-  // formatFeaturedPost = (post) => {
-  //   let formatedPostTags
-
-  //   if (post.id !== undefined) {
-  //     formatedPostTags = post.post_tags.map(t => ({...t, label: t.tag_name, value: t.tag_id}))
-  //   }
-  //   return {...post, post_tags: formatedPostTags} //format postTags in PostFormContainer so you can keep state as single source of truth. State must be kept up to date (controlled) in it's pure state so it can be used to communicate easily with the database. The formatted postTags should be for component display only. Any information passed to the db should come from state, not from the formatted post_tags => that's what's causing the post_params error on edit
-  // }
-
   handleSearch = (e) => this.setState({ searchInput: e.target.value })
 
   handleLogin = (data) => {
@@ -216,8 +170,6 @@ class App extends Component {
   userPosts = () => {
     return this.state.posts.filter(p => p.user.id == this.state.user.id)
   }
-
-
 
   render() {
     return (

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import ReactTags from 'react-tag-autocomplete'
 
-const TagContainer = ({ tags, tagSuggestions, handleTagDelete, handleTagAddition }) => {
+const TagsContainer = ({ tags, tagSuggestions, handleTagDelete, handleTagAddition }) => {
   return(
     <ReactTags
       allowNew
@@ -12,4 +12,4 @@ const TagContainer = ({ tags, tagSuggestions, handleTagDelete, handleTagAddition
   )
 }
 
-export default TagContainer
+export default TagsContainer
