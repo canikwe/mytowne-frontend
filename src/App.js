@@ -63,7 +63,7 @@ class App extends Component {
     })
   }
 
-  // compare post_tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
+  // compare post.tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
   addNewTags = (postTags) => {
     let tags = [...this.state.tags]
     postTags.forEach(pt => {
@@ -76,7 +76,7 @@ class App extends Component {
   createPost = (data, post) => {
     Fetch.POST(data, 'posts')
     .then(post => {
-      const tags = this.addNewTags(post.post_tags)
+      const tags = this.addNewTags(post.tags)
       this.setState({
         posts: [...this.state.posts, post],
         tags: tags
@@ -84,7 +84,7 @@ class App extends Component {
     })
   }
   
-  editPost = (data, post, deletedPost) => {
+  editPost = (data, post) => {
     Fetch.PATCH(data, post.id, 'posts/')
     .then(resp => {
       const { post, tags } = resp
@@ -98,7 +98,8 @@ class App extends Component {
 
   deletePost = (id) => {
     Fetch.DELETE(id, 'posts/')
-    .then(post => this.setState({ posts: this.state.posts.filter(p => p.id !== post.id) }))
+    .then(post => {
+      this.setState({ posts: this.state.posts.filter(p => p.id !== id) })})
   }
 
   editUser = (data, userId) => {
@@ -127,7 +128,7 @@ class App extends Component {
     if (this.state.filters.length > 0) {
       this.state.posts.forEach(post => {
         const tagCheck = []
-        const tags = post.post_tags.map(t => t.tag_name) // map all tag names to an unnested array
+        const tags = post.tags.map(t => t.name) // map all tag names to an unnested array
   
         this.state.filters.forEach(f => { // check to see if the filter tag is included in the post's tags
           tags.includes(f) ? tagCheck.push(true) : tagCheck.push(false)
