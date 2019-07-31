@@ -1,9 +1,5 @@
 import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
-// import classNames from 'classnames';
 import Select from 'react-select';
-
-
 
 class Filter extends PureComponent {
   state = {

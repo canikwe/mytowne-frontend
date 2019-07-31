@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment }from 'react'
 import Filter from './Filter'
 import CardContainer from './CardContainer'
 
@@ -6,10 +6,10 @@ const Home = (props) => {
 
   const { posts, handleFilter, tags } = props
   return (
-    <React.Fragment>
+    <Fragment>
       <Filter handleFilter={handleFilter} tags={tags}/>
       <CardContainer posts={posts} />
-    </React.Fragment>
+    </Fragment>
   )
 
 }
