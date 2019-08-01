@@ -1,9 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
-import PropTypes from 'prop-types';
-// import classnames from 'classnames';
 import Tag from '../components/Tag'
 import { Link } from "react-router-dom";
-import AvImg from '../images/avatar_placeholder.png'
 import moment from 'moment'
 
 class Cards extends PureComponent {

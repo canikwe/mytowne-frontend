@@ -9,6 +9,7 @@ import PostFormContainer from './containers/PostFormContainer'
 import Profile from './containers/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
+import NavigationBar from './components/NavigationBar'
 import './App.css'
 
 class App extends Component {
@@ -175,13 +176,14 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Nav
+        {/* <Nav
           handleSearch={this.handleSearch}
           searchInput={this.state.searchInput}
           handleLogout={this.handleLogout}
           loggedIn={isEmpty(this.state.user) ? false : true}
           user={this.state.user}
-        />
+        /> */}
+        <NavigationBar handleLogout={this.handleLogout} loggedIn={isEmpty(this.state.user) ? false : true} />
         <Switch>
           <Route exact path="/login" render={() => {
             return !localStorage.token && isEmpty(this.state.user) ? <Login handleLogin={this.handleLogin}/> :

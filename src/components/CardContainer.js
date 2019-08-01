@@ -1,7 +1,7 @@
 import React from 'react'
 import Cards from '../containers/Cards'
 import Grid from '@material-ui/core/Grid'
-import '../Cards.css'
+import '../styles/Cards.css'
 
 
 
