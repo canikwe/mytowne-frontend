@@ -183,7 +183,12 @@ class App extends Component {
           loggedIn={isEmpty(this.state.user) ? false : true}
           user={this.state.user}
         /> */}
-        <NavigationBar handleLogout={this.handleLogout} loggedIn={isEmpty(this.state.user) ? false : true} />
+        <NavigationBar 
+          handleLogout={this.handleLogout} 
+          loggedIn={isEmpty(this.state.user) ? false : true} 
+          handleSearch={this.handleSearch}
+          searchInput={this.state.searchInput}
+          />
         <Switch>
           <Route exact path="/login" render={() => {
             return !localStorage.token && isEmpty(this.state.user) ? <Login handleLogin={this.handleLogin}/> :
