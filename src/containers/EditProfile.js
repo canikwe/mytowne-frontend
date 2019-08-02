@@ -1,8 +1,8 @@
 import React, { PureComponent, Fragment } from 'react'
 
 class EditProfile extends PureComponent {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     this.state = {
       open: true,
@@ -24,30 +24,11 @@ class EditProfile extends PureComponent {
     this.setState({ open: false })
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.user.name !== this.state.name) {
-  //     this.setState({
-  //       name: this.props.user.name,
-  //       birth_date: this.props.user.birth_date,
-  //       email: this.props.user.email,
-  //       username: this.props.user.username,
-  //       town: this.props.user.town,
-  //       avatar: this.props.user.avatar,
-  //       bio: this.props.user.bio
-  //     })
-  //   }
-  // }
-
-  componentDidMount(prevProps) {
+  componentDidMount() {
     if (this.props.user.name !== this.state.name) {
-      this.setState({
-        name: this.props.user.name,
-        birth_date: this.props.user.birth_date,
-        email: this.props.user.email,
-        username: this.props.user.username,
-        town: this.props.user.town,
-        avatar: this.props.user.avatar,
-        bio: this.props.user.bio
+      const { name, birth_date, email, username, town, avatar, bio } = this.props.user
+      this.setState({ 
+        name, birth_date, email, username, town, avatar, bio 
       })
     }
   }
