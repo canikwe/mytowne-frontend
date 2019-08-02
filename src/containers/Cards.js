@@ -29,7 +29,6 @@ class Cards extends PureComponent {
           <p>{post.content}</p>
           <Link to={`/posts/${post.id}`}>Click for More...</Link>
           <hr/>
-          <p>Post Tags Will go here... eventually</p>
           <div className='tag-container'>
             {post.post_tags.map((tag) => {
               return <Tag tag={tag} key={tag.id} />

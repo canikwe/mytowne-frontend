@@ -8,7 +8,7 @@ const PostForm = ({ classes, title, content, img, handleChange }) => {
         <label htmlFor='title'>Title: </label>
         <input 
           value= {title}
-          onChange={handleChange('title')}
+          onChange={() => handleChange('title')}
         />
       </div>
       <p/>
@@ -16,7 +16,7 @@ const PostForm = ({ classes, title, content, img, handleChange }) => {
         <label htmlFor='Content'>Content: </label>
         <textarea
           value={content}
-          onChange={handleChange('content')}
+          onChange={() => handleChange('content')}
           rows="4"
           cols="50"
         />

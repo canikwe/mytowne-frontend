@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import Nav from './containers/Nav'
 import Login from './containers/Login'
 import Home from './components/Home'
 import PostShow from './containers/PostShow'
@@ -9,7 +8,7 @@ import PostFormContainer from './containers/PostFormContainer'
 import Profile from './containers/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
-import NavigationBar from './components/NavigationBar'
+import NavBar from './components/NavigationBar'
 import './App.css'
 
 class App extends Component {
@@ -176,14 +175,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        {/* <Nav
-          handleSearch={this.handleSearch}
-          searchInput={this.state.searchInput}
-          handleLogout={this.handleLogout}
-          loggedIn={isEmpty(this.state.user) ? false : true}
-          user={this.state.user}
-        /> */}
-        <NavigationBar 
+        <NavBar 
           handleLogout={this.handleLogout} 
           loggedIn={isEmpty(this.state.user) ? false : true} 
           handleSearch={this.handleSearch}
