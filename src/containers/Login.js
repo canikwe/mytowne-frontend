@@ -14,9 +14,16 @@ class Login extends PureComponent {
     })
   }
 
-  render() {
-    const { handleLogin } = this.props
+  localLoginHandler = e => {
+    e.preventDefault()
+    this.props.handleLogin({
+      user: {
+        username: this.state.username, password: this.state.password
+      }
+    })
+  }
 
+  render() {
     return (
       <main>
         <div className='login-div'>
@@ -40,14 +47,7 @@ class Login extends PureComponent {
               /><br />
             <button
               type="submit"
-              onClick={(e) => {
-                e.preventDefault()
-                handleLogin({user: {
-                  username: this.state.username, password: this.state.password
-                }
-                }
-                )}
-              }
+              onClick={this.localLoginHandler}
             >
               Log In:
             </button>
