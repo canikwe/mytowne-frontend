@@ -10,6 +10,7 @@ const NavigationBar = ({handleLogout, loggedIn, searchInput, handleSearch}) => {
       <React.Fragment>
         <li><Link to='/profile'>My Profile</Link></li>
         <li><Link to='/profile/edit'>My Account</Link></li>
+          <li><Link to='/posts/new'>Create a New Post</Link></li>
         <li>Search: <input type='text' value={searchInput} onChange={handleSearch} /></li>
       </React.Fragment>
       : null}

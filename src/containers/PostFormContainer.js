@@ -1,35 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
-
+import React from 'react'
 import PostForm from '../components/PostForm'
 import TagsContainer from '../components/ReactTagAutoComplete'
 
 import { Link } from "react-router-dom";
-
-const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
-  flex: {
-    flex: 1,
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-});
-
-const transition = props => {
-  return <Slide direction="up" {...props} />;
-}
 
 class PostFormContainer extends React.Component {
   constructor(props) {
@@ -68,9 +41,10 @@ class PostFormContainer extends React.Component {
     })
   }
 
-  handleChange = name => event => { // refactor to remove Material
+  handleChange = event => {
+    event.persist()
     this.setState({
-      [name]: event.target.value,
+      [event.target.name]: event.target.value,
     })
   }
 
@@ -123,40 +97,17 @@ class PostFormContainer extends React.Component {
   }
 
   render() {
-    const { classes, name, tags, post } = this.props
+    const { name, tags, post } = this.props
 
     return (
       <div>
-        <Dialog
-          maxWidth='xl'
-          open={this.state.open}
-          TransitionComponent={transition}
-        >
-          <AppBar className={classes.appBar}>
-            <Toolbar>
-              <IconButton component={ Link } to="/" color="inherit" onClick={this.handleClose} aria-label="Close">
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit" className={classes.flex}>
-                {name}
-              </Typography>
-              <Button component= { Link } to={post.id === undefined ? '/' : `/posts/${post.id}`} color="inherit" onClick={this.submit}>
-                submit
-              </Button>
-            </Toolbar>
-          </AppBar>
-          <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
-
-          <TagsContainer tagSuggestions={tags} tags={this.filterTags()} handleTagDelete={ this.handleTagDelete} handleTagAddition={this.handleTagAddition}/>
-
-        </Dialog>
+        <h3> {name} </h3>
+        <button component= { Link } to={post.id === undefined ? '/' : `/posts/${post.id}`} onClick={this.submit}> submit </button>
+        <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
+        <TagsContainer tagSuggestions={tags} tags={this.filterTags()} handleTagDelete={ this.handleTagDelete} handleTagAddition={this.handleTagAddition}/>
       </div>
-    );
+    )
   }
 }
 
-PostFormContainer.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(PostFormContainer);
+export default PostFormContainer

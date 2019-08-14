@@ -1,14 +1,15 @@
 import React from 'react';
 
-const PostForm = ({ classes, title, content, img, handleChange }) => {
+const PostForm = ({ title, content, img, handleChange }) => {
 
   return (
     <form>
       <div>
         <label htmlFor='title'>Title: </label>
         <input 
-          value= {title}
-          onChange={() => handleChange('title')}
+          value={title}
+          onChange={handleChange}
+          name='title'
         />
       </div>
       <p/>
@@ -16,9 +17,10 @@ const PostForm = ({ classes, title, content, img, handleChange }) => {
         <label htmlFor='Content'>Content: </label>
         <textarea
           value={content}
-          onChange={() => handleChange('content')}
+          onChange={handleChange}
           rows="4"
           cols="50"
+          name='content'
         />
       </div>
       <p/>
@@ -26,7 +28,8 @@ const PostForm = ({ classes, title, content, img, handleChange }) => {
         <label htmlFor='image'>Image: </label>
         <input
           value={img}
-          onChange={handleChange('img')}
+          onChange={handleChange}
+          name='img'
         />
       </div>
 
