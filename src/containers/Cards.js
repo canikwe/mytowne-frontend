@@ -28,7 +28,7 @@ class Cards extends PureComponent {
         >
           <h3>{post.title}</h3>
           <p>{ moment(post.created_at).calendar() }</p>
-          <img src={post.img} alt={post.title} className ='card-image' alttext={post.title} />
+          <img src={post.img} className ='card-image' alt={post.title} />
           <p>{post.content}</p>
           <Link to={`/posts/${post.id}`}>Click for More...</Link>
           <hr/>
