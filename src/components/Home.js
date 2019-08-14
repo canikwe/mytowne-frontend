@@ -11,7 +11,6 @@ const Home = (props) => {
       <CardContainer posts={posts} />
     </Fragment>
   )
-
 }
 
 export default Home

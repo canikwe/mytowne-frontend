@@ -1,18 +1,17 @@
 import React from 'react'
 import PostForm from '../components/PostForm'
 import TagsContainer from '../components/ReactTagAutoComplete'
-
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 class PostFormContainer extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = this.clearState()
   }
 
   // Update form with post info if post is being edited (indicated by the presence of a post id)
   componentDidMount() {
-    const {post: {id, title, content, img, post_tags, tags}} = this.props
+    const {post: {id, title, content, img, tags}} = this.props
 
     id !== undefined ?
     this.setState({
@@ -84,7 +83,7 @@ class PostFormContainer extends React.Component {
 
   handleTagDelete = (i) => {
     this.setState({
-      tags: this.state.tags.map((tag, index) => index == i ? {...tag, status: 'delete'} : tag)
+      tags: this.state.tags.map((tag, index) => index === i ? {...tag, status: 'delete'} : tag)
     })
   }
 
@@ -93,7 +92,7 @@ class PostFormContainer extends React.Component {
   }
 
   filterTags = () => {
-    return this.state.tags.filter(tag => tag.status != 'delete')
+    return this.state.tags.filter(tag => tag.status !== 'delete')
   }
 
   render() {
@@ -102,7 +101,7 @@ class PostFormContainer extends React.Component {
     return (
       <div>
         <h3> {name} </h3>
-        <button component= { Link } to={post.id === undefined ? '/' : `/posts/${post.id}`} onClick={this.submit}> submit </button>
+        <Link to={post.id === undefined ? '/' : `/posts/${post.id}`} onClick={this.submit}> submit </Link>
         <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
         <TagsContainer tagSuggestions={tags} tags={this.filterTags()} handleTagDelete={ this.handleTagDelete} handleTagAddition={this.handleTagAddition}/>
       </div>

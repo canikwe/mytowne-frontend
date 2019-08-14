@@ -5,7 +5,7 @@ import Login from './containers/Login'
 import Home from './components/Home'
 import PostShow from './containers/PostShow'
 import PostFormContainer from './containers/PostFormContainer'
-import Profile from './containers/Profile'
+import Profile from './components/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
 import NavBar from './components/NavigationBar'
@@ -67,7 +67,7 @@ class App extends Component {
   addNewTags = (postTags) => {
     let tags = [...this.state.tags]
     postTags.forEach(pt => {
-      const newTag = tags.find(tag => tag.id == pt.tag_id)
+      const newTag = tags.find(tag => tag.id === pt.tag_id)
       return newTag === undefined ? tags = [...tags, {id: pt.tag_id, name: pt.tag_name}] : tags
     })
     return tags
@@ -169,7 +169,7 @@ class App extends Component {
   }
 
   userPosts = () => {
-    return this.state.posts.filter(p => p.user.id == this.state.user.id)
+    return this.state.posts.filter(p => p.user.id === this.state.user.id)
   }
 
   render() {

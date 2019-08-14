@@ -3,9 +3,12 @@ import '../styles/Login.css'
 
 
 class Login extends PureComponent {
-  state = {
-    username: '',
-    password: ''
+  constructor() {
+    super()
+    this.state = {
+      username: '',
+      password: ''
+    }
   }
 
   handleChange = e => {

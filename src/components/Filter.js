@@ -2,15 +2,18 @@ import React, { PureComponent } from 'react';
 import Select from 'react-select';
 
 class Filter extends PureComponent {
-  state = {
-    multi: null,
-  };
+  constructor(){
+    super()
+    this.state = {
+      multi: null,
+    }
+  }
 
   handleChange = name => value => {
     this.setState({
       [name]: value,
     }, () => this.props.handleFilter(this.state.multi))
-  };
+  }
 
   render() {
     const { tags } = this.props;

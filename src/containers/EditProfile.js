@@ -3,7 +3,6 @@ import React, { PureComponent, Fragment } from 'react'
 class EditProfile extends PureComponent {
   constructor() {
     super()
-
     this.state = {
       open: true,
       name: '',

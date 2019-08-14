@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const PostForm = ({ title, content, img, handleChange }) => {
 
@@ -32,10 +32,8 @@ const PostForm = ({ title, content, img, handleChange }) => {
           name='img'
         />
       </div>
-
     </form>
   )
-
 }
 
 export default PostForm

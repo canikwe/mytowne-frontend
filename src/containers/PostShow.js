@@ -4,7 +4,10 @@ import { Link } from "react-router-dom"
 import '../PostShow.css'
 
 class PostShow extends PureComponent {
-  state = { open: true }
+  constructor(){
+    super()
+    this.state = { open: true }
+  }
 
   handleClickOpen = () => {
     this.setState({ open: true })
