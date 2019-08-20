@@ -9,6 +9,7 @@ import Profile from './components/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
 import NavBar from './components/NavigationBar'
+import Footer from './components/Footer'
 import './App.css'
 
 class App extends Component {
@@ -227,6 +228,7 @@ class App extends Component {
             <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
           }} />
         </Switch>
+        <Footer />
       </React.Fragment>
     );
   }

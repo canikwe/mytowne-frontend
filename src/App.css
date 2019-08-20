@@ -32,6 +32,9 @@
   }
 }
 
+#feature {
+  width: 100%;
+}
 
 /* Card CSS Styles */
 /* .card {

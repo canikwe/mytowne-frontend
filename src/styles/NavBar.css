@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  li, li#search {
+  #nav-container li, li#search {
     float: none;
     display: flex;
     flex-direction: column;
@@ -18,9 +18,10 @@
   } */
 }
 
-ul {
-  /* display: flex;
-  align-items: center; */
+#nav-container ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -29,11 +30,10 @@ ul {
 }
 
 li#search {
-  float: right;
+  /* float: right; */
   padding: 11px 5px;
   color: white;
   text-align: center;
-
 }
 
 .search-bar {
@@ -51,8 +51,8 @@ li#search {
   width: 200px;
 }
 
-li a {
-  float: left;
+#nav-container li a {
+  /* float: left; */
   display: block;
   color: white;
   text-align: center;
@@ -60,20 +60,20 @@ li a {
   text-decoration: none;
 }
 
-li a:hover {
+#nav-container li a:hover {
   background-color: rgba(57, 141, 232, 0.824);
   text-decoration: none;
 }
 
 #menu {
-  float: right;
+  /* float: left; */
   padding: 14px 16px;
   color: white;
   text-align: center;
   cursor: pointer;
 }
 
-.menu-item {
+#nav-container ul#menu-item {
   display: none;
   position: absolute;
   border-radius: 5px;
@@ -87,7 +87,7 @@ li a:hover {
   float: none;
 }
 
-#menu:hover .menu-item {
+#menu:hover #menu-item {
   display: flex;
   flex-direction: column;
 }
