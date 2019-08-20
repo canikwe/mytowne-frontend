@@ -62,6 +62,14 @@
   border-style: outset;
 } */
 
+.card-link {
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: none;
+}
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -70,16 +78,32 @@
 
 .card-container > div {
   height: 320px;
-  width: 200px;
+  width: 250px;
   margin: 10px;
   /* overflow: auto; */
   border-style: outset;
 }
 
 .img-container {
-  position: relative;
+  /* position: relative; */
   width: 100%;
   height: 150px;
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+  align-items: center;
+}
+
+.card-avatar {
+  /* display: inline-flex;
+  justify-content: right; */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
 }
 
 .card-image {
@@ -87,12 +111,25 @@
   height: 100%;
 }
 
+.likes-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.likes-container > p {
+  color: grey;
+  margin: 5px;
+}
+
 .material-icons.favorite {
   bottom: 5px;
   right: 5px;
-  position: absolute;
+  /* position: absolute; */
   color: red;
   cursor: pointer;
+  font-size: 18px;
+  margin: 0px 2px;
 }
 
 .card {
@@ -105,7 +142,7 @@
   box-shadow: 1px 1px 2px lightslategray;
 }
 
-.card > div > h4 {
+.card-title {
   margin: 0px;
 }
 
@@ -114,10 +151,8 @@
 }
 
 .card-content {
-  min-height: 85px;
+  min-height: 50px;
 }
-
-
 
 hr {
   border: .5px solid grey;
@@ -128,6 +163,7 @@ hr {
   .card {
     flex: 100%;
     max-width: 100%;
+    height: 100%;
     overflow: auto;
     /* border-style: solid;
     border-width: 1px; */
@@ -138,7 +174,7 @@ hr {
 
 .tag-container {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   width: 100%;
   height: 50px;
   overflow: auto;

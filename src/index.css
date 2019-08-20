@@ -6,9 +6,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-size: cover;
+  /* background-size: cover;
   background-image: url('./images/backgroundMountains.png');
-  background-attachment: fixed
+  background-attachment: fixed */
 }
 
 code {
