@@ -132,6 +132,7 @@
 .likes-container > p {
   color: grey;
   margin: 5px;
+  font-size: 14px;
 }
 
 .material-icons.favorite {
