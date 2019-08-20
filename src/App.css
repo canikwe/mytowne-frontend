@@ -34,13 +34,13 @@
 
 
 /* Card CSS Styles */
-.card {
+/* .card {
   display: inline-block;
   overflow: auto;
   height: 300px;
   width: 200px;
   border-style: outset
-}
+} */
 
 .card-image {
   width: 50%
