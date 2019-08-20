@@ -8,7 +8,8 @@ class Cards extends PureComponent {
     super()
     this.state = {
       expanded: false,
-      favorite: 'favorite_border'
+      favorite: false,
+      favClassName: 'grey'
     }
   }
 
@@ -19,8 +20,7 @@ class Cards extends PureComponent {
   }
 
   likePost = () => {
-    let favorite = this.state.favorite === 'favorite_border' ? 'favorite' : 'favorite_border'
-    this.setState({favorite})
+    this.setState({favorite: !this.state.favorite})
   }
 
   render() {
@@ -32,7 +32,10 @@ class Cards extends PureComponent {
       <Fragment>
         <div className='card'>
           <div className='card-header'>
-            <img src={!!post.user.avatar ? post.user.avatar : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'} alt='avatar' className='card-avatar'/>
+            <div className='card-username'>
+              <img src={!!post.user.avatar ? post.user.avatar : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'} alt='avatar' className='card-avatar'/>
+              <span>{post.user.name}</span>
+            </div>
             <p className='card-date'>{ !postDate.isSame(moment(), 'week') ? postDate.calendar(null, {sameElse: 'DD-MMM'}) : postDate.fromNow() }</p>
           </div>
           <div className='img-container'>
@@ -43,8 +46,8 @@ class Cards extends PureComponent {
             <div className='card-content'>
               <h4 className='card-title'>{post.title}</h4>
               <div className='likes-container'>
-                <i className='material-icons favorite' onClick={this.likePost}>{this.state.favorite}</i>
-                <p>Likes</p>
+                <i className={this.state.favorite ? 'material-icons favorite' : 'material-icons not-favorite'} onClick={this.likePost}>{this.state.favorite ? 'favorite' : 'favorite_border'}</i>
+                <p>{Math.floor(Math.random() * 100)} Likes</p>
               </div>
               {/* <p>{post.content}</p> */}
               {/* <Link to={`/posts/${post.id}`}>Click for More...</Link> */}

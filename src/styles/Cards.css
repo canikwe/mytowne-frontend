@@ -94,7 +94,7 @@
 .card-header {
   display: flex;
   justify-content: space-between;
-  margin: 5px;
+  margin: 10px;
   align-items: center;
 }
 
@@ -104,6 +104,18 @@
   border-radius: 50%;
   width: 25px;
   height: 25px;
+  margin-right: 5px;
+}
+
+.card-username {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.card-date {
+  font-size: 14px;
+  color: grey;
 }
 
 .card-image {
@@ -132,6 +144,20 @@
   margin: 0px 2px;
 }
 
+.material-icons.not-favorite {
+  bottom: 5px;
+  right: 5px;
+  /* position: absolute; */
+  color: grey;
+  cursor: pointer;
+  font-size: 18px;
+  margin: 0px 2px;
+}
+
+.material-icons.not-favorite:hover {
+  color: red;
+}
+
 .card {
   border: 1px solid rgb(173, 175, 188);
   background: rgb(255, 255, 255, 0.2);
@@ -143,7 +169,8 @@
 }
 
 .card-title {
-  margin: 0px;
+  margin: 5px;
+  font-weight: normal;
 }
 
 .card > div > p {
@@ -155,7 +182,7 @@
 }
 
 hr {
-  border: .5px solid grey;
+  border: .5px solid rgba(196, 194, 194, 0.742);
 }
 
 /* Sets breakpoint for responsiveness when the window is resized to 500px */
