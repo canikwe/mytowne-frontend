@@ -7,7 +7,8 @@ class Cards extends PureComponent {
   constructor() {
     super()
     this.state = {
-      expanded: false
+      expanded: false,
+      favorite: 'favorite_border'
     }
   }
 
@@ -15,6 +16,11 @@ class Cards extends PureComponent {
     this.setState(state => ({
       expanded: !state.expanded
     }))
+  }
+
+  likePost = () => {
+    let favorite = this.state.favorite === 'favorite_border' ? 'favorite' : 'favorite_border'
+    this.setState({favorite})
   }
 
   render() {
@@ -26,11 +32,16 @@ class Cards extends PureComponent {
           className='card'
           onClick={() => console.log('Someday I shall do something!')}
         >
-          <h3>{post.title}</h3>
-          <p>{ moment(post.created_at).calendar() }</p>
-          <img src={post.img} className ='card-image' alt={post.title} />
-          <p>{post.content}</p>
-          <Link to={`/posts/${post.id}`}>Click for More...</Link>
+          <div className='img-container'>
+            <img src={!!post.img ? post.img : 'https://imgplaceholder.com/350x225/ff7f7f/333333/fa-image'} className ='card-image' alt={post.title} />
+            <i className='material-icons favorite' onClick={this.likePost}>{this.state.favorite}</i>
+          </div>
+          <div className='card-content'>
+            <h4>{post.title}</h4>
+            <p>{ moment(post.created_at).calendar() }</p>
+            {/* <p>{post.content}</p> */}
+            <Link to={`/posts/${post.id}`}>Click for More...</Link>
+          </div>
           <hr/>
           <div className='tag-container'>
             {post.post_tags.map((tag) => {

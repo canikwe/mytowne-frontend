@@ -42,23 +42,10 @@
   border-style: outset
 } */
 
-.card-image {
-  width: 50%
-}
+
 
 /* Tag CSS Styles */
-.tag-container {
-  width: 100%
-}
 
-.tag {
-  background: grey;
-  color: white;
-  border-radius: 3px 0 0 3px;
-  margin: 5px;
-  height: 26px;
-  line-height: 26px;
-}
 
 /* Start React Tags Styling */
 .react-tags {

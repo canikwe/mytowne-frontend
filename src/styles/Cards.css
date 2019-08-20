@@ -49,7 +49,7 @@
 }
 
 
-.grid-container {
+/* .grid-container {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: auto auto auto auto;
@@ -60,7 +60,7 @@
   width: 200px;
   overflow: auto;
   border-style: outset;
-}
+} */
 
 .card-container {
   display: flex;
@@ -69,11 +69,58 @@
 }
 
 .card-container > div {
-  height: 300px;
+  height: 320px;
   width: 200px;
   margin: 10px;
-  overflow: auto;
+  /* overflow: auto; */
   border-style: outset;
+}
+
+.img-container {
+  position: relative;
+  width: 100%;
+  height: 150px;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+}
+
+.material-icons.favorite {
+  bottom: 5px;
+  right: 5px;
+  position: absolute;
+  color: red;
+  cursor: pointer;
+}
+
+.card {
+  border: 1px solid rgb(173, 175, 188);
+  background: rgb(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.card:hover {
+  box-shadow: 1px 1px 2px lightslategray;
+}
+
+.card > div > h4 {
+  margin: 0px;
+}
+
+.card > div > p {
+  margin: 5px 0px;
+}
+
+.card-content {
+  min-height: 85px;
+}
+
+
+
+hr {
+  border: .5px solid grey;
 }
 
 /* Sets breakpoint for responsiveness when the window is resized to 500px */
@@ -82,6 +129,33 @@
     flex: 100%;
     max-width: 100%;
     overflow: auto;
-    border-style: outset;
+    /* border-style: solid;
+    border-width: 1px; */
   }
+}
+
+/* Tag Styles */
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 50px;
+  overflow: auto;
+  margin: 0px 3px;
+}
+
+.tag {
+  background: grey;
+  color: white;
+  border-radius: 3px 0 0 3px;
+  margin: 5px 2px;
+  padding: 0px 3px;
+  height: 26px;
+  line-height: 26px;
+  border-radius: 3px;
+}
+
+.tag:hover {
+  background: darkslategrey;
 }
