@@ -36,6 +36,22 @@
   width: 100%;
 }
 
+#feature-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+  right: 5%;
+  color: rgba(255, 255, 255, 0.735);
+}
+
+@media screen and (max-width: 600px) {
+  #feature-title {
+    display: none;
+    /* font-size: 80%; */
+  }
+}
 /* Card CSS Styles */
 /* .card {
   display: inline-block;

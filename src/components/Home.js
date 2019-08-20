@@ -5,12 +5,12 @@ import CardContainer from './CardContainer'
 
 const Home = (props) => {
 
-  const { posts, handleFilter, tags } = props
+  const { posts, handleFilter, tags, currentUser, handleLike } = props
   return (
     <Fragment>
       <Feature />
       <Filter handleFilter={handleFilter} tags={tags}/>
-      <CardContainer posts={posts} />
+      <CardContainer posts={posts} currentUser={currentUser} handleLike={handleLike}  />
     </Fragment>
   )
 }

@@ -4,11 +4,11 @@ import { Link } from "react-router-dom"
 import moment from 'moment'
 
 class Cards extends PureComponent {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       expanded: false,
-      favorite: false,
+      favorite: props.post.likes.map(like => like.user_id).includes(props.currentUser.id),
       favClassName: 'grey'
     }
   }
@@ -20,7 +20,15 @@ class Cards extends PureComponent {
   }
 
   likePost = () => {
+    const likeData = {
+      like: {
+        user_id: this.props.currentUser.id,
+        post_id: this.props.post.id
+      }
+    }
+
     this.setState({favorite: !this.state.favorite})
+    this.props.handleLike(likeData)
   }
 
   render() {
@@ -40,14 +48,14 @@ class Cards extends PureComponent {
           </div>
           <div className='img-container'>
             <Link className='card-link' to={`/posts/${post.id}`}>
-              <img src={!!post.img ? post.img : 'https://imgplaceholder.com/350x225/ff7f7f/333333/fa-image'} className ='card-image' alt={post.title} />
+              <img src={!!post.img ? post.img : '/images/placeholder.png'} className ='card-image' alt={post.title} />
             </Link>
           </div>
             <div className='card-content'>
               <h4 className='card-title'>{post.title}</h4>
               <div className='likes-container'>
-                <i className={this.state.favorite ? 'material-icons favorite' : 'material-icons not-favorite'} onClick={this.likePost}>{this.state.favorite ? 'favorite' : 'favorite_border'}</i>
-                <p>{Math.floor(Math.random() * 100)} Likes</p>
+                <i className={this.state.favorite ? 'material-icons favorite' : 'material-icons not-favorite'} onClick={ this.likePost }>{this.state.favorite ? 'favorite' : 'favorite_border'}</i>
+                <p>{ post.likes.length } Likes</p>
               </div>
               {/* <p>{post.content}</p> */}
               {/* <Link to={`/posts/${post.id}`}>Click for More...</Link> */}

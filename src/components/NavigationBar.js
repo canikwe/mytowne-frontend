@@ -7,7 +7,7 @@ const NavigationBar = ({handleLogout, loggedIn, searchInput, handleSearch}) => {
     <div id='nav-container'>
       <ul>
         <li id='menu'>
-          <i class="material-icons">menu</i>
+          <i className="material-icons">menu</i>
           <ul id='menu-item'>
             <li><Link to='/profile'>My Profile</Link></li>
             <li><Link to='/profile/edit'>My Account</Link></li>
