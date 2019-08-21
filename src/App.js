@@ -191,8 +191,8 @@ class App extends Component {
     this.setState(this.initialState())
   }
 
-  userPosts = () => {
-    return this.state.posts.filter(p => p.user.id === this.state.user.id)
+  userPosts = (user) => {
+    return this.state.posts.filter(p => p.user.id === user.id)
   }
 
   render() {
@@ -212,7 +212,7 @@ class App extends Component {
 
           <Route exact path="/" render={() => {
             return !localStorage.token && isEmpty(this.state.user) ? <Redirect to="/login" /> :
-            <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} currentUser={this.state.user} />
+            <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} />
           }} />
 
           <Route exact path="/posts/new" render={() => {
@@ -231,7 +231,6 @@ class App extends Component {
 
           {/* Unsure how to authentcate this */}
           <Route exact path="/posts/:id" render={props => {
-            console.log(this.state.posts)
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
@@ -242,7 +241,7 @@ class App extends Component {
 
           <Route exact path="/profile" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
-            <Profile user={this.state.user} userPosts={this.userPosts()}/>
+            <Profile user={this.state.user} posts={this.userPosts(this.state.user)} addLike={this.addLike} removeLike={this.removeLike} />
           }} />
 
           <Route exact path="/profile/edit" render={() => {

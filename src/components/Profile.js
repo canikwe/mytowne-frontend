@@ -2,8 +2,7 @@ import React from 'react'
 import CardContainer from './CardContainer'
 import { Link } from 'react-router-dom'
 
-const Profile = ({ user, userPosts }) => {
-
+const Profile = ({ user, posts, removeLike, addLike }) => {
   return (
     <React.Fragment>
       {
@@ -16,8 +15,8 @@ const Profile = ({ user, userPosts }) => {
 
       <div>
         {
-          user.posts ? (
-            <CardContainer posts={ userPosts } name={ user.name } avatar={ user.avatar } />
+          posts ? (
+            <CardContainer posts={posts} name={user.name} addLike={addLike} removeLike={removeLike} user={user}/>
           ) 
           : null
         }

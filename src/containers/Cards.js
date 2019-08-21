@@ -8,7 +8,7 @@ class Cards extends PureComponent {
     super(props)
     this.state = {
       expanded: false,
-      favorite: props.post.likes.map(like => like.user_id).includes(props.currentUser.id),
+      favorite: props.post.likes.map(like => like.user_id).includes(props.user.id),
       favClassName: 'grey'
     }
   }
@@ -22,13 +22,13 @@ class Cards extends PureComponent {
   likePost = () => {
     const likeData = {
       like: {
-        user_id: this.props.currentUser.id,
+        user_id: this.props.user.id,
         post_id: this.props.post.id
       }
     }
 
     if (this.state.favorite){
-      const like = this.props.post.likes.find(like => like.user_id === this.props.currentUser.id)
+      const like = this.props.post.likes.find(like => like.user_id === this.props.user.id)
       this.props.removeLike(like.id)
     } else {
       this.props.addLike(likeData)
@@ -39,7 +39,6 @@ class Cards extends PureComponent {
 
   render() {
     const { post } = this.props
-    console.log(post)
     const postDate = moment(post.created_at)
     
     return (
