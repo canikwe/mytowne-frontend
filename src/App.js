@@ -86,7 +86,7 @@ class App extends Component {
   }
 
     //Like Posts
-  handleLike = (likeData) => {
+  addLike = (likeData) => {
     Fetch.POST(likeData, 'likes')
     .then(res => {
       const post = res.post
@@ -96,6 +96,15 @@ class App extends Component {
       })
     })
     .catch(error => {debugger})
+  }
+
+  removeLike = (id) => {
+    Fetch.DELETE(id, 'likes/')
+    .then(post => {
+      this.setState({
+        posts: this.state.posts.map(p => p.id === post.id ? post : p)
+      })
+    })
   }
   
   editPost = (data, post) => {
@@ -203,7 +212,7 @@ class App extends Component {
 
           <Route exact path="/" render={() => {
             return !localStorage.token && isEmpty(this.state.user) ? <Redirect to="/login" /> :
-            <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} handleLike={this.handleLike} currentUser={this.state.user} />
+            <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} currentUser={this.state.user} />
           }} />
 
           <Route exact path="/posts/new" render={() => {

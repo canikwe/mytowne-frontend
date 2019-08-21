@@ -27,8 +27,14 @@ class Cards extends PureComponent {
       }
     }
 
+    if (this.state.favorite){
+      const like = this.props.post.likes.find(like => like.user_id === this.props.currentUser.id)
+      this.props.removeLike(like.id)
+    } else {
+      this.props.addLike(likeData)
+    }
+
     this.setState({favorite: !this.state.favorite})
-    this.props.handleLike(likeData)
   }
 
   render() {
