@@ -1,10 +1,10 @@
 import React from 'react'
 // import '../images'
 
-const Feature = () => {
+const Feature = ({user}) => {
   return(
     <React.Fragment>
-      <h1 id='feature-title'>Welcome to Your Towne</h1>
+      <h1 id='feature-title'>Welcome to {user.town}, {user.name}!</h1>
       <img
       id='feature'
       src='/images/apartment-architecture-city-415687.jpg' alt='feature-img' />

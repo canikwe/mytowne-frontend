@@ -8,7 +8,7 @@ const Home = (props) => {
   const { posts, handleFilter, tags, user, addLike, removeLike } = props
   return (
     <Fragment>
-      <Feature />
+      <Feature user={user}/>
       <Filter handleFilter={handleFilter} tags={tags}/>
       <CardContainer posts={posts} user={user} addLike={addLike} removeLike={removeLike}  />
     </Fragment>
