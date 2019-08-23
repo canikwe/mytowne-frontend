@@ -1,9 +1,10 @@
 import React, { PureComponent, Fragment } from 'react'
+import Avatar from '../components/Avatar'
 import Tag from '../components/Tag'
 import { Link } from "react-router-dom"
 import moment from 'moment'
 
-class Cards extends PureComponent {
+class Card extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -46,7 +47,10 @@ class Cards extends PureComponent {
         <div className='card'>
           <div className='card-header'>
             <div className='card-username'>
-              <img src={!!post.user.avatar ? post.user.avatar : 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'} alt='avatar' className='card-avatar'/>
+              <Avatar 
+                src={!!post.user.avatar ? post.user.avatar : 'images/avatar_placeholder.png'} 
+                alt={post.user.name} 
+              />
               <span>{post.user.name}</span>
             </div>
             <p className='card-date'>{ !postDate.isSame(moment(), 'week') ? postDate.calendar(null, {sameElse: 'DD-MMM'}) : postDate.fromNow() }</p>
@@ -77,4 +81,4 @@ class Cards extends PureComponent {
   }
 }
 
-export default Cards
+export default Card

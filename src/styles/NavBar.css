@@ -1,8 +1,12 @@
+#outter-nav-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 #nav-container {
-  /* display: flex; */
-  align-items: center;
-  width: 100%;
+  width: 97%;
+  margin-bottom: 2%;
 }
 
 @media screen and (max-width: 600px) {
@@ -12,7 +16,7 @@
     flex-direction: column;
     width: 100%;
   }
-
+  
   /* li a:hover {
     background-color: rgba(57, 141, 232, 0.824);
   } */
@@ -27,6 +31,8 @@
   padding: 0;
   overflow: hidden;
   background-color: rgba(88, 158, 234, 0.824);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 li#search {

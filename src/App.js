@@ -26,7 +26,8 @@ class App extends Component {
       allFilters: [],
       tags: [],
       loading: true,
-      searchInput: ''
+      searchInput: '',
+      page: 'homepage'
     })
   }
 
@@ -197,7 +198,7 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div id='main' className={this.state.page}>
         <NavBar 
           handleLogout={this.handleLogout} 
           loggedIn={isEmpty(this.state.user) ? false : true} 
@@ -250,7 +251,7 @@ class App extends Component {
           }} />
         </Switch>
         <Footer />
-      </React.Fragment>
+      </div>
     );
   }
 }

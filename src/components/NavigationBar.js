@@ -4,6 +4,8 @@ import '../styles/NavBar.css'
 
 const NavigationBar = ({handleLogout, loggedIn, searchInput, handleSearch}) => {
   return(
+    <div id='outter-nav-container'>
+
     <div id='nav-container'>
       <ul>
         <li id='menu'>
@@ -18,9 +20,10 @@ const NavigationBar = ({handleLogout, loggedIn, searchInput, handleSearch}) => {
         <li><Link to='/'>myTowne</Link></li>
         {loggedIn ? 
           <li id='search'>Search: <input className='search-bar' type='text' value={searchInput} onChange={handleSearch} /></li>
-        : null}
+          : null}
       </ul>
     </div>
+          </div>
   )
 }
 

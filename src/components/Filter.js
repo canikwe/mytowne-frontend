@@ -25,19 +25,23 @@ class Filter extends PureComponent {
     )
 
     return (
-      <Select
-        textFieldProps={{
-          label: 'Filter By Category',
-          InputLabelProps: {
-            shrink: true,
-          },
-        }}
-        options={formattedTags}
-        value={this.state.multi}
-        onChange={this.handleChange('multi')}
-        placeholder="Select Categories"
-        isMulti
-      />
+      <div id='filter-container'>
+        <div className='filter'>
+          <Select
+            textFieldProps={{
+              label: 'Filter By Tags',
+              InputLabelProps: {
+                shrink: true,
+              },
+            }}
+            options={formattedTags}
+            value={this.state.multi}
+            onChange={this.handleChange('multi')}
+            placeholder="Select Tags"
+            isMulti
+          />
+        </div>
+      </div>
     )
   }
 }
