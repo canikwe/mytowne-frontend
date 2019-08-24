@@ -61,7 +61,7 @@ class Card extends PureComponent {
           </div>
 
           <div className='img-container'>
-            <Link className='card-link' to={`/posts/${post.id}`}>
+            <Link to={`/posts/${post.id}`}>
               <img src={!!post.img ? post.img : '/images/placeholder.png'} className ='card-image' alt={post.title} />
             </Link>
           </div>
