@@ -4,6 +4,7 @@ import Fetch from '../helper/Fetch'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 import { withRouter } from "react-router"
+import '../styles/Profile.css'
 
 class Profile extends Component {
   constructor(props){
@@ -43,14 +44,21 @@ class Profile extends Component {
 
     return !isEmpty(user) ?
      (
-      <React.Fragment>
-        {
-          user.avatar !== "" ?
-            <img src={user.avatar} alt="user avatar"/> 
-          : null
-        }
-        <h2>{user.name}&nbsp;</h2>
-        <p>{user.bio}</p>
+      <div id='profile-container'>
+        <div className='profile-header'>
+          <div className='profile-img-container'>
+            {
+              user.avatar !== "" ?
+                <img src={user.avatar} alt="user avatar" className='profile-img'/> 
+              : null
+            }
+          </div>
+
+          <div className='profile-contents'>
+            <h2>{user.name}&nbsp;</h2>
+            <p>{user.bio}</p>
+          </div>
+        </div>
   
         <div>
           {
@@ -66,7 +74,7 @@ class Profile extends Component {
             Edit
           </Link>
         </div>
-      </React.Fragment >
+      </div>
     )
     : <h1>Loading ... </h1>
 

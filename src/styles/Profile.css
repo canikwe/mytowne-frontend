@@ -1,0 +1,40 @@
+#profile-container {
+    width: 100%;
+}
+
+.profile-header {
+    display: grid;
+    grid-template-columns: auto auto auto auto;  
+}
+
+
+.profile-img-container {
+    /* width: 45%;
+    height: 100%; */
+    padding-left: 10px;
+}
+
+.profile-img {
+    /* width: 100%; */
+    border-radius: 50%;
+    max-width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.profile-contents {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    border-left-color: lightgray;
+    border-left-style: solid;
+    border-left-width: .5px;
+    padding-left: 5px;
+}
+
+.profile-contents h2 {
+    font-weight: normal;
+    font-size: 4em;
+    color: darkgray;
+}
+
+

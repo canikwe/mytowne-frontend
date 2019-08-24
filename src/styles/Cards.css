@@ -213,16 +213,17 @@ hr {
 }
 
 .tag {
-  background: grey;
-  color: white;
-  border-radius: 3px 0 0 3px;
+  background: lightgray;
+  font-size: 90%;
+  color: black;
   margin: 5px 2px;
-  padding: 0px 3px;
+  padding: 7px;
   height: 26px;
   line-height: 26px;
-  border-radius: 3px;
+  border-radius: 17px;
 }
 
 .tag:hover {
-  background: darkslategrey;
+  background: grey;
+  color: white;
 }
