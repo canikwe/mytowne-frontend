@@ -79,21 +79,22 @@ li#search {
   cursor: pointer;
 }
 
-#nav-container ul#menu-item {
+#nav-container ul.menu-item {
   display: none;
+}
+
+.menu-item li a {
+  float: none;
+  width: 100%;
+}
+
+.clicked-menu {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   border-radius: 5px;
   margin-top: 5px;
   z-index: 1;
   -webkit-transition: display 0.4s ease-in-out;
   transition: display 0.4s ease-in-out;
-}
-
-.menu-item li a {
-  float: none;
-}
-
-#menu:hover #menu-item {
-  display: flex;
-  flex-direction: column;
 }

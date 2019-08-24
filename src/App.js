@@ -8,7 +8,7 @@ import PostFormContainer from './containers/PostFormContainer'
 import Profile from './components/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
-import NavBar from './components/NavigationBar'
+import NavBar from './containers/NavigationBar'
 import Footer from './components/Footer'
 import './App.css'
 
