@@ -45,16 +45,21 @@ class Card extends PureComponent {
     return (
       <Fragment>
         <div className='card'>
+
           <div className='card-header'>
-            <div className='card-username'>
-              <Avatar 
-                src={!!post.user.avatar ? post.user.avatar : 'images/avatar_placeholder.png'} 
-                alt={post.user.name} 
-              />
-              <span>{post.user.name}</span>
-            </div>
+            <Link to={`/profile/${post.user.id}`}>
+              <div className='card-username'>
+                <Avatar 
+                  src={!!post.user.avatar ? post.user.avatar : 'images/avatar_placeholder.png'} 
+                  alt={post.user.name} 
+                />
+                <span>{post.user.name}</span>
+              </div>
+            </Link>
+
             <p className='card-date'>{ !postDate.isSame(moment(), 'week') ? postDate.calendar(null, {sameElse: 'DD-MMM'}) : postDate.fromNow() }</p>
           </div>
+
           <div className='img-container'>
             <Link className='card-link' to={`/posts/${post.id}`}>
               <img src={!!post.img ? post.img : '/images/placeholder.png'} className ='card-image' alt={post.title} />

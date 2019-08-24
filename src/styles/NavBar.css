@@ -83,11 +83,6 @@ li#search {
   display: none;
 }
 
-.menu-item li a {
-  float: none;
-  width: 100%;
-}
-
 .clicked-menu {
   display: flex;
   flex-direction: column;
@@ -98,3 +93,9 @@ li#search {
   -webkit-transition: display 0.4s ease-in-out;
   transition: display 0.4s ease-in-out;
 }
+
+.clicked-menu li {
+  width: 100%;
+}
+
+

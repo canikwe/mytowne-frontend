@@ -201,9 +201,10 @@ class App extends Component {
       <div id='main' className={this.state.page}>
         <NavBar 
           handleLogout={this.handleLogout} 
-          loggedIn={isEmpty(this.state.user) ? false : true} 
+          loggedIn={!isEmpty(this.state.user)} 
           handleSearch={this.handleSearch}
           searchInput={this.state.searchInput}
+          userId={this.state.user.id}
           />
         <Switch>
           <Route exact path="/login" render={() => {
@@ -240,14 +241,14 @@ class App extends Component {
             )
           }} />
 
-          <Route exact path="/profile" render={() => {
-            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
-            <Profile user={this.state.user} posts={this.userPosts(this.state.user)} addLike={this.addLike} removeLike={this.removeLike} />
-          }} />
-
           <Route exact path="/profile/edit" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
             <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
+          }} />
+
+          <Route exact path="/profile/:id" render={() => {
+            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            <Profile addLike={this.addLike} removeLike={this.removeLike} />
           }} />
         </Switch>
         <Footer />
