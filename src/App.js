@@ -27,7 +27,7 @@ class App extends Component {
       tags: [],
       loading: true,
       searchInput: '',
-      page: 'homepage'
+      page: 'login'
     })
   }
 
@@ -52,7 +52,7 @@ class App extends Component {
 
   fetchUser = () => {
     Fetch.GET('profile')
-    .then(data => this.setState({ user: data.user }))
+    .then(data => this.setState({ user: data.user, page: 'homepage' }))
   }
 
   fetchTags = () => {
@@ -180,7 +180,7 @@ class App extends Component {
         alert(data.error)
       } else {
         localStorage.setItem('token', data.jwt)
-        this.setState({ user: data.user })
+        this.setState({ user: data.user, page: 'homepage' })
         this.fetchPosts(data.jwt)
         this.fetchTags()
       }
