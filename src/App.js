@@ -208,12 +208,12 @@ class App extends Component {
           />
         <Switch>
           <Route exact path="/login" render={() => {
-            return !localStorage.token && isEmpty(this.state.user) ? <Login handleLogin={this.handleLogin}/> :
+            return isEmpty(this.state.user) && !localStorage.token ? <Login handleLogin={this.handleLogin}/> :
             <Redirect to="/" />
           }} />
 
           <Route exact path="/" render={() => {
-            return !localStorage.token && isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            return isEmpty(this.state.user) && !localStorage.token ? <Redirect to="/login" /> :
             <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} />
           }} />
 
@@ -248,7 +248,7 @@ class App extends Component {
 
           <Route exact path="/profile/:id" render={() => {
             return isEmpty(this.state.user) ? <Redirect to="/login" /> :
-            <Profile addLike={this.addLike} removeLike={this.removeLike} />
+            <Profile addLike={this.addLike} removeLike={this.removeLike} currentUser={this.state.user} />
           }} />
         </Switch>
         <Footer />

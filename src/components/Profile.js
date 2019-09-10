@@ -37,7 +37,7 @@ class Profile extends Component {
 
   
   render() {
-    const { removeLike, addLike } = this.props
+    const { removeLike, addLike, currentUser } = this.props
     const { user, posts } = this.state
     console.log('user is: ', user)
     console.log('posts are: ', posts)
@@ -59,7 +59,20 @@ class Profile extends Component {
             <p>{user.bio}</p>
           </div>
         </div>
-  
+            
+            {
+              user.id === currentUser.id ?
+              <div>
+          <Link to={'/'} color="primary" >
+            Back
+          </Link>
+          <Link to={`/profile/edit`} >
+            Edit
+          </Link>
+        </div>
+        : null
+            }
+
         <div>
           {
             posts ? (
@@ -67,12 +80,6 @@ class Profile extends Component {
             ) 
             : null
           }
-          <Link to={'/'} color="primary" >
-            Back
-          </Link>
-          <Link to={`/profile/edit`} >
-            Edit
-          </Link>
         </div>
       </div>
     )
