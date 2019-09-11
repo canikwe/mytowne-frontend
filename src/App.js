@@ -130,6 +130,7 @@ class App extends Component {
     Fetch.PATCH(data, userId, 'users/')
     .then(user => this.setState({ user }))
     .then(window.alert('Your changes have been saved!'))
+    .then(window.history.back())
   }
 
   deleteUser = (id) => {

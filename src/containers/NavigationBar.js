@@ -10,9 +10,7 @@ class NavigationBar extends Component {
     }
   }
 
-  handleMenu = () => {
-    this.setState({menuOpen: !this.state.menuOpen})
-  }
+  handleMenu = () => this.setState({menuOpen: !this.state.menuOpen})
 
   render(){
     const { handleLogout, loggedIn, searchInput, handleSearch, userId } = this.props
