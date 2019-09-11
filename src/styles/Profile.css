@@ -41,16 +41,21 @@ input {
     width: 300px;
     border: solid 1px lightgrey;
     border-radius: 5px;
-    padding: 5px;
     box-sizing: border-box;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 10px;
 }
 
 textarea {
     width: 300px;
     border: solid 1px lightgrey;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px 20px;
     box-sizing: border-box;
+    font-size: 1em;
+    margin: 10px;
 }
 
 #profile-form-container {
@@ -58,6 +63,7 @@ textarea {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 10px;
 
 }
 
@@ -76,10 +82,12 @@ textarea {
     display: inline-block;
     justify-content: center;
     align-items: flex-start;
+    font-size: 1.25em;
 }
 
 .input {
     width: 70%;
+    font-size: 16px;
     display: inline-block;
 }
 
@@ -92,8 +100,7 @@ textarea {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-        border-radius: 5px;
-
+    border-radius: 5px;
 }
 
 .btn:hover {

@@ -10,6 +10,7 @@ import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
 import NavBar from './containers/NavigationBar'
 import Footer from './components/Footer'
+import Loading from './components/Loading'
 import './App.css'
 
 class App extends Component {
@@ -219,7 +220,7 @@ class App extends Component {
           }} />
 
           <Route exact path="/posts/new" render={() => {
-            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            return this.state.loading ? <Loading /> :
             <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} tags={this.state.tags} post={{}}/>
           }} />
 
@@ -228,7 +229,7 @@ class App extends Component {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
             
-            return this.state.loading ? null : (
+            return this.state.loading ? <Loading /> : (
               <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleDelete={this.deletePost} handleNewTags={this.handleNewTags} tags={this.state.tags} post={post} />)
           }} />
 
@@ -237,18 +238,18 @@ class App extends Component {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
-            return this.state.loading ? null : (
+            return this.state.loading ? <Loading /> : (
               <PostShow post={post} handleDelete={this.deletePost} user={this.state.user}/>
             )
           }} />
 
           <Route exact path="/profile/edit" render={() => {
-            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            return this.state.loading ? <Loading /> :
             <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
           }} />
 
           <Route exact path="/profile/:id" render={() => {
-            return isEmpty(this.state.user) ? <Redirect to="/login" /> :
+            return this.state.loading ? <Loading /> :
             <Profile addLike={this.addLike} removeLike={this.removeLike} currentUser={this.state.user} />
           }} />
         </Switch>
