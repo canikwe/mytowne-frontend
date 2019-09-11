@@ -42,7 +42,7 @@ li#search {
   text-align: center;
 }
 
-.search-bar {
+#search-bar {
   width: 100px;
   border: solid 1px grey;
   border-radius: 5px;
@@ -53,7 +53,7 @@ li#search {
   transition: width 0.4s ease-in-out;
 }
 
-.search-bar:focus {
+#search-bar:focus {
   width: 200px;
 }
 

@@ -3,36 +3,44 @@ import React from 'react'
 const PostForm = ({ title, content, img, handleChange }) => {
 
   return (
-    <form>
-      <div>
-        <label htmlFor='title'>Title: </label>
-        <input 
-          value={title}
-          onChange={handleChange}
-          name='title'
-        />
-      </div>
-      <p/>
-      <div>
-        <label htmlFor='Content'>Content: </label>
-        <textarea
-          value={content}
-          onChange={handleChange}
-          rows="4"
-          cols="50"
-          name='content'
-        />
-      </div>
-      <p/>
-      <div>
-        <label htmlFor='image'>Image: </label>
-        <input
-          value={img}
-          onChange={handleChange}
-          name='img'
-        />
-      </div>
-    </form>
+    <div className=''>
+      <form>
+        <div className='input-label'>
+          <label htmlFor='title'>Title: </label>
+        </div>
+        <div className='input'>
+          <input 
+            value={title}
+            onChange={handleChange}
+            name='title'
+          />
+        </div>
+        <p/>
+        <div className='input-label'>
+          <label htmlFor='Content'>Content: </label>
+        </div>
+        <div className='input'>
+          <textarea
+            value={content}
+            onChange={handleChange}
+            rows="4"
+            cols="50"
+            name='content'
+          />
+        </div>
+        <p/>
+        <div className='input-label'>
+          <label htmlFor='image'>Image: </label>
+        </div>
+        <div className='input'>
+          <input
+            value={img}
+            onChange={handleChange}
+            name='img'
+          />
+        </div>
+      </form>
+    </div>
   )
 }
 

@@ -27,7 +27,7 @@ class EditProfile extends PureComponent {
         <h1>
           Edit Profile
         </h1>
-        <div id='profile-form'>
+        <div className='form-container'>
           <div className='profile-col'>
 
             <div className='input-label'>

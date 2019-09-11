@@ -31,7 +31,7 @@ class NavigationBar extends Component {
             </li>
             <li><Link to='/'>myTowne</Link></li>
             {loggedIn ? 
-              <li id='search'>Search: <input className='search-bar' type='text' value={searchInput} onChange={handleSearch} /></li>
+              <li id='search'>Search: <input id='search-bar' type='text' value={searchInput} onChange={handleSearch} /></li>
               : null}
           </ul>
         </div>

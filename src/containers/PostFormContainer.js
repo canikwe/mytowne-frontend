@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PostForm from '../components/PostForm'
 import TagsContainer from '../components/ReactTagAutoComplete'
 import { Link } from "react-router-dom"
@@ -99,11 +99,13 @@ class PostFormContainer extends React.Component {
     const { name, tags, post } = this.props
 
     return (
-      <div>
-        <h3> {name} </h3>
-        <Link to={post.id === undefined ? '/' : `/posts/${post.id}`} onClick={this.submit}> submit </Link>
-        <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
-        <TagsContainer tagSuggestions={tags} tags={this.filterTags()} handleTagDelete={ this.handleTagDelete} handleTagAddition={this.handleTagAddition}/>
+      <div className='form-container'>
+        <div>
+          <h1> {name} </h1>
+          <PostForm title={this.state.title} content={this.state.content} img={this.state.img} handleChange={this.handleChange}/>
+          <TagsContainer tagSuggestions={tags} tags={this.filterTags()} handleTagDelete={ this.handleTagDelete} handleTagAddition={this.handleTagAddition}/>
+          <Link to={post.id === undefined ? '/' : `/posts/${post.id}`} onClick={this.submit} className='btn'> submit </Link>
+        </div>
       </div>
     )
   }

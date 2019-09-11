@@ -9,6 +9,7 @@ const TagsContainer = ({ tags, tagSuggestions, handleTagDelete, handleTagAdditio
       suggestions={tagSuggestions}
       handleDelete={handleTagDelete}
       handleAddition={handleTagAddition}
+      classNames={{root: 'react-tags tag-input'}}
     />
   )
 }
