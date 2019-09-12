@@ -44,13 +44,14 @@ li#search {
 
 #search-bar {
   width: 100px;
-  border: solid 1px grey;
+  border: solid 1px lightgrey;
   border-radius: 5px;
-  padding: 5px;
+  padding: 8px;
   /* text-align: center; */
   box-sizing: border-box;
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
+  font-size: 1em;
 }
 
 #search-bar:focus {

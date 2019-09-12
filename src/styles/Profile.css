@@ -37,25 +37,14 @@
     color: darkgray;
 }
 
-input#search-bar {
-    width: 300px;
-    border: solid 1px lightgrey;
-    border-radius: 5px;
-    box-sizing: border-box;
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1em;
-    margin: 10px;
-}
-
 .input input {
     width: 100%;
     border: solid 1px lightgrey;
     border-radius: 5px;
     box-sizing: border-box;
     display: inline-block;
-    padding: 5% 10%;
-    font-size: 1em;
+    padding: 3%;
+    font-size: 1.15em;
     margin: 5% 0%;
 }
 
@@ -63,9 +52,9 @@ textarea {
     width: 100%;
     border: solid 1px lightgrey;
     border-radius: 5px;
-    padding: 5% 10%;
+    padding: 3%;
     box-sizing: border-box;
-    font-size: 1em;
+    font-size: 1.15em;
     margin: 5% 0%;
 }
 
@@ -123,7 +112,6 @@ div.react-tags.tag-input {
     border-radius: 5px;
     font-size: 1em;
     margin: 5% 0%;
-    padding: 2%;
 }
 
 
