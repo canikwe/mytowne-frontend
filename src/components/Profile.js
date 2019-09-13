@@ -3,7 +3,7 @@ import CardContainer from './CardContainer'
 import Fetch from '../helper/Fetch'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { withRouter } from "react-router"
+import { withRouter } from 'react-router'
 import '../styles/Profile.css'
 
 class Profile extends Component {

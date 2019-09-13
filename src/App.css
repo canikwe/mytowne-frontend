@@ -247,3 +247,17 @@
   align-items: center;
   padding: 20%;
 }
+
+input:focus {
+  border-color: #B1B1B1;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #B1B1B1;
+  outline: none;
+}
+
+.btn:focus{
+  outline: none;
+}
