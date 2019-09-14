@@ -23,13 +23,14 @@ class NavigationBar extends Component {
             <li id='menu'>
               <i className="material-icons" onClick={this.handleMenu}>menu</i>
               <ul className={menuOpen ? 'clicked-menu' : 'menu-item'}>
+                <li onClick={this.handleMenu}><Link to={'/index'}>Index</Link></li>
                 <li onClick={this.handleMenu}><Link to={`/profile/${userId}`}>My Profile</Link></li>
                 <li onClick={this.handleMenu}><Link to='/profile/edit'>My Account</Link></li>
                 <li onClick={this.handleMenu}><Link to='/posts/new'>Create a New Post</Link></li>
                 <li onClick={this.handleMenu}><Link to='/login' onClick={handleLogout}>Logout</Link></li>
               </ul>
             </li>
-            <li><Link to='/'>myTowne</Link></li>
+            <li><Link to='/home'>myTowne</Link></li>
             {loggedIn ? 
               <li id='search'>Search: <input id='search-bar' type='text' value={searchInput} onChange={handleSearch} /></li>
               : null}

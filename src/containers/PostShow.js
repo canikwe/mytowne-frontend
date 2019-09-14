@@ -11,8 +11,11 @@ const PostShow = props => {
     <div className='post-container'>
       <div className='post' >
         <div>
-          {post.img !== "" ?
-          <img src={post.img} alt="featured post" className='card-image'/> : null}
+          <div>
+            {post.img !== "" ?
+            <img src={post.img} alt="featured post" className='card-image'/> : null}
+            {/* Likes will go here */}
+          </div>
 
           <div className='align-content post-header'>
             <h2>{post.title}</h2>
@@ -42,7 +45,8 @@ const PostShow = props => {
             {post.user.avatar === '' ?
               null
               :
-              <img alt={post.user.name} src={post.user.avatar} className='card-avatar'/>}
+              // use the Avatar component here?
+              <img alt={post.user.name} src={post.user.avatar} className='card-avatar'/>} 
             
             <Link to={`/profile/${post.user.id}`}>{post.user.name}</Link>
           </div>

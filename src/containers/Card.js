@@ -1,7 +1,8 @@
 import React, { PureComponent, Fragment } from 'react'
 import Avatar from '../components/Avatar'
 import Tag from '../components/Tag'
-import { Link } from "react-router-dom"
+import Likes from '../components/Likes'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 class Card extends PureComponent {
@@ -67,10 +68,12 @@ class Card extends PureComponent {
           </div>
             <div className='card-content'>
               <h4 className='card-title'>{post.title}</h4>
-              <div className='likes-container'>
-                <i className={this.state.favorite ? 'material-icons favorite' : 'material-icons not-favorite'} onClick={ this.likePost }>{this.state.favorite ? 'favorite' : 'favorite_border'}</i>
-                <p>{ post.likes.length } Likes</p>
-              </div>
+              <Likes
+                icon={this.state.favorite ? 'material-icons favorite' : 'material-icons not-favorite'}
+                likePost={this.likePost}
+                favorite={this.state.favorite ? 'favorite' : 'favorite_border'}
+                likesCount={post.likes.length}
+              />
               {/* <p>{post.content}</p> */}
               {/* <Link to={`/posts/${post.id}`}>Click for More...</Link> */}
             </div>

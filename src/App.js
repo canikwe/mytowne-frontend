@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 import Login from './containers/Login'
-import Home from './components/Home'
+import Home from './containers/Home'
 import PostShow from './containers/PostShow'
 import PostFormContainer from './containers/PostFormContainer'
 import Profile from './components/Profile'
@@ -11,6 +11,7 @@ import Fetch from './helper/Fetch'
 import NavBar from './containers/NavigationBar'
 import Footer from './components/Footer'
 import Loading from './components/Loading'
+import Index from './components/Index'
 import './App.css'
 
 class App extends Component {
@@ -214,10 +215,12 @@ class App extends Component {
             <Redirect to="/" />
           }} />
 
-          <Route exact path="/" render={() => {
+          <Route exact path="/index" render={() => {
             return isEmpty(this.state.user) && !localStorage.token ? <Redirect to="/login" /> :
-            <Home posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} />
+            <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} />
           }} />
+
+          <Route exact path='/home' render={() => <Home user={this.state.user} />} />} />
 
           <Route exact path="/posts/new" render={() => {
             return this.state.loading ? <Loading /> :
