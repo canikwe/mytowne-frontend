@@ -6,6 +6,7 @@ const Home = ({ user }) => {
         <div>
             <Feature user={ user } />
             <h2>Home Page Connected</h2>
+            {/* Use A GRID */}
         </div>
     )
 }

@@ -4,11 +4,11 @@ import '../styles/Cards.css'
 
 
 
-const CardContainer = ({ posts, user, addLike, removeLike }) => {
+const CardContainer = ({ posts, user, addLike, removeLike, handleTagClick }) => {
 
   return (
     <div className='card-container'>
-      {posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map(post => <Card post={post} key={post.id} user={user} addLike={addLike} removeLike={removeLike}/> )}
+      {posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)).map(post => <Card post={post} key={post.id} user={user} addLike={addLike} removeLike={removeLike} handleTagClick={handleTagClick}/> )}
     </div>
   )
 }

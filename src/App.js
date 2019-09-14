@@ -199,6 +199,12 @@ class App extends Component {
     return this.state.posts.filter(p => p.user.id === user.id)
   }
 
+  handleTagClick = tag => {
+    this.setState({
+      filters: [tag.tag_name]
+    })
+  }
+
   render() {
     return (
       <div id='main' className={this.state.page}>
@@ -217,7 +223,7 @@ class App extends Component {
 
           <Route exact path="/index" render={() => {
             return isEmpty(this.state.user) && !localStorage.token ? <Redirect to="/login" /> :
-            <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} />
+            <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} handleTagClick={this.handleTagClick}/>
           }} />
 
           <Route exact path='/home' render={() => <Home user={this.state.user} />} />} />

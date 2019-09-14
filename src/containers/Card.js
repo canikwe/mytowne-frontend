@@ -40,7 +40,7 @@ class Card extends PureComponent {
   }
 
   render() {
-    const { post } = this.props
+    const { post, handleTagClick } = this.props
     const postDate = moment(post.created_at)
     
     return (
@@ -80,7 +80,7 @@ class Card extends PureComponent {
           <hr/>
           <div className='tag-container'>
             {post.post_tags.map((tag) => {
-              return <Tag tag={tag} key={tag.id} />
+              return <Tag key={tag.id} tag={tag} handleTagClick={ handleTagClick }/>
             })}
           </div>
         </div>
