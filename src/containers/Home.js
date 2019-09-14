@@ -3,9 +3,11 @@ import Feature from '../components/Feature'
 
 const Home = ({ user }) => {
     return(
-        <div>
+        <div id='home-layout'>
             <Feature user={ user } />
-            <h2>Home Page Connected</h2>
+            <div className='home-card'>Home Page Connected!</div>
+            <div className='home-card'>Home Page Connected!</div>
+            <div className='top-posts'>Top Posts Go Here</div>
             {/* Use A GRID */}
         </div>
     )

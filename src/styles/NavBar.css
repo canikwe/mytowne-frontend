@@ -5,8 +5,8 @@
 }
 
 #nav-container {
-  width: 97%;
-  margin-bottom: 2%;
+  width: 100%;
+  margin: 0px 15px;
 }
 
 @media screen and (max-width: 600px) {

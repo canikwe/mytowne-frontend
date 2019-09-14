@@ -15,7 +15,6 @@ class NavigationBar extends Component {
   render(){
     const { handleLogout, loggedIn, searchInput, handleSearch, userId } = this.props
     const menuOpen = this.state.menuOpen
-    console.log(userId)
     return(
       <div id='outter-nav-container'>
         <div id='nav-container'>
