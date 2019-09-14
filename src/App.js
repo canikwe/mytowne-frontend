@@ -248,7 +248,7 @@ class App extends Component {
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
             return this.state.loading ? <Loading /> : (
-              <PostShow post={post} handleDelete={this.deletePost} user={this.state.user}/>
+              <PostShow post={post} handleDelete={this.deletePost} user={this.state.user} handleTagClick={this.handleTagClick}/>
             )
           }} />
 

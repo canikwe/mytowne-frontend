@@ -6,7 +6,7 @@ import '../PostShow.css'
 
 const PostShow = props => {
 
-  const { post, handleDelete, user } = props
+  const { post, handleDelete, user, handleTagClick } = props
   return (
     <div className='post-container'>
       <div className='post' >
@@ -54,7 +54,7 @@ const PostShow = props => {
           <hr />
 
           <div>
-            {post.post_tags.map(tag => <Tag tag={tag} key={tag.id} />)}
+            {post.post_tags.map(tag => <Tag key={tag.id} tag={tag} handleTagClick={handleTagClick}/>)}
           </div>
 
           <div>
