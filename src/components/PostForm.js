@@ -1,4 +1,5 @@
 import React from 'react'
+import EditorContainer from '../containers/EditorContainer'
 
 const PostForm = ({ title, content, img, handleChange }) => {
 
@@ -20,6 +21,9 @@ const PostForm = ({ title, content, img, handleChange }) => {
           <label htmlFor='Content'>Content: </label>
         </div>
         <div className='input'>
+
+        {/* <EditorContainer /> */}
+
           <textarea
             value={content}
             onChange={handleChange}
@@ -27,6 +31,8 @@ const PostForm = ({ title, content, img, handleChange }) => {
             cols="50"
             name='content'
           />
+
+
         </div>
         <p/>
         <div className='input-label'>

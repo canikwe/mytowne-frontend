@@ -4,6 +4,7 @@ import Fetch from '../helper/Fetch'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 import { withRouter } from 'react-router'
+import Loading from './Loading'
 import '../styles/Profile.css'
 
 class Profile extends Component {
@@ -83,10 +84,9 @@ class Profile extends Component {
         </div>
       </div>
     )
-    : <h1>Loading ... </h1>
+    : <Loading />
 
   }
 }
 
-const ProfileWithRouter = withRouter(Profile)
-export default ProfileWithRouter
+export default withRouter(Profile)

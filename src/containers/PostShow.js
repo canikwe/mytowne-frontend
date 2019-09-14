@@ -1,60 +1,75 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import Tag from '../components/Tag'
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
+import moment from 'moment'
 import '../PostShow.css'
 
-class PostShow extends PureComponent {
-  constructor(){
-    super()
-    this.state = { open: true }
-  }
+const PostShow = props => {
 
-  handleClickOpen = () => {
-    this.setState({ open: true })
-  }
-
-  handleClose = () => {
-    this.setState({ open: false })
-  }
-
-  render() {
-    const { post, handleDelete, user } = this.props
-    return (
-      <div>
-        {post.img !== "" ?
-        <img src={post.img} alt="featured post"/> : null}
-
+  const { post, handleDelete, user } = props
+  return (
+    <div className='post-container'>
+      <div className='post' >
         <div>
-          <h3>{post.title}</h3>
+          {post.img !== "" ?
+          <img src={post.img} alt="featured post" className='card-image'/> : null}
 
-          {post.user.avatar === '' ?
-            null
-            :
-            <img alt={post.user.name} src={post.user.avatar} />}
+          <div className='align-content post-header'>
+            <h2>{post.title}</h2>
+            <span>{ moment(post.created_at).format('DD-MMM') }</span>
+          </div>
+
+
+          <div>
+            {post.content}
+          </div>
+
+            
+          <div className='align-content post-admin'>
+            {
+              user.id === post.user.id ?
+                <React.Fragment>
+                  <Link to={`/posts/${post.id}/edit`} >
+                    Edit
+                  </Link> | 
+                  <Link to="/" onClick={() => handleDelete(post.id)}>
+                    Delete
+                  </Link>
+                </React.Fragment>
+              : null
+            }
+
+            {post.user.avatar === '' ?
+              null
+              :
+              <img alt={post.user.name} src={post.user.avatar} className='card-avatar'/>}
+            
+            <Link to={`/profile/${post.user.id}`}>{post.user.name}</Link>
+          </div>
           
-          <p>{post.user.username}</p>   
-          <p>{post.content}</p>
-          <hr></hr>
+          <hr />
+
           <div>
             {post.post_tags.map(tag => <Tag tag={tag} key={tag.id} />)}
           </div>
-        </div>
 
-        {
-          user.id === post.user.id ?
-            <React.Fragment>
-              <Link to={`/posts/${post.id}/edit`} onClick={this.handleClose} >
-                Edit
-              </Link>
-              <Link to="/" onClick={() => handleDelete(post.id)}>
-                Delete
-              </Link>
-            </React.Fragment>
-          : null
-        }
+          <div>
+            <textarea placeholder='Comment Box'></textarea>
+          </div>
+
+          <div>
+            <h3>Fake Comments</h3>
+            <ul>
+              <li>Hello</li>
+              <li>Goodbye</li>
+            </ul>
+          </div>
+
+        </div>
       </div>
-    )
-  }
+    </div>
+  )
+  
 }
 
 export default PostShow

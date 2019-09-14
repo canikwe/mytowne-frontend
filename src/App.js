@@ -76,7 +76,7 @@ class App extends Component {
     return tags
   }
 
-  createPost = (data, post) => {
+  createPost = data => {
     Fetch.POST(data, 'posts')
     .then(post => {
       const tags = this.addNewTags(post.tags)
