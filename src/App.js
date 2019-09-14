@@ -205,6 +205,12 @@ class App extends Component {
     })
   }
 
+  recentPosts = () => {
+    return [...this.state.posts].sort((a, b) => {
+      return new Date(b.created_at) - new Date(a.created_at)}
+      ).slice(0, 10)      
+    }
+
   render() {
     return (
       <div id='main' className={this.state.page}>
@@ -226,7 +232,7 @@ class App extends Component {
             <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} handleTagClick={this.handleTagClick}/>
           }} />
 
-          <Route exact path='/home' render={() => <Home user={this.state.user} />} />} />
+          <Route exact path='/home' render={() => <Home user={this.state.user} posts={this.recentPosts()} />} />} />
 
           <Route exact path="/posts/new" render={() => {
             return this.state.loading ? <Loading /> :

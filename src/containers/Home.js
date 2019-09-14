@@ -1,14 +1,16 @@
 import React from 'react'
 import Feature from '../components/Feature'
+import TopPosts from '../components/TopPosts'
+import HomeCard from '../components/HomeCard'
 
-const Home = ({ user }) => {
+const Home = ({ user, posts }) => {
+
     return(
         <div id='home-layout'>
             <Feature user={ user } />
-            <div className='home-card'>Home Page Connected!</div>
-            <div className='home-card'>Home Page Connected!</div>
-            <div className='top-posts'>Top Posts Go Here</div>
-            {/* Use A GRID */}
+            <HomeCard />
+            <HomeCard />
+            <TopPosts posts={posts}/>
         </div>
     )
 }
