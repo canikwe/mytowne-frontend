@@ -1,5 +1,5 @@
 import React from 'react'
-import EditorContainer from '../containers/EditorContainer'
+// import EditorContainer from '../containers/EditorContainer'
 
 const PostForm = ({ title, content, img, handleChange }) => {
 
