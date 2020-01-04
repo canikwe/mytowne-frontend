@@ -267,6 +267,13 @@ class App extends Component {
             return this.state.loading ? <Loading /> :
             <Profile addLike={this.addLike} removeLike={this.removeLike} currentUser={this.state.user} />
           }} />
+
+          <Route exact path="*" render={() => {
+            return isEmpty(this.state.user) && !localStorage.token ? <Redirect to='/login' /> 
+            :
+            <Redirect to='/home' />
+          }} />
+
         </Switch>
         <Footer />
       </div>
