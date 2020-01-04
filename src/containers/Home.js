@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Feature from '../components/Feature'
 import TopPosts from '../components/TopPosts'
 import HomeCard from '../components/HomeCard'
+import { Button } from 'antd'
 
 class Home extends Component {
     constructor(){
@@ -30,7 +31,7 @@ class Home extends Component {
             <div id='home-layout'>
                 <Feature user={ user } />
                 {this.showFollowedPosts().map(p => <HomeCard key={p.id} post={p}/>)}
-                <button onClick={ this.showMorePosts }>More Posts</button>
+                <Button onClick={ this.showMorePosts } type="primary">More Posts</Button>
                 <TopPosts posts={posts}/>
             </div>
         )
