@@ -211,6 +211,16 @@ class App extends Component {
       ).slice(0, 10)      
     }
 
+  followedPosts = () => {
+    const posts = this.state.posts.filter(p => {
+      return (p.user.id !== this.state.user.id && p.tags.some(t => {
+        return this.state.user.followed_tags.includes(t.id)
+      }))
+    })
+
+    return posts.sort((a, b) => b.id - a.id)
+  }
+
   render() {
     return (
       <div id='main' className={this.state.page}>
@@ -232,7 +242,7 @@ class App extends Component {
             <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} handleTagClick={this.handleTagClick}/>
           }} />
 
-          <Route exact path='/home' render={() => <Home user={this.state.user} posts={this.recentPosts()} />} />} />
+          <Route exact path='/home' render={() => <Home user={this.state.user} followedPosts={this.followedPosts()} posts={this.recentPosts()} />} />} />
 
           <Route exact path="/posts/new" render={() => {
             return this.state.loading ? <Loading /> :

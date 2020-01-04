@@ -1,8 +1,10 @@
 import React from 'react'
 
-const HomeCard = props => {
+const HomeCard = ({ post }) => {
     return (
-        <div className='home-card'>Home Page Connected!</div>
+        <div className='home-card'>
+            <p>{ post.title }</p>
+        </div>
     )
 }
 
