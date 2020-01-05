@@ -1,14 +1,14 @@
 #main {
   width: 100%;
 }
-
+/* 
 #home-layout {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: auto;
   justify-content: center;
   padding: 15px;
-}
+} */
 
 .homepage {
   background: #fff;
