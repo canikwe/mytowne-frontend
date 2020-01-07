@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Feature from '../components/Feature'
 import TopPosts from '../components/TopPosts'
 import HomeCard from '../components/HomeCard'
-import { Button, Row, Col } from 'antd'
+import { Button, Row, Col, Tabs } from 'antd'
 
 class Home extends Component {
     constructor(){
@@ -13,31 +13,41 @@ class Home extends Component {
     }
 
     showMorePosts = () => {
-        if (this.state.index + 5 > this.props.followedPosts.length) {
+        if (this.state.index + 5 > this.props.dashboardPosts.length) {
             this.setState({ index: 0 })
         } else {
             this.setState({ index: this.state.index +  5 })
         }
+        document.querySelector('.ant-tabs-tab').scrollIntoView()
     }
 
     showFollowedPosts = () => {
-        return this.props.followedPosts.slice(this.state.index, this.state.index + 5)
+        return this.props.dashboardPosts.slice(this.state.index, this.state.index + 5)
     }
     
     render(){
-        const { user, posts, followedPosts } = this.props
-        console.log(followedPosts)
+        const { user, posts, dashboardPosts, loading, handleTabChange } = this.props
+        console.log(dashboardPosts)
         return(
             <>
             <Row gutter={[8, 16]}>
-                    <Col span={24}>
-                        <Feature user={ user } />
-                    </Col>
-                </Row>
+                <Col span={24}>
+                    <Feature user={ user } />
+                </Col>
+            </Row>
+
             {/* <div id='home-layout'> */}
             <Row gutter={[8, 16]} type="flex" justify="space-around" align="top">
                 <Col span={12}>
-                    {this.showFollowedPosts().map(p => <HomeCard key={p.id} post={p}/>)}
+                    <Tabs onChange={ handleTabChange }>
+                        <Tabs.TabPane tab="Following" key='following'>
+
+                        </Tabs.TabPane>
+                        <Tabs.TabPane tab="Favorites" key='favorites'>
+                            
+                        </Tabs.TabPane>
+                    </Tabs>
+                    {this.showFollowedPosts().map(p => <HomeCard key={p.id} post={p} loading={ loading }/>)}
                 </Col>
                 <Col span={8}>
                     <TopPosts posts={posts}/>

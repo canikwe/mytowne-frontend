@@ -29,7 +29,8 @@ class App extends Component {
       tags: [],
       loading: true,
       searchInput: '',
-      page: 'login'
+      page: 'login',
+      homepageFilter: true
     })
   }
 
@@ -221,6 +222,21 @@ class App extends Component {
     return posts.sort((a, b) => b.id - a.id)
   }
 
+  likedPosts = () => {
+    const posts = this.state.posts.filter(p => {
+      return p.likes.filter(l => {
+        return l.user_id === this.state.user.id
+      }).length > 0 ? true : false
+    })
+
+    return posts.sort((a, b) => b.id - a.id)
+  }
+
+  handleHomeTabChange = e => {
+    console.log('Changing tab')
+    this.setState({ homepageFilter: !this.state.homepageFilter })
+  }
+
   render() {
     return (
       <div id='main' className={this.state.page}>
@@ -242,7 +258,7 @@ class App extends Component {
             <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} handleTagClick={this.handleTagClick}/>
           }} />
 
-          <Route exact path='/home' render={() => <Home user={this.state.user} followedPosts={this.followedPosts()} posts={this.recentPosts()} />} />} />
+          <Route exact path='/home' render={() => <Home user={this.state.user} dashboardPosts={this.state.homepageFilter ? this.followedPosts() : this.likedPosts() } posts={this.recentPosts()} loading={ this.state.loading } handleTabChange={this.handleHomeTabChange} />} />} />
 
           <Route exact path="/posts/new" render={() => {
             return this.state.loading ? <Loading /> :
