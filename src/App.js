@@ -12,6 +12,7 @@ import NavBar from './containers/NavigationBar'
 import Footer from './components/Footer'
 import Loading from './components/Loading'
 import Index from './components/Index'
+import { Modal, Button } from 'antd'
 import './App.css'
 
 class App extends Component {
@@ -222,7 +223,7 @@ class App extends Component {
     return posts.sort((a, b) => b.id - a.id)
   }
 
-  likedPosts = () => {
+  likedPosts = () => { // Need this to sort by date like was created...
     const posts = this.state.posts.filter(p => {
       return p.likes.filter(l => {
         return l.user_id === this.state.user.id
@@ -230,6 +231,10 @@ class App extends Component {
     })
 
     return posts.sort((a, b) => b.id - a.id)
+  }
+
+  filteredPosts = () => {
+    return this.state.homepageFilter ? this.followedPosts() : this.likedPosts()
   }
 
   handleHomeTabChange = e => {
@@ -258,7 +263,7 @@ class App extends Component {
             <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} handleTagClick={this.handleTagClick}/>
           }} />
 
-          <Route exact path='/home' render={() => <Home user={this.state.user} dashboardPosts={this.state.homepageFilter ? this.followedPosts() : this.likedPosts() } posts={this.recentPosts()} loading={ this.state.loading } handleTabChange={this.handleHomeTabChange} />} />} />
+          <Route exact path='/home' render={() => <Home user={this.state.user} dashboardPosts={ this.filteredPosts() } posts={this.recentPosts()} loading={ this.state.loading } handleTabChange={this.handleHomeTabChange} />} />} />
 
           <Route exact path="/posts/new" render={() => {
             return this.state.loading ? <Loading /> :

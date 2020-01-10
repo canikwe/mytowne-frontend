@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Skeleton, Card, Icon, Avatar } from 'antd'
 import moment from 'moment'
 
@@ -25,6 +26,7 @@ const HomeCard = ({ post, loading }) => {
                     }
                     description={ post.content }
                     />
+                <Link to={`/posts/${post.id}`}>more...</Link>
             </Card>
             {/* <p>{ post.title }</p> */}
         </div>
