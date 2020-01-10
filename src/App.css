@@ -94,6 +94,10 @@
   /* float: inline-start; */
 }
 
+.home-card-author {
+  padding-left: 16px;
+}
+
 .top-posts {
   grid-column: 8 / -1;
   grid-row: 2 / 4;

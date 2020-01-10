@@ -17,13 +17,11 @@ const HomeCard = ({ post, loading }) => {
                 hoverable
                 loading={ loading }
                 extra={postDate()}
-                title={ post.title }
+                title={<><Avatar src={post.user.avatar} /><span className='home-card-author'>{post.user.name}</span></>}
                 cover={<img alt={ post.title } src={ post.img } className='home-card-img'/>}
                 >
                 <Card.Meta
-                    avatar={
-                        <Avatar src={ post.user.avatar } />
-                    }
+                    title={ post.title }
                     description={ post.content }
                     />
                 <Link to={`/posts/${post.id}`}>more...</Link>

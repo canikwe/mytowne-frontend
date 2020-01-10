@@ -3,7 +3,7 @@ import { Form, Input, Card } from 'antd'
 
 const QuickPost = () => {
   return (
-    <Card>
+    <Card size="small">
       <Form layout="vertical">
         <Form.Item label="New Post...">
           <Input />
