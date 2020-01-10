@@ -89,7 +89,9 @@
 }
 
 .home-card-img {
-  max-width: fit-content;
+  object-fit: cover;
+  max-height: 300px;
+  /* float: inline-start; */
 }
 
 .top-posts {

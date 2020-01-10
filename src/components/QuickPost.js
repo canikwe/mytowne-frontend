@@ -1,0 +1,19 @@
+import React from 'react'
+import { Form, Input, Card } from 'antd'
+
+const QuickPost = () => {
+  return (
+    <Card>
+      <Form layout="vertical">
+        <Form.Item label="New Post...">
+          <Input />
+        </Form.Item>
+        {/* <Form.Item label="Description">
+          <Input type="textarea" />
+        </Form.Item> */}
+      </Form>
+    </Card>
+  )
+}
+
+export default QuickPost

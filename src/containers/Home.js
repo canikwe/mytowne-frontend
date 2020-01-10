@@ -1,10 +1,13 @@
-import React, { Component } from 'react'
-import Feature from '../components/Feature'
+import React, { PureComponent } from 'react'
+// import Feature from '../components/Feature'
+import QuickPost from '../components/QuickPost'
 import TopPosts from '../components/TopPosts'
 import HomeCard from '../components/HomeCard'
+import HomeFilters from '../components/HomeFilters'
 import { Button, Row, Col, Tabs } from 'antd'
+import SideBar from '../components/SideBar'
 
-class Home extends Component {
+class Home extends PureComponent {
     constructor(){
         super()
         this.state = {
@@ -28,37 +31,29 @@ class Home extends Component {
     render(){
         const { user, posts, dashboardPosts, loading, handleTabChange } = this.props
         console.log(dashboardPosts)
-        return(
+        return (
             <>
-            <Row gutter={[8, 16]}>
-                <Col span={24}>
-                    <Feature user={ user } />
-                </Col>
-            </Row>
 
-            {/* <div id='home-layout'> */}
-            <Row gutter={[8, 16]} type="flex" justify="space-around" align="top">
-                <Col span={12}>
-                    <Tabs onChange={ handleTabChange }>
-                        <Tabs.TabPane tab="Following" key='following'>
+                <Row type="flex" justify="space-around" align="top">
+                    <Col span={ 5 }>
+                        <SideBar />
+                    </Col>
+                    <Col span={ 10 }>
 
-                        </Tabs.TabPane>
-                        <Tabs.TabPane tab="Favorites" key='favorites'>
-                            
-                        </Tabs.TabPane>
-                    </Tabs>
-                    {this.showFollowedPosts().map(p => <HomeCard key={p.id} post={p} loading={ loading }/>)}
-                </Col>
-                <Col span={8}>
-                    <TopPosts posts={posts}/>
-                </Col>
-            </Row>
-            <Row>
-                <Col span={12} offset={1}>
-                    <Button onClick={ this.showMorePosts } type="primary">More Posts</Button>
-                </Col>
-            </Row>
-            {/* </div> */}
+                        <QuickPost />
+                        <HomeFilters handleTabChange={handleTabChange}/>
+
+                        {this.showFollowedPosts().map(p => <HomeCard key={p.id} post={p} loading={ loading }/>)}
+                    </Col>
+                    <Col span={ 5 }>
+                        <TopPosts posts={posts}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={12} offset={1}>
+                        <Button onClick={ this.showMorePosts } type="primary">More Posts</Button>
+                    </Col>
+                </Row>
             </>
         )
     }
