@@ -245,7 +245,7 @@ class App extends Component {
   }
 
   filteredPosts = () => {
-    return this.state.homepageFilter ? this.followedPosts() : this.likedPosts()
+    return this.state.homepageFilter ? this.followedPosts() : this.recentPosts()
   }
 
   handleHomeTabChange = e => {

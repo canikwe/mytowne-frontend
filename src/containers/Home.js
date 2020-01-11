@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react'
+import { message, Button, Row, Col } from 'antd'
+
+import SideBar from '../components/SideBar'
 import QuickPost from '../components/QuickPost'
+import HomeFilters from '../components/HomeFilters'
 import PostFeed from '../containers/PostFeed'
 import Weather from '../components/Weather'
-import HomeFilters from '../components/HomeFilters'
-import { message, Button, Row, Col } from 'antd'
-import SideBar from '../components/SideBar'
+import ChatBox from '../components/ChatBox'
+
 
 class Home extends PureComponent {
   constructor(){
@@ -55,7 +58,7 @@ class Home extends PureComponent {
 // --------------- main render ---------------
     
   render(){
-    const { user, loading, handleTabChange, handleSubmit } = this.props
+    const { user, loading, handleTabChange } = this.props
     return (
       <>
         <Row type="flex" justify="space-around" align="top">
@@ -68,12 +71,17 @@ class Home extends PureComponent {
             <PostFeed posts={this.paginatedPosts()} loading={loading}/>
             <Button onClick={ this.showMorePosts } type="primary">More Posts</Button>
           </Col>
-            <Col span={ 5 }>
-              <Weather />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} offset={1}>
+          <Col span={ 5 }>
+            <Row gutter={[8, 40]}>
+              <Col>
+                <Weather />
+              </Col>
+            </Row>
+            <Row gutter={[8, 40]}>
+              <Col>
+                <ChatBox />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </>
