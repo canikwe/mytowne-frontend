@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-// import Feature from '../components/Feature'
 import QuickPost from '../components/QuickPost'
 // import TopPosts from '../components/TopPosts'
 import PostFeed from '../containers/PostFeed'
