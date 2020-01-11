@@ -54,6 +54,18 @@ class App extends Component {
     })
   }
 
+  
+  // compare post.tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
+  addNewTags = (postTags) => {
+    let tags = [...this.state.tags]
+    postTags.forEach(pt => {
+      const newTag = tags.find(tag => tag.id === pt.tag_id)
+      return newTag === undefined ? tags = [...tags, {id: pt.tag_id, name: pt.tag_name}] : tags
+    })
+    return tags
+  }
+
+ // -------------------- fetch helper methods -------------------- 
   fetchUser = () => {
     Fetch.GET('profile')
     .then(data => this.setState({ user: data.user, page: 'homepage' }))
@@ -67,16 +79,6 @@ class App extends Component {
       })
       this.setState({ tags })
     })
-  }
-
-  // compare post.tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
-  addNewTags = (postTags) => {
-    let tags = [...this.state.tags]
-    postTags.forEach(pt => {
-      const newTag = tags.find(tag => tag.id === pt.tag_id)
-      return newTag === undefined ? tags = [...tags, {id: pt.tag_id, name: pt.tag_name}] : tags
-    })
-    return tags
   }
 
   createPost = data => {
@@ -143,12 +145,43 @@ class App extends Component {
     .then(this.handleLogout)
   }
 
+  handleLogin = (data) => {
+    Fetch.POST(data, 'login')
+    .then(data => {
+      if (data.error) {
+        alert(data.error)
+      } else {
+        localStorage.setItem('token', data.jwt)
+        this.setState({ user: data.user, page: 'homepage' })
+        this.fetchPosts(data.jwt)
+        this.fetchTags()
+      }
+    })
+  }
+
+// -------------------- state changing helper methods --------------------
+
   //Converting the filter array to tag names and setting state
   handleFilter = (filterArr) => {
     let vals = []
     filterArr.forEach(category => vals.push(category.value))
     this.setState({ filters: vals })
   }
+
+  handleSearch = (e) => this.setState({ searchInput: e.target.value })
+
+  handleLogout = () => {
+    localStorage.clear()
+    this.setState(this.initialState())
+  }
+
+  handleTagClick = tag => {
+    this.setState({
+      filters: [tag.tag_name]
+    })
+  }
+
+// -------------------- presentation/rendering helper methods --------------------
   
   //Filtering POSTS
   handleTagFilter = () => {
@@ -176,42 +209,19 @@ class App extends Component {
     return this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
   }
 
-  handleSearch = (e) => this.setState({ searchInput: e.target.value })
 
-  handleLogin = (data) => {
-    Fetch.POST(data, 'login')
-    .then(data => {
-      if (data.error) {
-        alert(data.error)
-      } else {
-        localStorage.setItem('token', data.jwt)
-        this.setState({ user: data.user, page: 'homepage' })
-        this.fetchPosts(data.jwt)
-        this.fetchTags()
-      }
-    })
-  }
 
-  handleLogout = () => {
-    localStorage.clear()
-    this.setState(this.initialState())
-  }
 
   userPosts = (user) => {
     return this.state.posts.filter(p => p.user.id === user.id)
   }
 
-  handleTagClick = tag => {
-    this.setState({
-      filters: [tag.tag_name]
-    })
-  }
 
   recentPosts = () => {
     return [...this.state.posts].sort((a, b) => {
-      return new Date(b.created_at) - new Date(a.created_at)}
-      ).slice(0, 10)      
-    }
+      return new Date(b.created_at) - new Date(a.created_at)
+    }).slice(0, 10)      
+  }
 
 // ------------------------ methods to render newsfeed posts ------------------------
   followedPosts = () => {
@@ -242,6 +252,8 @@ class App extends Component {
     console.log('Changing tab')
     this.setState({ homepageFilter: !this.state.homepageFilter })
   }
+
+// -------------------- main render method --------------------
 
   render() {
     return (
