@@ -3,7 +3,7 @@ import QuickPost from '../components/QuickPost'
 import PostFeed from '../containers/PostFeed'
 import Weather from '../components/Weather'
 import HomeFilters from '../components/HomeFilters'
-import { Button, Row, Col } from 'antd'
+import { message, Button, Row, Col } from 'antd'
 import SideBar from '../components/SideBar'
 
 class Home extends PureComponent {
@@ -36,7 +36,7 @@ class Home extends PureComponent {
       post: {
         post_info: {
           user_id: this.props.user.id,
-          title: 'test for now',
+          title: 'Untitled',
           content: this.state.content
         }
 
@@ -45,6 +45,7 @@ class Home extends PureComponent {
 
     this.props.handleSubmit(data)
     this.setState({ content: '' })
+    message.success('Post created 🎉!')
   }
 
   handleContentChange = e => {
@@ -65,6 +66,7 @@ class Home extends PureComponent {
             <QuickPost user={user} submitPost={this.submitPost} content={this.state.content} handleContentChange={this.handleContentChange}/>
             <HomeFilters handleTabChange={handleTabChange}/>
             <PostFeed posts={this.paginatedPosts()} loading={loading}/>
+            <Button onClick={ this.showMorePosts } type="primary">More Posts</Button>
           </Col>
             <Col span={ 5 }>
               <Weather />
@@ -72,7 +74,6 @@ class Home extends PureComponent {
         </Row>
         <Row>
           <Col span={12} offset={1}>
-            <Button onClick={ this.showMorePosts } type="primary">More Posts</Button>
           </Col>
         </Row>
       </>
