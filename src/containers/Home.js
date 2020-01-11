@@ -10,10 +10,12 @@ class Home extends PureComponent {
   constructor(){
     super()
     this.state = {
-      index: 0
+      index: 0,
+      content: ''
     }
   }
 
+// --------------- newsfeed helper methods ---------------
   showMorePosts = () => {
     if (this.state.index + 5 > this.props.posts.length) {
       this.setState({ index: 0 })
@@ -26,9 +28,33 @@ class Home extends PureComponent {
   paginatedPosts = () => {
     return this.props.posts.slice(this.state.index, this.state.index + 5)
   }
+
+// --------------- quick post helper methods ---------------
+  submitPost = e => {
+    e.preventDefault()
+    const data = {
+      post: {
+        post_info: {
+          user_id: this.props.user.id,
+          title: 'test for now',
+          content: this.state.content
+        }
+
+      }
+    }
+
+    this.props.handleSubmit(data)
+    this.setState({ content: '' })
+  }
+
+  handleContentChange = e => {
+    this.setState({ content: e.target.value })
+  }
+
+// --------------- main render ---------------
     
   render(){
-    const { loading, handleTabChange } = this.props
+    const { user, loading, handleTabChange, handleSubmit } = this.props
     return (
       <>
         <Row type="flex" justify="space-around" align="top">
@@ -36,7 +62,7 @@ class Home extends PureComponent {
             <SideBar />
           </Col>
           <Col span={ 10 }>
-            <QuickPost />
+            <QuickPost user={user} submitPost={this.submitPost} content={this.state.content} handleContentChange={this.handleContentChange}/>
             <HomeFilters handleTabChange={handleTabChange}/>
             <PostFeed posts={this.paginatedPosts()} loading={loading}/>
           </Col>

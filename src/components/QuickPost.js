@@ -1,16 +1,14 @@
 import React from 'react'
 import { Form, Input, Card } from 'antd'
 
-const QuickPost = () => {
+const QuickPost = ({ submitPost, handleContentChange, content }) => {
+
   return (
     <Card size="small">
-      <Form layout="vertical" onSubmit={null}>
+      <Form layout="vertical" onSubmit={submitPost}>
         <Form.Item label="New Post...">
-          <Input />
+          <Input onChange={handleContentChange} value={ content }/>
         </Form.Item>
-        {/* <Form.Item label="Description">
-          <Input type="textarea" />
-        </Form.Item> */}
       </Form>
     </Card>
   )

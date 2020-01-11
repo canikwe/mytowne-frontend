@@ -4,7 +4,6 @@ import { Card, Icon, Avatar } from 'antd'
 import moment from 'moment'
 
 const PostCard = ({ post, loading }) => {
-  console.log(post)
 
   const postDate = () => {
     const date = moment(post.created_at)
