@@ -58,12 +58,12 @@ class Home extends PureComponent {
 // --------------- main render ---------------
     
   render(){
-    const { user, loading, handleTabChange } = this.props
+    const { user, loading, handleTabChange, handleLogout } = this.props
     return (
       <>
         <Row type="flex" justify="space-around" align="top">
           <Col span={ 5 }>
-            <SideBar user={user} loading={loading}/>
+            <SideBar user={user} loading={loading} handleLogout={handleLogout}/>
           </Col>
           <Col span={ 10 }>
             <QuickPost user={user} submitPost={this.submitPost} content={this.state.content} handleContentChange={this.handleContentChange}/>

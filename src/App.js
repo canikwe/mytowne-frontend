@@ -272,7 +272,20 @@ class App extends Component {
             <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} handleTagClick={this.handleTagClick}/>
           }} />
 
-          <Route exact path='/home' render={() => <Home user={this.state.user} posts={this.filteredPosts()} handleSubmit={this.createPost} loading={ this.state.loading } handleTabChange={this.handleHomeTabChange} />} />} />
+          <Route exact path='/home' render={() => {
+            return isEmpty(this.state.user) && !localStorage.token ?
+              <Redirect to='/login' />
+                :
+              <Home 
+                user={this.state.user} 
+                posts={this.filteredPosts()} 
+                handleSubmit={this.createPost} 
+                loading={ this.state.loading } 
+                handleTabChange={this.handleHomeTabChange}
+                handleLogout={this.handleLogout}
+              />
+            }} 
+          />} />
 
           <Route exact path="/posts/new" render={() => {
             return this.state.loading ? <Loading /> :

@@ -1,12 +1,11 @@
 import React from 'react'
 import { Menu, Icon, Avatar } from 'antd'
+import { Link } from 'react-router-dom'
 
-const SideBar = ({ user, loading }) => {
+const SideBar = ({ user, loading, handleLogout }) => {
   const handleClick = e => {
     console.log('click ', e)
   }
-
-  console.log(user)
 
   return (
     <Menu
@@ -51,6 +50,9 @@ const SideBar = ({ user, loading }) => {
         <Menu.Item key="9">Edit Profile</Menu.Item>
         <Menu.Item key="10">Account</Menu.Item>
       </Menu.SubMenu>
+      <Menu.Item>
+          <Icon type='logout' /> <span onClick={handleLogout}>Logout</span>
+      </Menu.Item>
     </Menu>
   )
 }

@@ -20,7 +20,8 @@ const Header = () => {
           <div className='search-border'>
             <Input.Search 
               placeholder='Search...' 
-              value={'hay'} 
+              // value={'hay'} 
+              // onChange={}
               onSearch={(v, e) => console.log(v, e)}
               id='search'
             />
