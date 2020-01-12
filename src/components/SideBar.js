@@ -1,10 +1,13 @@
 import React from 'react'
 import { Menu, Icon, Avatar } from 'antd'
 
-const SideBar = () => {
+const SideBar = ({ user, loading }) => {
   const handleClick = e => {
-    console.log('click ', e);
-  };
+    console.log('click ', e)
+  }
+
+  console.log(user)
+
   return (
     <Menu
       onClick={handleClick}
@@ -17,7 +20,7 @@ const SideBar = () => {
         key="title"
       >
         <Avatar style={{marginRight: '5px'}}/>
-        <span>Username Here</span>
+        <span>{loading ? '.....' : `Welcome, ${user.name}!`}</span>
       </Menu.Item>
       <Menu.SubMenu
         key="nav"

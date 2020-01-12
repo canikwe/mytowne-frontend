@@ -11,7 +11,7 @@ const PostCard = ({ post, loading }) => {
   }
 
   return (
-    <div className='home-card'>
+    <div className='post-card'>
       <Card 
         hoverable
         loading={ loading }
@@ -20,13 +20,13 @@ const PostCard = ({ post, loading }) => {
           !loading ?
           <>
             <Avatar src={post.user.avatar} />
-            <span className='home-card-author'>{post.user.name}</span>
+            <span className='post-card-author'>{post.user.name}</span>
           </>
           : null
         )}
         cover={(
           !loading ?
-          <img alt={ post.title } src={ post.img } className='home-card-img'/>
+          <img alt={ post.title } src={ post.img } className='post-card-img'/>
           : null
         )}
         actions={[

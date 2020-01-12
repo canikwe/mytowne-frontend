@@ -1,14 +1,4 @@
-#main {
-  width: 100%;
-}
-/* 
-#home-layout {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: auto;
-  justify-content: center;
-  padding: 15px;
-} */
+/* ------- Page Background Styles ------- */
 
 .homepage {
   background: lightgray;
@@ -22,40 +12,14 @@
   background-attachment: fixed;
 }
 
-
-.App {
-  text-align: center;
+#main {
+  width: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* -------- Header Styles -------- */
+.header {
+  margin-bottom: 0.5em;
+  padding-top: 0.5em;
 }
 
 .header-logo {
@@ -63,67 +27,33 @@
 }
 
 .header-title {
-  display: inline-block;
-}
-/* 
-.header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-} */
-
-
-.home-card {
-  grid-column: 1 / 8;
-  /* height: 300px; */
-  border-radius: 3px;
-  background-color: gray;
-  margin-bottom: 3px;
+  margin: -0.25em
 }
 
-.home-card-img {
+#search {
+  background: rgba(76, 175, 80, 0);
+  border: 0;
+}
+
+.search-border {
+  border-bottom: grey solid 1px;
+}
+
+.post-card {
+  margin-bottom: 1em;
+}
+
+.post-card-img {
   object-fit: cover;
   max-height: 300px;
-  /* float: inline-start; */
 }
 
-.home-card-author {
+.post-card-author {
   padding-left: 16px;
 }
 
-.top-posts {
-  grid-column: 8 / -1;
-  grid-row: 2 / 4;
-}
-
-
-#filter-container {
-  width: 100%;
-  /* display: flex;
-  justify-content: center; */
-}
-
-#filter {
-  width: 50%;
-}
-
-
-/*  */
-/* Card CSS Styles */
-/* .card {
-  display: inline-block;
-  overflow: auto;
-  height: 300px;
-  width: 200px;
-  border-style: outset
-} */
-
-
-
 /* Tag CSS Styles */
-
-
-/* Start React Tags Styling */
+/* ---------- React Tags Styling ---------- */
 .react-tags {
   position: relative;
   padding: 6px 0 0 6px;
@@ -259,13 +189,62 @@
   cursor: auto;
 }
 
-/* Center Loading Component */
+/* ---------- Center Loading Component ---------- */
 
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20%;
+}
+
+/* ------- React App Styles ------- */
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --------- Other Styles --------- */
+
+#filter-container {
+  width: 100%;
+  /* display: flex;
+  justify-content: center; */
+}
+
+#filter {
+  width: 50%;
 }
 
 input:focus {

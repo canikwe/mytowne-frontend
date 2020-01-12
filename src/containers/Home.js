@@ -63,7 +63,7 @@ class Home extends PureComponent {
       <>
         <Row type="flex" justify="space-around" align="top">
           <Col span={ 5 }>
-            <SideBar />
+            <SideBar user={user} loading={loading}/>
           </Col>
           <Col span={ 10 }>
             <QuickPost user={user} submitPost={this.submitPost} content={this.state.content} handleContentChange={this.handleContentChange}/>
