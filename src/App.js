@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { isEmpty } from 'lodash'
+import { Modal } from 'antd'
 import Login from './containers/Login'
 import Home from './containers/Home'
 import PostShow from './containers/PostShow'
@@ -149,7 +150,10 @@ class App extends Component {
     Fetch.POST(data, 'login')
     .then(data => {
       if (data.error) {
-        alert(data.error)
+        Modal.error({
+          title: data.error,
+          content: 'Please try again',
+        })
       } else {
         localStorage.setItem('token', data.jwt)
         this.setState({ user: data.user, page: 'homepage' })
@@ -260,7 +264,7 @@ class App extends Component {
   render() {
     return (
       <div id='main' className={this.state.page}>
-        <Header />
+        <Header loggedIn={!isEmpty(this.state.user)}/>
         <Switch>
           <Route exact path="/login" render={() => {
             return isEmpty(this.state.user) && !localStorage.token ? <Login handleLogin={this.handleLogin}/> :

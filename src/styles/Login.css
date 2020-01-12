@@ -1,9 +1,13 @@
-main {
+main#login {
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
+}
+
+.login-header {
+  justify-self: flex-start;
 }
 
 .login-div {
@@ -11,9 +15,17 @@ main {
   height: 400px;
   margin-top: 75px;  /*update this later*/
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 5px;
+}
+
+.login-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 

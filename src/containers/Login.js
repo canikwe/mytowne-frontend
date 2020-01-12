@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { Icon, Button} from 'antd'
 import '../styles/Login.css'
 
 
@@ -28,18 +29,22 @@ class Login extends PureComponent {
 
   render() {
     return (
-      <main>
+      <main id='login'>
         <div className='login-div'>
-          <h3>Login</h3><br />
-          <form className='login-form'>
+          <div className='login-header'>
+            <Icon type="login" style={{ color: 'red', fontSize: '2em' }} />
+            <h1>Log In</h1>
+          </div>
+          <div className='login-contents'>
+            <form className='login-form'>
               <label htmlFor="username">Username</label>
               <input
                 id="username"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleChange}
-              /><br />
-
+              />
+              <p />
               <label htmlFor="password">Password</label>
               <input
                 id="password"
@@ -47,14 +52,25 @@ class Login extends PureComponent {
                 type="password"
                 value={this.state.password}
                 onChange={this.handleChange}
-              /><br />
-            <button
-              type="submit"
-              onClick={this.localLoginHandler}
-            >
-              Log In:
-            </button>
-          </form>
+              />
+              <p />
+              <Button 
+                type="primary" 
+                htmlType="submit" 
+                className="login-form-button"
+                onClick={this.localLoginHandler}
+              >
+                Log in
+              </Button>
+              <button
+                type="submit"
+                onClick={this.localLoginHandler}
+              >
+                Log In:
+              </button>
+            </form>
+
+          </div>
         </div>
       </main>
     )
