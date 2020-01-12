@@ -1,9 +1,9 @@
 /* ------- Page Background Styles ------- */
 
 .homepage {
-  background: lightgray;
-  /* background-image: url('backgroundMountains.png'); */
-  /* background-attachment: fixed; */
+  /* background: lightgray; */
+  background-image: url('backgroundMountains.png');
+  background-attachment: fixed;
 }
 
 .login {

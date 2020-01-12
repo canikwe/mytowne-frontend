@@ -39,10 +39,36 @@ class App extends Component {
   componentDidMount() {
     let token = localStorage.getItem('token')
     if (token) {
-      this.fetchPosts()
       this.fetchUser()
+      this.fetchPosts()
       this.fetchTags()
     }
+  }
+
+ // -------------------- fetch helper methods -------------------- 
+
+   fetchUser = () => {
+    Fetch.GET('profile')
+    .then(data => {
+      if (data.user) {
+        this.setState({ user: data.user, page: 'homepage' })
+      } else {
+        Modal.error({
+          title: 'Trouble logging in',
+          content: 'Please try again',
+        })
+        localStorage.clear()
+        return <Redirect to='/login' />
+      }
+    })
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+      localStorage.clear()
+      return <Redirect to='/login' />
+    })
   }
 
   fetchPosts = () => {
@@ -53,23 +79,12 @@ class App extends Component {
       loading: false
       })
     })
-  }
-
-  
-  // compare post.tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
-  addNewTags = (postTags) => {
-    let tags = [...this.state.tags]
-    postTags.forEach(pt => {
-      const newTag = tags.find(tag => tag.id === pt.tag_id)
-      return newTag === undefined ? tags = [...tags, {id: pt.tag_id, name: pt.tag_name}] : tags
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
     })
-    return tags
-  }
-
- // -------------------- fetch helper methods -------------------- 
-  fetchUser = () => {
-    Fetch.GET('profile')
-    .then(data => this.setState({ user: data.user, page: 'homepage' }))
   }
 
   fetchTags = () => {
@@ -80,6 +95,12 @@ class App extends Component {
       })
       this.setState({ tags })
     })
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+    })
   }
 
   createPost = data => {
@@ -89,6 +110,12 @@ class App extends Component {
       this.setState({
         posts: [...this.state.posts, post],
         tags: tags
+      })
+    })
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
       })
     })
   }
@@ -103,7 +130,12 @@ class App extends Component {
         posts: this.state.posts.map(p => p.id === post.id ? post : p)
       })
     })
-    .catch(error => {debugger})
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+    })
   }
 
   removeLike = (id) => {
@@ -111,6 +143,12 @@ class App extends Component {
     .then(post => {
       this.setState({
         posts: this.state.posts.map(p => p.id === post.id ? post : p)
+      })
+    })
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
       })
     })
   }
@@ -125,12 +163,26 @@ class App extends Component {
       tags: tags
       })
     })
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+    })
   }
 
   deletePost = (id) => {
     Fetch.DELETE(id, 'posts/')
     .then(post => {
-      this.setState({ posts: this.state.posts.filter(p => p.id !== id) })})
+      const posts = this.state.posts.filter(p => p.id !== id) 
+      this.setState({ posts })
+    })
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+    })
   }
 
   editUser = (data, userId) => {
@@ -138,12 +190,25 @@ class App extends Component {
     .then(user => this.setState({ user }))
     .then(window.alert('Your changes have been saved!'))
     .then(window.history.back())
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+    })
   }
 
   deleteUser = (id) => {
     Fetch.DELETE(id, 'users/')
     // .then(res => res.json())
     .then(this.handleLogout)
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+      debugger
+    })
   }
 
   handleLogin = (data) => {
@@ -161,6 +226,13 @@ class App extends Component {
         this.fetchTags()
       }
     })
+    .catch(err => {
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+    })
+    
   }
 
 // -------------------- state changing helper methods --------------------
@@ -185,6 +257,7 @@ class App extends Component {
     })
   }
 
+  
 // -------------------- presentation/rendering helper methods --------------------
   
   //Filtering POSTS
@@ -214,7 +287,15 @@ class App extends Component {
   }
 
 
-
+  // compare post.tags from returned DB post object with tags stored in state to add new tags to state without an additional DB fetch call
+  addNewTags = (postTags) => {
+    let tags = [...this.state.tags]
+    postTags.forEach(pt => {
+      const newTag = tags.find(tag => tag.id === pt.tag_id)
+      return newTag === undefined ? tags = [...tags, { id: pt.tag_id, name: pt.tag_name }] : tags
+    })
+    return tags
+  }
 
   userPosts = (user) => {
     return this.state.posts.filter(p => p.user.id === user.id)
@@ -232,8 +313,11 @@ class App extends Component {
     const posts = this.state.posts.filter(p => {
       return (p.user.id !== this.state.user.id && p.tags.some(t => {
         // app periodically breaks here...
-        if (!this.state.user.followed_tags) {debugger}
-        return this.state.user.followed_tags.includes(t.id)
+        if (!this.state.user.followed_tags) {
+          return []
+        } else {
+          return this.state.user.followed_tags.includes(t.id)
+        }
       }))
     })
 
@@ -259,12 +343,17 @@ class App extends Component {
     this.setState({ homepageFilter: !this.state.homepageFilter })
   }
 
+// -------------------- routing helper methods -----------------
+loggedIn  = () => {
+  return !!localStorage.token
+}
+
 // -------------------- main render method --------------------
 
   render() {
     return (
       <div id='main' className={this.state.page}>
-        <Header loggedIn={!isEmpty(this.state.user)}/>
+        <Header loggedIn={this.loggedIn()}/>
         <Switch>
           <Route exact path="/login" render={() => {
             return isEmpty(this.state.user) && !localStorage.token ? <Login handleLogin={this.handleLogin}/> :
@@ -277,9 +366,7 @@ class App extends Component {
           }} />
 
           <Route exact path='/home' render={() => {
-            return isEmpty(this.state.user) && !localStorage.token ?
-              <Redirect to='/login' />
-                :
+            return this.loggedIn() ?
               <Home 
                 user={this.state.user} 
                 posts={this.filteredPosts()} 
@@ -288,6 +375,7 @@ class App extends Component {
                 handleTabChange={this.handleHomeTabChange}
                 handleLogout={this.handleLogout}
               />
+              : <Redirect to='/login' />
             }} 
           />} />
 

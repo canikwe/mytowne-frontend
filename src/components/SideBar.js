@@ -1,10 +1,10 @@
 import React from 'react'
 import { Menu, Icon, Avatar } from 'antd'
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 const SideBar = ({ user, loading, handleLogout }) => {
-  const handleClick = e => {
-    console.log('click ', e)
+  const handleClick = value => {
+    console.log('click ', value)
   }
 
   return (
@@ -12,7 +12,7 @@ const SideBar = ({ user, loading, handleLogout }) => {
       onClick={handleClick}
       // style={{ width: 256 }}
       defaultSelectedKeys={['home']}
-      defaultOpenKeys={['nav', 'comm', 'new']}
+      defaultOpenKeys={['nav', 'index', 'new']}
       mode="inline"
     >
       <Menu.Item
@@ -30,11 +30,17 @@ const SideBar = ({ user, loading, handleLogout }) => {
           </span>
         }
       >
-        <Menu.Item key='home'><Icon type='home' /> Home</Menu.Item>
-        <Menu.Item key="comm"><Icon type='team' />Community</Menu.Item>
+        <Menu.Item key='home'>
+          <Link to='/home'>
+            <Icon type='home' /> Home
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="index"><Icon type='team' />Community</Menu.Item>
         <Menu.Item key='events'><Icon type='calendar' />Events</Menu.Item>
         <Menu.SubMenu key="new" title={<><Icon type='plus' /><span>Create</span></>}>
-          <Menu.Item key="new-post"><Icon type='form' />New Post</Menu.Item>
+          <Menu.Item key="posts/new">
+            <Icon type='form' />New Post
+          </Menu.Item>
           <Menu.Item key="new-event"><Icon type='carry-out' />New Event</Menu.Item>
         </Menu.SubMenu>
       </Menu.SubMenu>
@@ -50,7 +56,7 @@ const SideBar = ({ user, loading, handleLogout }) => {
         <Menu.Item key="9">Edit Profile</Menu.Item>
         <Menu.Item key="10">Account</Menu.Item>
       </Menu.SubMenu>
-      <Menu.Item>
+      <Menu.Item key='logout'>
           <Icon type='logout' /> <span onClick={handleLogout}>Logout</span>
       </Menu.Item>
     </Menu>
