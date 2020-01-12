@@ -10,6 +10,10 @@ const PostCard = ({ post, loading }) => {
     return !date.isSame(moment(), 'week') ? date.calendar(null, { sameElse: 'DD-MMM' }) : date.fromNow()
   }
 
+  const handleMissingImg = e => {
+    e.target.src = 'images/placeholder.png'
+  }
+
   return (
     <div className='post-card'>
       <Card 
@@ -26,7 +30,12 @@ const PostCard = ({ post, loading }) => {
         )}
         cover={(
           !loading ?
-          <img alt={ post.title } src={ post.img } className='post-card-img'/>
+          <img 
+            alt={ post.title } 
+            src={ post.img } 
+            className='post-card-img'
+            onError={handleMissingImg}
+          />
           : null
         )}
         actions={[

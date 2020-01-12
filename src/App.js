@@ -227,6 +227,8 @@ class App extends Component {
   followedPosts = () => {
     const posts = this.state.posts.filter(p => {
       return (p.user.id !== this.state.user.id && p.tags.some(t => {
+        // app periodically breaks here...
+        if (!this.state.user.followed_tags) {debugger}
         return this.state.user.followed_tags.includes(t.id)
       }))
     })
