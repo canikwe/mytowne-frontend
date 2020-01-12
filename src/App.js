@@ -8,11 +8,11 @@ import PostFormContainer from './containers/PostFormContainer'
 import Profile from './components/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
-import NavBar from './containers/NavigationBar'
+import Header from './components/Header'
 import Footer from './components/Footer'
 import Loading from './components/Loading'
 import Index from './components/Index'
-import { Modal, Button } from 'antd'
+// import { Modal, Button } from 'antd'
 import './App.css'
 
 class App extends Component {
@@ -258,13 +258,7 @@ class App extends Component {
   render() {
     return (
       <div id='main' className={this.state.page}>
-        <NavBar 
-          handleLogout={this.handleLogout} 
-          loggedIn={!isEmpty(this.state.user)} 
-          handleSearch={this.handleSearch}
-          searchInput={this.state.searchInput}
-          userId={this.state.user.id}
-          />
+        <Header />
         <Switch>
           <Route exact path="/login" render={() => {
             return isEmpty(this.state.user) && !localStorage.token ? <Login handleLogin={this.handleLogin}/> :

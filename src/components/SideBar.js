@@ -1,10 +1,13 @@
 import React from 'react'
-import { Menu, Icon, Button, Avatar } from 'antd'
+import { Menu, Icon, Avatar } from 'antd'
 
 const SideBar = () => {
+  const handleClick = e => {
+    console.log('click ', e);
+  };
   return (
     <Menu
-      onClick={null}
+      onClick={handleClick}
       // style={{ width: 256 }}
       defaultSelectedKeys={['home']}
       defaultOpenKeys={['nav', 'comm', 'new']}
@@ -13,7 +16,7 @@ const SideBar = () => {
       <Menu.Item
         key="title"
       >
-        <Avatar />
+        <Avatar style={{marginRight: '5px'}}/>
         <span>Username Here</span>
       </Menu.Item>
       <Menu.SubMenu

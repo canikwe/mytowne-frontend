@@ -11,9 +11,9 @@
 } */
 
 .homepage {
-  background: #fff;
-  /* background: url('https://images8.alphacoders.com/943/943754.png');
-  background-attachment: fixed; */
+  background: lightgray;
+  /* background-image: url('backgroundMountains.png'); */
+  /* background-attachment: fixed; */
 }
 
 .login {
@@ -44,6 +44,7 @@
   color: white;
 }
 
+
 .App-link {
   color: #61dafb;
 }
@@ -56,6 +57,21 @@
     transform: rotate(360deg);
   }
 }
+
+.header-logo {
+  height: 7vmin;
+}
+
+.header-title {
+  display: inline-block;
+}
+/* 
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+} */
+
 
 .home-card {
   grid-column: 1 / 8;
