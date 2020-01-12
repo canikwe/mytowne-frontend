@@ -344,8 +344,16 @@ class App extends Component {
   }
 
 // -------------------- routing helper methods -----------------
-loggedIn  = () => {
+isReturningUser  = () => {
   return !!localStorage.token
+}
+
+isLoggedIn = () => { //Shows login component lag
+  return !isEmpty(this.state.user) && !!localStorage.token
+}
+
+isLoggedOut = () => { //redirects immediately
+  return isEmpty(this.state.user) && !localStorage.token
 }
 
 // -------------------- main render method --------------------
@@ -353,44 +361,92 @@ loggedIn  = () => {
   render() {
     return (
       <div id='main' className={this.state.page}>
-        <Header loggedIn={this.loggedIn()}/>
+        <Header loggedIn={this.isLoggedIn()}/>
         <Switch>
           <Route exact path="/login" render={() => {
-            return isEmpty(this.state.user) && !localStorage.token ? <Login handleLogin={this.handleLogin}/> :
-            <Redirect to="/" />
-          }} />
-
-          <Route exact path="/index" render={() => {
-            return isEmpty(this.state.user) && !localStorage.token ? <Redirect to="/login" /> :
-            <Index posts={this.displayPosts()} tags={this.state.tags} handleFilter={this.handleFilter} addLike={this.addLike} removeLike={this.removeLike} user={this.state.user} handleTagClick={this.handleTagClick}/>
+            return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> :
+            <Redirect to="/home" />
           }} />
 
           <Route exact path='/home' render={() => {
-            return this.loggedIn() ?
-              <Home 
-                user={this.state.user} 
-                posts={this.filteredPosts()} 
-                handleSubmit={this.createPost} 
-                loading={ this.state.loading } 
+            return this.isReturningUser() ?
+              <Home
+                user={this.state.user}
+                posts={this.filteredPosts()}
+                handleSubmit={this.createPost}
+                loading={this.state.loading}
                 handleTabChange={this.handleHomeTabChange}
                 handleLogout={this.handleLogout}
               />
               : <Redirect to='/login' />
-            }} 
+          }}
           />} />
 
-          <Route exact path="/posts/new" render={() => {
-            return this.state.loading ? <Loading /> :
-            <PostFormContainer name={"New Post"} user_id={this.state.user.id} handleSubmit={this.createPost} tags={this.state.tags} post={{}}/>
-          }} />
 
-          {/* Unsure how to authenticate this */}
+
+
+
+
+
+          <Route exact path="/index" render={() => {
+            return this.isLoggedOut() ? 
+              <Redirect to="/login" /> 
+                :
+              <Index 
+                posts={this.displayPosts()} 
+                tags={this.state.tags} 
+                handleFilter={this.handleFilter} 
+                addLike={this.addLike} 
+                removeLike={this.removeLike} 
+                user={this.state.user} 
+                handleTagClick={this.handleTagClick}
+              />
+            }} />
+
+          <Route exact path="/posts/new" render={() => {
+            return this.isLoggedOut() ? 
+              <Redirect to='/login' /> 
+                :
+              <PostFormContainer 
+                name={"New Post"} 
+                user_id={this.state.user.id} 
+                handleSubmit={this.createPost} 
+                tags={this.state.tags} 
+                post={{}}
+              />
+            }} />
+
           <Route exact path="/posts/:id/edit" render={props => {
-            let postId = props.match.params.id
-            let post = this.state.posts.find(p => p.id === parseInt(postId))
-            
-            return this.state.loading ? <Loading /> : (
-              <PostFormContainer name={"Edit Post"} user_id={this.state.user.id} handleSubmit={this.editPost} handleDelete={this.deletePost} handleNewTags={this.handleNewTags} tags={this.state.tags} post={post} />)
+            const postId = props.match.params.id
+            const post = this.state.posts.find(p => p.id === parseInt(postId))
+
+
+            if (this.state.loading) {
+              return <Loading />
+            } else if (!post) {
+              Modal.error({
+                title: 'Something went wrong',
+                content: 'That post does not exist!',
+              })
+              return <Redirect to='/home' />
+            }else if (this.isLoggedOut()) {
+              return <Redirect to='/login' />
+            } else if (post && post.user.id !== this.state.user.id) {
+              Modal.error({
+                title: 'Something went wrong',
+                content: 'You can only edit your own posts',
+              })
+              return <Redirect to='/home' />
+            } else {
+              return <PostFormContainer 
+                name={"Edit Post"} 
+                user_id={this.state.user.id} 
+                handleSubmit={this.editPost}
+                handleDelete={this.deletePost} 
+                handleNewTags={this.handleNewTags} 
+                tags={this.state.tags} 
+                post={post} />
+            }
           }} />
 
           {/* Unsure how to authentcate this */}
