@@ -379,8 +379,8 @@ isLoggedOut = () => { //redirects immediately
                 handleLogout={this.handleLogout}
               />
               : <Redirect to='/login' />
-          }}
-          />} />
+            }}
+          />
 
 
 
@@ -401,7 +401,8 @@ isLoggedOut = () => { //redirects immediately
                 user={this.state.user} 
                 handleTagClick={this.handleTagClick}
               />
-            }} />
+            }}
+          />
 
           <Route exact path="/posts/new" render={() => {
             return this.isLoggedOut() ? 
@@ -414,12 +415,12 @@ isLoggedOut = () => { //redirects immediately
                 tags={this.state.tags} 
                 post={{}}
               />
-            }} />
+            }}
+          />
 
           <Route exact path="/posts/:id/edit" render={props => {
             const postId = props.match.params.id
             const post = this.state.posts.find(p => p.id === parseInt(postId))
-
 
             if (this.state.loading) {
               return <Loading />
@@ -429,7 +430,7 @@ isLoggedOut = () => { //redirects immediately
                 content: 'That post does not exist!',
               })
               return <Redirect to='/home' />
-            }else if (this.isLoggedOut()) {
+            } else if (this.isLoggedOut()) {
               return <Redirect to='/login' />
             } else if (post && post.user.id !== this.state.user.id) {
               Modal.error({
@@ -446,34 +447,55 @@ isLoggedOut = () => { //redirects immediately
                 handleNewTags={this.handleNewTags} 
                 tags={this.state.tags} 
                 post={post} />
-            }
-          }} />
+              }
+            }}
+          />
 
-          {/* Unsure how to authentcate this */}
           <Route exact path="/posts/:id" render={props => {
             let postId = props.match.params.id
             let post = this.state.posts.find(p => p.id === parseInt(postId))
 
-            return this.state.loading ? <Loading /> : (
+            if (this.isLoggedOut()) {
+              return <Redirect to='/login' />
+            }
+            if (!post) {
+              Modal.error({
+                title: 'Something went wrong',
+                content: 'That post does not exist!',
+              })
+              return <Redirect to='/home' />
+            }
+            
+            return this.state.loading ? 
+              <Loading /> 
+                : 
               <PostShow post={post} handleDelete={this.deletePost} user={this.state.user} handleTagClick={this.handleTagClick}/>
-            )
-          }} />
+            }} 
+          />
 
           <Route exact path="/profile/edit" render={() => {
-            return this.state.loading ? <Loading /> :
-            <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
-          }} />
+            return this.state.loading ? 
+              <Loading /> 
+                :
+              <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
+            }}
+          />
 
           <Route exact path="/profile/:id" render={() => {
-            return this.state.loading ? <Loading /> :
-            <Profile addLike={this.addLike} removeLike={this.removeLike} currentUser={this.state.user} />
-          }} />
+            return this.state.loading ? 
+              <Loading /> 
+                :
+              <Profile addLike={this.addLike} removeLike={this.removeLike} currentUser={this.state.user} />
+            }} 
+          />
 
           <Route exact path="*" render={() => {
-            return isEmpty(this.state.user) && !localStorage.token ? <Redirect to='/login' /> 
-            :
-            <Redirect to='/home' />
-          }} />
+            return isEmpty(this.state.user) && !localStorage.token ? 
+              <Redirect to='/login' /> 
+                :
+              <Redirect to='/home' />
+            }} 
+          />
 
         </Switch>
         <Footer />
