@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import CardContainer from './CardContainer'
 import Fetch from '../helper/Fetch'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { isEmpty } from 'lodash'
+import { Modal } from 'antd'
 // import { withRouter } from 'react-router'
 import Loading from './Loading'
 import '../styles/Profile.css'
@@ -12,7 +13,8 @@ class Profile extends Component {
     super(props)
     this.state = {
       user: {},
-      posts: []
+      posts: [],
+      redirect: false
     }
   }
 
@@ -32,9 +34,28 @@ class Profile extends Component {
 
     Fetch.GET(`users/${userId}`)
     .then(data => {
-      this.setState({
-        user: data.user,
-        posts: data.posts})
+
+      if (data.user) {
+        this.setState({
+          user: data.user,
+          posts: data.posts
+        })
+      } else {
+        Modal.error({
+          title: 'Something went wrong',
+          content: 'That user cannot be found!',
+        })
+        this.setState({ redirect: true })
+      }
+    })
+    .catch(err => {
+      console.log(err)
+
+      Modal.error({
+        title: 'Something went wrong',
+        content: err.message,
+      })
+      this.setState({ redirect: true })
     })
   }
 
@@ -42,12 +63,12 @@ class Profile extends Component {
   render() {
     const { removeLike, addLike, currentUser } = this.props
     const { user, posts } = this.state
-    console.log('user is: ', user)
-    console.log('posts are: ', posts)
-    console.log(this.props)
+    // console.log('user is: ', user)
+    // console.log('posts are: ', posts)
+    // console.log(this.props)
 
-    return !isEmpty(user) ?
-     (
+    if (!isEmpty(user)) {
+     return (
       <div id='profile-container'>
         <div className='profile-header'>
           <div className='profile-img-container'>
@@ -87,8 +108,12 @@ class Profile extends Component {
         </div>
       </div>
     )
-    : <Loading />
+    } else if (this.state.redirect) {
+      return <Redirect to='/home' />
 
+    } else {
+    return <Loading />
+    }
   }
 }
 
