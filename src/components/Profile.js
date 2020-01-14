@@ -3,10 +3,12 @@ import CardContainer from './CardContainer'
 import Fetch from '../helper/Fetch'
 import { Link, Redirect } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { Modal } from 'antd'
+import { Modal, Row, Col } from 'antd'
 // import { withRouter } from 'react-router'
+import ProfileCard from '../components/ProfileCard'
 import Loading from './Loading'
 import '../styles/Profile.css'
+import PostFeed from '../containers/PostFeed'
 
 class Profile extends Component {
   constructor(props){
@@ -14,7 +16,8 @@ class Profile extends Component {
     this.state = {
       user: {},
       posts: [],
-      redirect: false
+      redirect: false,
+      loading: true
     }
   }
 
@@ -29,7 +32,6 @@ class Profile extends Component {
   // }
 
   getUser = () => {
-    // const userId = parseInt(this.props.match.params.id)
     const userId = this.props.id
 
     Fetch.GET(`users/${userId}`)
@@ -38,14 +40,15 @@ class Profile extends Component {
       if (data.user) {
         this.setState({
           user: data.user,
-          posts: data.posts
+          posts: data.posts,
+          loading: false
         })
       } else {
         Modal.error({
           title: 'Something went wrong',
           content: 'That user cannot be found!',
         })
-        this.setState({ redirect: true })
+        this.setState({ redirect: true, loading: false })
       }
     })
     .catch(err => {
@@ -55,58 +58,67 @@ class Profile extends Component {
         title: 'Something went wrong',
         content: err.message,
       })
-      this.setState({ redirect: true })
+      this.setState({ redirect: true, loading: false })
     })
   }
 
   
   render() {
     const { removeLike, addLike, currentUser } = this.props
-    const { user, posts } = this.state
+    const { user, posts, loading } = this.state
     // console.log('user is: ', user)
     // console.log('posts are: ', posts)
     // console.log(this.props)
 
     if (!isEmpty(user)) {
      return (
-      <div id='profile-container'>
-        <div className='profile-header'>
-          <div className='profile-img-container'>
-            {
-              user.avatar !== "" ?
-                <img src={user.avatar} alt="user avatar" className='profile-img'/> 
-              : null
-            }
-          </div>
+       <Row type='flex' justify='center'>
+         <Col span={12} >
+          <ProfileCard user={user}/>
+          <PostFeed posts={posts} loading={loading} />
+         </Col>
+       </Row>
 
-          <div className='profile-contents'>
-            <h2>{user.name}&nbsp;</h2>
-            <p>{user.bio}</p>
-          </div>
-        </div>
+
+
+      // <div id='profile-container'>
+      //   <div className='profile-header'>
+      //     <div className='profile-img-container'>
+      //       {
+      //         user.avatar !== "" ?
+      //           <img src={user.avatar} alt="user avatar" className='profile-img'/> 
+      //         : null
+      //       }
+      //     </div>
+
+      //     <div className='profile-contents'>
+      //       <h2>{user.name}&nbsp;</h2>
+      //       <p>{user.bio}</p>
+      //     </div>
+      //   </div>
             
-            {
-              user.id === currentUser.id ?
-              <div>
-          <Link to={'/'} color="primary" >
-            Back
-          </Link>
-          <Link to={`/profile/edit`} >
-            Edit
-          </Link>
-        </div>
-        : null
-            }
+      //       {
+      //         user.id === currentUser.id ?
+      //         <div>
+      //     <Link to={'/'} color="primary" >
+      //       Back
+      //     </Link>
+      //     <Link to={`/profile/edit`} >
+      //       Edit
+      //     </Link>
+      //   </div>
+      //   : null
+      //       }
 
-        <div>
-          {
-            posts ? (
-              <CardContainer posts={posts} name={user.name} addLike={addLike} removeLike={removeLike} user={user}/>
-            ) 
-            : null
-          }
-        </div>
-      </div>
+      //   <div>
+      //     {
+      //       posts ? (
+      //         <CardContainer posts={posts} name={user.name} addLike={addLike} removeLike={removeLike} user={user}/>
+      //       ) 
+      //       : null
+      //     }
+      //   </div>
+      // </div>
     )
     } else if (this.state.redirect) {
       return <Redirect to='/home' />
