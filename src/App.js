@@ -481,11 +481,18 @@ isLoggedOut = () => { //redirects immediately
             }}
           />
 
-          <Route exact path="/profile/:id" render={() => {
+          <Route exact path="/profile/:id" render={props => {
+            const profileId = parseInt(props.match.params.id)
+            
             return this.state.loading ? 
               <Loading /> 
                 :
-              <Profile addLike={this.addLike} removeLike={this.removeLike} currentUser={this.state.user} />
+              <Profile
+                id={profileId}
+                addLike={this.addLike} 
+                removeLike={this.removeLike} 
+                currentUser={this.state.user}
+              />
             }} 
           />
 

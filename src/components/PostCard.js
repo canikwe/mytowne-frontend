@@ -22,10 +22,10 @@ const PostCard = ({ post, loading }) => {
         extra={!loading ? postDate() : null}
         title={(
           !loading ?
-          <>
+          <Link to={`/profile/${post.user.id}`}>
             <Avatar src={post.user.avatar} />
             <span className='post-card-author'>{post.user.name}</span>
-          </>
+          </Link>
           : null
         )}
         cover={(

@@ -3,7 +3,7 @@ import CardContainer from './CardContainer'
 import Fetch from '../helper/Fetch'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { withRouter } from 'react-router'
+// import { withRouter } from 'react-router'
 import Loading from './Loading'
 import '../styles/Profile.css'
 
@@ -11,7 +11,8 @@ class Profile extends Component {
   constructor(props){
     super(props)
     this.state = {
-
+      user: {},
+      posts: []
     }
   }
 
@@ -19,14 +20,15 @@ class Profile extends Component {
     this.getUser()
   }
 
-  componentDidUpdate = () => {
-    const userId = parseInt(this.props.match.params.id)
-    // Updates the current user if the component is unable to unmount (e.g. selecting the current user's profile from the NavBar menu while viewing a different user's profile.)
-    if (userId !== this.state.user.id) this.getUser()
-  }
+  // componentDidUpdate = () => {
+  //   const userId = parseInt(this.props.match.params.id)
+  //   // Updates the current user if the component is unable to unmount (e.g. selecting the current user's profile from the NavBar menu while viewing a different user's profile.)
+  //   if (userId !== this.state.user.id) this.getUser()
+  // }
 
   getUser = () => {
-    const userId = parseInt(this.props.match.params.id)
+    // const userId = parseInt(this.props.match.params.id)
+    const userId = this.props.id
 
     Fetch.GET(`users/${userId}`)
     .then(data => {
@@ -42,6 +44,7 @@ class Profile extends Component {
     const { user, posts } = this.state
     console.log('user is: ', user)
     console.log('posts are: ', posts)
+    console.log(this.props)
 
     return !isEmpty(user) ?
      (
@@ -89,4 +92,5 @@ class Profile extends Component {
   }
 }
 
-export default withRouter(Profile)
+// export default withRouter(Profile)
+export default Profile
