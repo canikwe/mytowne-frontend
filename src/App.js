@@ -156,17 +156,13 @@ class App extends Component {
   editPost = (data, post) => {
     Fetch.PATCH(data, post.id, 'posts/')
     .then(resp => {
-      const { post, tags } = resp
-      if (resp.errors) {
-        Modal.error({
-          title: 'Something went wrong',
-          content: resp.errors.join(', '),
-        })
 
-      } else {
+      if (!this.auth_error(resp)) {
+        const { post, tags } = resp
+  
         this.setState({
-        posts: this.state.posts.map(p => p.id === post.id ? post : p),
-        tags: tags
+          posts: this.state.posts.map(p => p.id === post.id ? post : p),
+          tags: tags
         })
       }
     })
@@ -181,8 +177,10 @@ class App extends Component {
   deletePost = (id) => {
     Fetch.DELETE(id, 'posts/')
     .then(post => {
-      const posts = this.state.posts.filter(p => p.id !== id) 
-      this.setState({ posts })
+      if (!this.auth_error(post)) {
+        const posts = this.state.posts.filter(p => p.id !== id) 
+        this.setState({ posts })
+      }
     })
     .catch(err => {
       Modal.error({
@@ -194,8 +192,14 @@ class App extends Component {
 
   editUser = (data, userId) => {
     Fetch.PATCH(data, userId, 'users/')
-    .then(user => this.setState({ user }))
-    .then(window.alert('Your changes have been saved!'))
+    .then(user => {
+      if (!this.auth_error(user)) {
+        this.setState({ user })
+      }
+    })
+    .then(Modal.success({
+      content: 'Your changes have been saved!'
+    }))
     .then(window.history.back())
     .catch(err => {
       Modal.error({
@@ -240,6 +244,17 @@ class App extends Component {
       })
     })
     
+  }
+
+  auth_error(resp) {
+    if (resp.errors) {
+      Modal.error({
+        title: 'Something went wrong',
+        content: resp.errors.join(', '),
+      })
+      return <Redirect to='/home' />
+    }
+    return false
   }
 
 // -------------------- state changing helper methods --------------------

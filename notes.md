@@ -45,7 +45,8 @@ App ⭐️
     this.state = {
       user: {},
       posts: [],
-      redirect: false
+      redirect: false,
+      loading: true
     }
   ```
     ProfileCard { user }
@@ -94,3 +95,5 @@ App ⭐️
 + img default should be empty string and not null
 + title default should be an empty string as well
 + Add more validation messages as the user interacts with the site (i.e. New post created! Profle edited! etc.)
++ Fetch NewsFeed with the token, not with sorting through all posts
++ Validate current user before allowing PostTag updates, likes, or follows
