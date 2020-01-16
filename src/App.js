@@ -157,11 +157,18 @@ class App extends Component {
     Fetch.PATCH(data, post.id, 'posts/')
     .then(resp => {
       const { post, tags } = resp
-      
-      this.setState({
-      posts: this.state.posts.map(p => p.id === post.id ? post : p),
-      tags: tags
-      })
+      if (resp.errors) {
+        Modal.error({
+          title: 'Something went wrong',
+          content: resp.errors.join(', '),
+        })
+
+      } else {
+        this.setState({
+        posts: this.state.posts.map(p => p.id === post.id ? post : p),
+        tags: tags
+        })
+      }
     })
     .catch(err => {
       Modal.error({
@@ -425,6 +432,7 @@ isLoggedOut = () => { //redirects immediately
             if (this.state.loading) {
               return <Loading />
             } else if (!post) {
+              
               Modal.error({
                 title: 'Something went wrong',
                 content: 'That post does not exist!',
@@ -432,12 +440,6 @@ isLoggedOut = () => { //redirects immediately
               return <Redirect to='/home' />
             } else if (this.isLoggedOut()) {
               return <Redirect to='/login' />
-            } else if (post && post.user.id !== this.state.user.id) {
-              Modal.error({
-                title: 'Something went wrong',
-                content: 'You can only edit your own posts',
-              })
-              return <Redirect to='/home' />
             } else {
               return <PostFormContainer 
                 name={"Edit Post"} 
@@ -457,20 +459,23 @@ isLoggedOut = () => { //redirects immediately
 
             if (this.isLoggedOut()) {
               return <Redirect to='/login' />
-            }
-            if (!post) {
+            } else if (this.state.loading) {
+              return <Loading />
+            } else if (!post) {
               Modal.error({
                 title: 'Something went wrong',
                 content: 'That post does not exist!',
               })
               return <Redirect to='/home' />
+            } else {
+              return <PostShow 
+                post={post} 
+                handleDelete={this.deletePost} 
+                user={this.state.user} 
+                handleTagClick={this.handleTagClick}
+              />
+              }}
             }
-            
-            return this.state.loading ? 
-              <Loading /> 
-                : 
-              <PostShow post={post} handleDelete={this.deletePost} user={this.state.user} handleTagClick={this.handleTagClick}/>
-            }} 
           />
 
           <Route exact path="/profile/edit" render={() => {
@@ -483,7 +488,7 @@ isLoggedOut = () => { //redirects immediately
 
           <Route exact path="/profile/:id" render={props => {
             const profileId = parseInt(props.match.params.id)
-            
+
             return this.state.loading ? 
               <Loading /> 
                 :
