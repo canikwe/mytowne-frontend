@@ -11,16 +11,14 @@ export default class Fetch {
   static headers() {
     return ({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
+      'Authorization': `Bearer ${this.token()}`
     })
   }
 
   static GET(route) {
     return fetch(this.URL() + route, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${this.token()}`
-      }
+      headers: this.headers()
     })
     .then(res => res.json()) 
   }
