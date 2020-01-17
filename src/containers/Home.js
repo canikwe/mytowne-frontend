@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { message, Button, Row, Col, Icon } from 'antd'
 
-import SideBar from '../components/SideBar'
+// import SideBar from '../components/SideBar'
 import QuickPost from '../components/QuickPost'
 import HomeFilters from '../components/HomeFilters'
 import PostFeed from '../containers/PostFeed'
@@ -56,11 +56,6 @@ class Home extends PureComponent {
     this.setState({ content: e.target.value })
   }
 
-// --------------- menu helper methods ---------------
-
-toggleCollapsed = () => {
-  this.setState({ collapsed: !this.state.collapsed })
-}
 
 // --------------- main render ---------------
     
@@ -70,11 +65,13 @@ toggleCollapsed = () => {
     return (
       <>
         <Row type="flex" justify="space-around" align="top">
-          <Col span={ collapsed ? 2 : 5 }>
+          {/* <Col span={ collapsed ? 2 : 5 }>
 
             <SideBar user={user} loading={loading} handleLogout={handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={this.state.collapsed}/>
-          </Col>
-          <Col span={ collapsed ? 13 : 10 }>
+          </Col>  */}
+          {/* <Col span={ collapsed ? 13 : 10 }> */}
+
+          <Col span={ 15 }>
             <QuickPost user={user} submitPost={this.submitPost} content={content} handleContentChange={this.handleContentChange}/>
             <HomeFilters handleTabChange={handleTabChange}/>
             <PostFeed posts={this.paginatedPosts()} loading={loading}/>
@@ -92,7 +89,7 @@ toggleCollapsed = () => {
               </Col>
             </Row>
           </Col>
-        </Row>
+         </Row>
       </>
     )
   }

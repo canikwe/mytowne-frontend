@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { Modal, message } from 'antd'
+import { Modal, message, Row, Col } from 'antd'
 import Login from './containers/Login'
+import SideBar from './components/SideBar'
 import Home from './containers/Home'
 import PostShow from './containers/PostShow'
 import PostFormContainer from './containers/PostFormContainer'
@@ -32,7 +33,8 @@ class App extends Component {
       loading: true,
       searchInput: '',
       page: 'login',
-      homepageFilter: true
+      homepageFilter: true,
+      collapsed: false
     })
   }
 
@@ -286,6 +288,10 @@ class App extends Component {
     })
   }
 
+  toggleCollapsed = () => {
+    this.setState({ collapsed: !this.state.collapsed })
+  }
+
   
 // -------------------- presentation/rendering helper methods --------------------
   
@@ -388,9 +394,20 @@ isLoggedOut = () => { //redirects immediately
 // -------------------- main render method --------------------
 
   render() {
+
+    const {collapsed, user, loading, } = this.state
+
     return (
       <div id='main' className={this.state.page}>
         <Header loggedIn={this.isLoggedIn()}/>
+        
+        <Row type="flex" justify="space-around" align="top">
+          { this.isLoggedIn() ? 
+
+            <SideBar user={user} loading={loading} handleLogout={this.handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={this.state.collapsed} />
+
+         : null }
+        <Col span={ collapsed ? 20 : 18 }>
         <Switch>
           <Route exact path="/login" render={() => {
             return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> :
@@ -532,6 +549,9 @@ isLoggedOut = () => { //redirects immediately
           />
 
         </Switch>
+        </Col>
+        </Row>
+
         {/* <Footer /> */}
       </div>
     );
