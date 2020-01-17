@@ -1,26 +1,36 @@
 import React from 'react'
-import { Menu, Icon, Avatar } from 'antd'
+import { Menu, Icon, Avatar, Button } from 'antd'
 import { Redirect, Link } from 'react-router-dom'
 
-const SideBar = ({ user, loading, handleLogout }) => {
+const SideBar = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) => {
   const handleClick = value => {
     console.log('click ', value)
   }
 
   return (
+    <>
+      <Button
+        type='link'
+        onClick={toggleCollapsed}
+        style={{ marginBottom: 16 }}
+      >
+        <Icon
+          type={collapsed ? 'menu-unfold' : 'menu-fold'} />
+      </Button>
     <Menu
       onClick={handleClick}
       // style={{ width: 256 }}
       defaultSelectedKeys={['home']}
       defaultOpenKeys={['nav', 'index', 'new']}
       mode="inline"
+      inlineCollapsed={collapsed}
     >
-      <Menu.Item
+      {/* <Menu.Item
         key="title"
       >
         <Avatar style={{marginRight: '5px'}}/>
         <span>{loading ? '.....' : `Welcome, ${user.name}!`}</span>
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.SubMenu
         key="nav"
         title={
@@ -60,6 +70,7 @@ const SideBar = ({ user, loading, handleLogout }) => {
           <Icon type='logout' /> <span onClick={handleLogout}>Logout</span>
       </Menu.Item>
     </Menu>
+    </>
   )
 }
 

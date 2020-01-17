@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { Modal } from 'antd'
+import { Modal, message } from 'antd'
 import Login from './containers/Login'
 import Home from './containers/Home'
 import PostShow from './containers/PostShow'
@@ -195,12 +195,19 @@ class App extends Component {
     .then(user => {
       if (!this.auth_error(user)) {
         this.setState({ user })
+        Modal.success({
+          content: 'Your changes have been saved!'
+        })
       }
+      return <Redirect to='/profile' />
     })
-    .then(Modal.success({
-      content: 'Your changes have been saved!'
-    }))
-    .then(window.history.back())
+    // .then(() => {
+    //   Modal.success({
+    //     content: 'Your changes have been saved!'
+    //   })
+    //   return <Redirect to='/profile' />
+    // })
+    // .then(window.history.back())
     .catch(err => {
       Modal.error({
         title: 'Something went wrong',

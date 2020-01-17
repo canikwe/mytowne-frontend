@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { message, Button, Row, Col } from 'antd'
+import { message, Button, Row, Col, Icon } from 'antd'
 
 import SideBar from '../components/SideBar'
 import QuickPost from '../components/QuickPost'
@@ -14,7 +14,8 @@ class Home extends PureComponent {
     super()
     this.state = {
       index: 0,
-      content: ''
+      content: '',
+      collapsed: false
     }
   }
 
@@ -55,18 +56,26 @@ class Home extends PureComponent {
     this.setState({ content: e.target.value })
   }
 
+// --------------- menu helper methods ---------------
+
+toggleCollapsed = () => {
+  this.setState({ collapsed: !this.state.collapsed })
+}
+
 // --------------- main render ---------------
     
   render(){
     const { user, loading, handleTabChange, handleLogout } = this.props
+    const { content, collapsed } = this.state
     return (
       <>
         <Row type="flex" justify="space-around" align="top">
-          <Col span={ 5 }>
-            <SideBar user={user} loading={loading} handleLogout={handleLogout}/>
+          <Col span={ collapsed ? 2 : 5 }>
+
+            <SideBar user={user} loading={loading} handleLogout={handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={this.state.collapsed}/>
           </Col>
-          <Col span={ 10 }>
-            <QuickPost user={user} submitPost={this.submitPost} content={this.state.content} handleContentChange={this.handleContentChange}/>
+          <Col span={ collapsed ? 13 : 10 }>
+            <QuickPost user={user} submitPost={this.submitPost} content={content} handleContentChange={this.handleContentChange}/>
             <HomeFilters handleTabChange={handleTabChange}/>
             <PostFeed posts={this.paginatedPosts()} loading={loading}/>
             <Button onClick={ this.showMorePosts } type="primary">More Posts</Button>
