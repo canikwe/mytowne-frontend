@@ -532,7 +532,7 @@ isLoggedOut = () => { //redirects immediately
           />
 
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

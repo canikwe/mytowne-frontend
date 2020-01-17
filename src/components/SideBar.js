@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Icon, Avatar, Button } from 'antd'
+import { Menu, Icon, Avatar, Button, Affix } from 'antd'
 import { Redirect, Link } from 'react-router-dom'
 
 const SideBar = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) => {
@@ -8,7 +8,7 @@ const SideBar = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) =>
   }
 
   return (
-    <>
+    <Affix>
       <Button
         type='link'
         onClick={toggleCollapsed}
@@ -70,7 +70,7 @@ const SideBar = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) =>
           <Icon type='logout' /> <span onClick={handleLogout}>Logout</span>
       </Menu.Item>
     </Menu>
-    </>
+    </Affix>
   )
 }
 
