@@ -3,13 +3,19 @@
 .homepage {
   /* background: lightgray; */
   background-image: url('backgroundMountains.png');
-  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  /* background-attachment: fixed; */
 }
 
 .login {
   background-size: cover;
   background-image: url('backgroundMountains.png');
-  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  /* background-attachment: fixed; */
 }
 
 #main {
@@ -38,6 +44,8 @@
 .search-border {
   border-bottom: grey solid 1px;
 }
+
+/* ------------- PostCard styles ------------- */
 
 .post-card {
   margin-bottom: 1em;
