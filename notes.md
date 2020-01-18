@@ -1,4 +1,4 @@
-# Notes
+# Project Notes
 
 ## User Stories
 
@@ -16,31 +16,66 @@
 
 ## Component hierarchy
 
-App ⭐️
-  Header
-  Home ⭐️ { user, posts, loading, handleTabChange }
++ App ⭐️
+  + Header
+  // { this.isLoggedIn() ? }
+  + SideBar { user, loading } ✅
+  // { Begin Router Switch }
+  + Home ⭐️ { user, posts, loading, handleTabChange }
+    + QuickPost { user } ✅
+    + HomeFilters { handleTabChange }
+    + PostFeed { posts } ✅
+      + PostCard { post } ✅
+    + Alerts/Weather
+    + ChatBox
+  + _PostExpanded (Post show page)_ { post }
+    + Tags(?)
+  + PostFormContainer ⭐️ New
+    + PostForm
+    + Tags
+  + PostFormContainer ⭐️ Edit
+    + PostForm
+    + Tags
+  + Profile { id, addLike, removeLike, currentUser }
+    + ProfileCard { user }
+    + PostFeed { posts }
+      + PostCard { post }
+  + Index ⭐️
+    + Filter
+    + PostContainer
+      + PostTile
+  + Login ⭐️{ handleLogin } ✅
+
+  + Loading ???
+  + NotFound
+
+## State
+
++ App
   ```javascript
     state = {
+      user: {},
+      posts: [],
+      filters: {
+        searchTerm: '',
+        tags: []
+      },
+      tags: [], // maybe this can be derived from the posts?
+      loading: true,
+      homepageFilter: true // Not sure if this is needed in App...
+      page: 'login' // Think there's a better way to change the styling based on page
+    }
+  ```
+
++ Home
+  ```javascript
+    this.state = {
       index: 0, //used for post pagination. Can remove when infinite scroll is implemented. Then content can be moved to App and Home can go back to a functional component
       content: '' //used for quick posts. Can refactor to App
     }
   ```
-    SideBar { user, loading } ✅
-    QuickPost { user } ✅
-    PostFeed { posts } ✅
-      PostCard_{ post } ✅
-    Alerts/Weather
-    ChatBox
-  _PostExpanded (Post show page)_ { post }
-  <!-- implement comments? research how to do comments and replies in rails tomorrow! -->
-    Tags(?)
-  PostFormContainer ⭐️ New
-    PostForm
-    Tags
-  PostFormContainer ⭐️ Edit
-    PostForm
-    Tags
-  Profile { id, addLike, removeLike, currentUser }
+
++ Profile
   ```javascript
     this.state = {
       user: {},
@@ -49,39 +84,14 @@ App ⭐️
       loading: true
     }
   ```
-    ProfileCard { user }
-    PostFeed { posts }
-      PostCard { post }
-  Index ⭐️
-    Filter
-    PostContainer
-      PostTile
-  Login ⭐️{ handleLogin } ✅
+
++ Login
   ```javascript
     this.state = { //fine to keep since the rest of the app does not need to know about this.
       username: '',
       password: ''
     }
   ```
-  Loading ???
-  NotFound
-
-## State
-
-```javascript
-  state = {
-    user: {},
-    posts: [],
-    filters: {
-      searchTerm: '',
-      tags: []
-    },
-    tags: [], // maybe this can be derived from the posts?
-    loading: true,
-    homepageFilter: true // Not sure if this is needed in App...
-    page: 'login' // Think there's a better way to change the styling based on page
-  }
-```
 
 ## Routes
 

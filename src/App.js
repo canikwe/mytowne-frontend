@@ -232,8 +232,10 @@ class App extends Component {
   }
 
   handleLogin = (data) => {
+    debugger
     Fetch.POST(data, 'login')
     .then(data => {
+      debugger
       if (data.error) {
         Modal.error({
           title: data.error,
@@ -401,13 +403,16 @@ isLoggedOut = () => { //redirects immediately
       <div id='main' className={this.state.page}>
         <Header loggedIn={this.isLoggedIn()}/>
         
-        <Row type="flex" justify="space-around" align="top">
+        <Row type="flex" justify="space-between" align="top">
           { this.isLoggedIn() ? 
 
             <SideBar user={user} loading={loading} handleLogout={this.handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={this.state.collapsed} />
 
          : null }
-        <Col span={ collapsed ? 20 : 18 }>
+
+        <Col span={ 23 }>
+          <Row type="flex" justify="center" align="top">
+            <Col>
         <Switch>
           <Route exact path="/login" render={() => {
             return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> :
@@ -549,6 +554,11 @@ isLoggedOut = () => { //redirects immediately
           />
 
         </Switch>
+        </Col>
+        </Row>
+        {/* <Col span={5}>
+          <h1>Hello World</h1>
+        </Col> */}
         </Col>
         </Row>
 
