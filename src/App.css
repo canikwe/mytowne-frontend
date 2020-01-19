@@ -42,6 +42,26 @@
   border-bottom: grey solid 1px;
 }
 
+/* ------------- Content styles -------------- */
+#content {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#sidebar {
+  width: 15%;
+}
+
+#nav-menu {
+  width: 15%;
+}
+
+#home {
+  width: 40%;
+}
+
+
+
 /* ------------- PostCard styles ------------- */
 
 .post-card {

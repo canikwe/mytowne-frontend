@@ -1,13 +1,8 @@
 import React, { PureComponent } from 'react'
-import { message, Button, Row, Col, Icon } from 'antd'
-
-// import SideBar from '../components/SideBar'
+import { message, Button } from 'antd'
 import QuickPost from '../components/QuickPost'
 import HomeFilters from '../components/HomeFilters'
 import PostFeed from '../containers/PostFeed'
-import Weather from '../components/Weather'
-import ChatBox from '../components/ChatBox'
-
 
 class Home extends PureComponent {
   constructor(){
@@ -15,7 +10,6 @@ class Home extends PureComponent {
     this.state = {
       index: 0,
       content: '',
-      collapsed: false
     }
   }
 
@@ -60,37 +54,29 @@ class Home extends PureComponent {
 // --------------- main render ---------------
     
   render(){
-    const { user, loading, handleTabChange, handleLogout } = this.props
-    const { content, collapsed } = this.state
+    const { user, loading, handleTabChange } = this.props
+    const { content } = this.state
     return (
-      <>
-        <Row type="flex" justify="space-around" align="top">
-          {/* <Col span={ collapsed ? 2 : 5 }>
-
-            <SideBar user={user} loading={loading} handleLogout={handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={this.state.collapsed}/>
-          </Col>  */}
-          {/* <Col span={ collapsed ? 13 : 10 }> */}
-
-          <Col span={ 15 }>
-            <QuickPost user={user} submitPost={this.submitPost} content={content} handleContentChange={this.handleContentChange}/>
-            <HomeFilters handleTabChange={handleTabChange}/>
-            <PostFeed posts={this.paginatedPosts()} loading={loading}/>
-            <Button onClick={ this.showMorePosts } type="primary">More Posts</Button>
-          </Col>
-          <Col span={ 5 }>
-            <Row gutter={[8, 40]}>
-              <Col>
-                <Weather />
-              </Col>
-            </Row>
-            <Row gutter={[8, 40]}>
-              <Col>
-                <ChatBox />
-              </Col>
-            </Row>
-          </Col>
-         </Row>
-      </>
+      <div id='home'>
+        <QuickPost 
+          user={user} 
+          submitPost={this.submitPost} 
+          content={content} 
+          handleContentChange={this.handleContentChange}
+        />
+        <HomeFilters 
+          handleTabChange={handleTabChange}
+        />
+        <PostFeed 
+          posts={this.paginatedPosts()} 
+          loading={loading}
+        />
+        <Button 
+          onClick={ this.showMorePosts } 
+          type="primary">
+          More Posts
+        </Button>
+      </div>
     )
   }
 }

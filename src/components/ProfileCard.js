@@ -21,3 +21,7 @@ const ProfileCard = ({ user }) => {
 }
 
 export default ProfileCard
+
+ProfileCard.defaultProps = {
+  user: {}
+}

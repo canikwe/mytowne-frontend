@@ -10,7 +10,6 @@ const ChatBox = () => {
         <li><Avatar /> John Doe</li>
         <li><Avatar /> John Doe</li>
         <li><Avatar /> John Doe</li>
-
       </ul>
     </Card>
   )

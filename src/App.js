@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { Modal, message, Row, Col } from 'antd'
+import { Modal } from 'antd'
 import Login from './containers/Login'
+import NavMenu from './components/NavMenu'
 import SideBar from './components/SideBar'
 import Home from './containers/Home'
 import PostShow from './containers/PostShow'
@@ -11,10 +12,9 @@ import Profile from './components/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
 import Header from './components/Header'
-import Footer from './components/Footer'
+// import Footer from './components/Footer'
 import Loading from './components/Loading'
 import Index from './components/Index'
-// import { Modal, Button } from 'antd'
 import './App.css'
 
 class App extends Component {
@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let token = localStorage.getItem('token')
+    const token = localStorage.getItem('token')
     if (token) {
       this.fetchUser()
       this.fetchPosts()
@@ -59,8 +59,8 @@ class App extends Component {
           title: 'Trouble logging in',
           content: 'Please try again',
         })
-        localStorage.clear()
-        return <Redirect to='/login' />
+      localStorage.clear()
+      return <Redirect to='/login' />
       }
     })
     .catch(err => {
@@ -401,18 +401,17 @@ isLoggedOut = () => { //redirects immediately
 
     return (
       <div id='main' className={this.state.page}>
+
         <Header loggedIn={this.isLoggedIn()}/>
-        
-        <Row type="flex" justify="space-between" align="top">
+
+        <div id='content'>
+
           { this.isLoggedIn() ? 
+            <NavMenu user={user} loading={loading} handleLogout={this.handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={collapsed} />
+              : 
+            null 
+          }
 
-            <SideBar user={user} loading={loading} handleLogout={this.handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={this.state.collapsed} />
-
-         : null }
-
-        <Col span={ 23 }>
-          <Row type="flex" justify="center" align="top">
-            <Col>
         <Switch>
           <Route exact path="/login" render={() => {
             return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> :
@@ -427,7 +426,6 @@ isLoggedOut = () => { //redirects immediately
                 handleSubmit={this.createPost}
                 loading={this.state.loading}
                 handleTabChange={this.handleHomeTabChange}
-                handleLogout={this.handleLogout}
               />
               : <Redirect to='/login' />
             }}
@@ -554,15 +552,12 @@ isLoggedOut = () => { //redirects immediately
           />
 
         </Switch>
-        </Col>
-        </Row>
-        {/* <Col span={5}>
-          <h1>Hello World</h1>
-        </Col> */}
-        </Col>
-        </Row>
-
-        {/* <Footer /> */}
+        { this.isLoggedIn() ?
+          <SideBar />
+            : 
+          null
+        }
+        </div>
       </div>
     );
   }
