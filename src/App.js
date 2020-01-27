@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 import { Modal } from 'antd'
 import Login from './containers/Login'
@@ -8,7 +8,7 @@ import SideBar from './components/SideBar'
 import Home from './containers/Home'
 import PostShow from './containers/PostShow'
 import PostFormContainer from './containers/PostFormContainer'
-import Profile from './components/Profile'
+import Profile from './containers/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
 import Header from './components/Header'
@@ -41,7 +41,7 @@ class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token')
     if (token) {
-      this.fetchUser()
+      this.fetchCurrentUser()
       this.fetchPosts()
       this.fetchTags()
     }
@@ -49,7 +49,7 @@ class App extends Component {
 
  // -------------------- fetch helper methods -------------------- 
 
-   fetchUser = () => {
+   fetchCurrentUser = () => {
     Fetch.GET('profile')
     .then(data => {
       if (data.user) {
@@ -64,10 +64,7 @@ class App extends Component {
       }
     })
     .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
+      this.catchError(err)
       localStorage.clear()
       return <Redirect to='/login' />
     })
@@ -81,12 +78,7 @@ class App extends Component {
       loading: false
       })
     })
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
+    .catch(this.catchError)
   }
 
   fetchTags = () => {
@@ -97,12 +89,7 @@ class App extends Component {
       })
       this.setState({ tags })
     })
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
+    .catch(this.catchError)
   }
 
   createPost = data => {
@@ -114,12 +101,7 @@ class App extends Component {
         tags: tags
       })
     })
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
+    .catch(this.catchError)
   }
 
     //Like Posts
@@ -132,12 +114,7 @@ class App extends Component {
         posts: this.state.posts.map(p => p.id === post.id ? post : p)
       })
     })
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
+    .catch(this.catchError)
   }
 
   removeLike = (id) => {
@@ -147,12 +124,7 @@ class App extends Component {
         posts: this.state.posts.map(p => p.id === post.id ? post : p)
       })
     })
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
+    .catch(this.catchError)
   }
   
   editPost = (data, post) => {
@@ -168,12 +140,7 @@ class App extends Component {
         })
       }
     })
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
+    .catch(this.catchError)
   }
 
   deletePost = (id) => {
@@ -184,12 +151,7 @@ class App extends Component {
         this.setState({ posts })
       }
     })
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
+    .catch(this.catchError)
   }
 
   editUser = (data, userId) => {
@@ -210,12 +172,7 @@ class App extends Component {
     //   return <Redirect to='/profile' />
     // })
     // .then(window.history.back())
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
+    .catch(this.catchError)
   }
 
   deleteUser = (id) => {
@@ -223,10 +180,7 @@ class App extends Component {
     // .then(res => res.json())
     .then(this.handleLogout)
     .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
+      this.catchError(err)
       debugger
     })
   }
@@ -237,10 +191,7 @@ class App extends Component {
     .then(data => {
       debugger
       if (data.error) {
-        Modal.error({
-          title: data.error,
-          content: 'Please try again',
-        })
+        this.handleError(data)
       } else {
         localStorage.setItem('token', data.jwt)
         this.setState({ user: data.user, page: 'homepage' })
@@ -248,16 +199,26 @@ class App extends Component {
         this.fetchTags()
       }
     })
-    .catch(err => {
-      Modal.error({
-        title: 'Something went wrong',
-        content: err.message,
-      })
-    })
-    
+    .catch(this.catchError)
   }
 
-  auth_error(resp) {
+// -------------- Error Handling Helper Messages --------------
+
+  handleError = resp => {
+    return Modal.error({
+      title: resp.error,
+      content: 'Please try again',
+    })
+  }
+
+  catchError = err => {
+    return Modal.error({
+      title: 'Something went wrong',
+      content: err.message,
+    })
+  }
+
+  auth_error = (resp) => {
     if (resp.errors) {
       Modal.error({
         title: 'Something went wrong',
@@ -398,6 +359,7 @@ isLoggedOut = () => { //redirects immediately
   render() {
 
     const {collapsed, user, loading, } = this.state
+    console.log(this.props)
 
     return (
       <div id='main' className={this.state.page}>
@@ -406,7 +368,7 @@ isLoggedOut = () => { //redirects immediately
 
         <div id='content'>
 
-          { this.isLoggedIn() ? 
+          { this.isLoggedIn() && !this.props.location.pathname.includes('/profile') ? 
             <NavMenu user={user} loading={loading} handleLogout={this.handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={collapsed} />
               : 
             null 
@@ -429,6 +391,24 @@ isLoggedOut = () => { //redirects immediately
               />
               : <Redirect to='/login' />
             }}
+          />
+
+          <Route exact path="/profile/:id" render={props => {
+            const profileId = parseInt(props.match.params.id)
+            const posts = this.state.posts.filter(p => p.user.id === profileId)
+            // console.log(props.match.path.includes('/profile'))
+
+            return this.state.loading ?
+              <Loading />
+              :
+              <Profile
+                id={profileId}
+                // addLike={this.addLike}
+                // removeLike={this.removeLike}
+                // currentUser={this.state.user}
+                posts={posts}
+              />
+          }}
           />
 
 
@@ -520,7 +500,7 @@ isLoggedOut = () => { //redirects immediately
             }
           />
 
-          <Route exact path="/profile/edit" render={() => {
+          <Route exact path="/account" render={() => {
             return this.state.loading ? 
               <Loading /> 
                 :
@@ -528,20 +508,7 @@ isLoggedOut = () => { //redirects immediately
             }}
           />
 
-          <Route exact path="/profile/:id" render={props => {
-            const profileId = parseInt(props.match.params.id)
 
-            return this.state.loading ? 
-              <Loading /> 
-                :
-              <Profile
-                id={profileId}
-                addLike={this.addLike} 
-                removeLike={this.removeLike} 
-                currentUser={this.state.user}
-              />
-            }} 
-          />
 
           <Route exact path="*" render={() => {
             return isEmpty(this.state.user) && !localStorage.token ? 
@@ -563,4 +530,4 @@ isLoggedOut = () => { //redirects immediately
   }
 }
 
-export default App
+export default withRouter(App)
