@@ -98,6 +98,11 @@
   + '/home'
   + '/login'
   + '/posts/new'
+  + /posts/:id
+  + /posts/:id/edit
+  + /users/:id
+  + /profile/edit
+  + /
 
 ## To-do
 

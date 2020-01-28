@@ -45,21 +45,24 @@
 /* ------------- Content styles -------------- */
 #content {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  width: 100%;
 }
 
 #sidebar {
-  width: 15%;
+  width: 20%;
 }
 
 #nav-menu {
-  width: 15%;
+  width: 20%;
 }
 
-#home {
-  width: 40%;
+#main-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5%;
 }
-
 
 
 /* ------------- PostCard styles ------------- */

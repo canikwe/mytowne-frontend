@@ -367,18 +367,19 @@ isLoggedOut = () => { //redirects immediately
         <Header loggedIn={this.isLoggedIn()}/>
 
         <div id='content'>
-
-          { this.isLoggedIn() && !this.props.location.pathname.includes('/profile') ? 
-            <NavMenu user={user} loading={loading} handleLogout={this.handleLogout} toggleCollapsed={this.toggleCollapsed} collapsed={collapsed} />
-              : 
-            null 
-          }
-
+          <NavMenu 
+            user={user} 
+            loading={loading} 
+            handleLogout={this.handleLogout} 
+            toggleCollapsed={this.toggleCollapsed} 
+            collapsed={collapsed} 
+          />
+        <div id='main-container'>
         <Switch>
           <Route exact path="/login" render={() => {
-            return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> :
-            <Redirect to="/home" />
-          }} />
+            return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> : <Redirect to="/home" />
+            }} 
+          />
 
           <Route exact path='/home' render={() => {
             return this.isReturningUser() ?
@@ -396,7 +397,9 @@ isLoggedOut = () => { //redirects immediately
           <Route exact path="/profile/:id" render={props => {
             const profileId = parseInt(props.match.params.id)
             const posts = this.state.posts.filter(p => p.user.id === profileId)
+            
             // console.log(props.match.path.includes('/profile'))
+
 
             return this.state.loading ?
               <Loading />
@@ -519,6 +522,7 @@ isLoggedOut = () => { //redirects immediately
           />
 
         </Switch>
+          </div>
         { this.isLoggedIn() ?
           <SideBar />
             : 

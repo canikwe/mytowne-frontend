@@ -1,9 +1,8 @@
 import React from 'react'
 import { Menu, Icon, Affix } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
-import ProfileCard from '../components/ProfileCard'
 
-const SideBar = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) => {
+const NavMenu = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) => {
 
   const handleClick = value => {
     console.log('click ', value)
@@ -13,10 +12,6 @@ const SideBar = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) =>
     <div id='nav-menu'>
 
       <Affix>
-        {collapsed  ?
-          <ProfileCard />
-          : null
-        }
         <Menu
           onClick={handleClick}
           // style={{ width: 256 }}
@@ -49,7 +44,7 @@ const SideBar = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) =>
   )
 }
 
-export default withRouter(SideBar)
+export default withRouter(NavMenu)
 
 /*
          <Menu.Item key='logout'>

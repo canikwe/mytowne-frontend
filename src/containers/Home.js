@@ -57,7 +57,7 @@ class Home extends PureComponent {
     const { user, loading, handleTabChange } = this.props
     const { content } = this.state
     return (
-      <div id='home'>
+      <>
         <QuickPost 
           user={user} 
           submitPost={this.submitPost} 
@@ -76,7 +76,7 @@ class Home extends PureComponent {
           type="primary">
           More Posts
         </Button>
-      </div>
+      </>
     )
   }
 }
