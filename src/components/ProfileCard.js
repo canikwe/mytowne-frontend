@@ -1,10 +1,11 @@
 import React from 'react'
 import { Card, Avatar } from 'antd'
 
-const ProfileCard = ({ user }) => {
+const ProfileCard = ({ user, loading }) => {
   console.log(user)
   return (
     <Card
+      loading={loading}
       size='small'
       cover={<img alt='cover' src='https://images.pexels.com/photos/9044/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' style={{maxHeight: '200px'}}/>}
       style={{marginBottom: '10px'}}

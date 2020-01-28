@@ -367,13 +367,16 @@ isLoggedOut = () => { //redirects immediately
         <Header loggedIn={this.isLoggedIn()}/>
 
         <div id='content'>
-          <NavMenu 
-            user={user} 
-            loading={loading} 
-            handleLogout={this.handleLogout} 
-            toggleCollapsed={this.toggleCollapsed} 
-            collapsed={collapsed} 
-          />
+          { this.isLoggedIn() ?
+            <NavMenu 
+              user={user} 
+              loading={loading} 
+              handleLogout={this.handleLogout} 
+              toggleCollapsed={this.toggleCollapsed} 
+              collapsed={collapsed} 
+            />
+            : null
+          }
         <div id='main-container'>
         <Switch>
           <Route exact path="/login" render={() => {
@@ -396,22 +399,9 @@ isLoggedOut = () => { //redirects immediately
 
           <Route exact path="/profile/:id" render={props => {
             const profileId = parseInt(props.match.params.id)
-            const posts = this.state.posts.filter(p => p.user.id === profileId)
-            
-            // console.log(props.match.path.includes('/profile'))
 
-
-            return this.state.loading ?
-              <Loading />
-              :
-              <Profile
-                id={profileId}
-                // addLike={this.addLike}
-                // removeLike={this.removeLike}
-                // currentUser={this.state.user}
-                posts={posts}
-              />
-          }}
+            return <Profile id={profileId} />
+            }}
           />
 
 
