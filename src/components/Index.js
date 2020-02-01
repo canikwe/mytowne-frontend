@@ -1,14 +1,23 @@
-import React, { Fragment }from 'react'
+import React from 'react'
 import Filter from './Filter'
-import CardContainer from './CardContainer'
+import CardContainer from '../containers/CardContainer'
 
 const Index = ({ posts, handleFilter, tags, user, addLike, removeLike, handleTagClick }) => {
 
-  return (
-    <Fragment>
-      <Filter handleFilter={handleFilter} tags={tags}/>
-      <CardContainer posts={posts} user={user} addLike={addLike} removeLike={removeLike} handleTagClick={handleTagClick} />
-    </Fragment>
+  return ( //maybe get rid of index as a container?
+    <>
+      <Filter 
+        handleFilter={handleFilter} 
+        tags={tags}
+      />
+      <CardContainer 
+        posts={posts} 
+        user={user} 
+        addLike={addLike} 
+        removeLike={removeLike} 
+        handleTagClick={handleTagClick} 
+      />
+    </>
   )
 }
 

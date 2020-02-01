@@ -12,6 +12,8 @@ import Profile from './containers/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
 import Header from './components/Header'
+import Filter from './components/Filter'
+import CardContainer from './containers/CardContainer'
 // import Footer from './components/Footer'
 import Loading from './components/Loading'
 import Index from './components/Index'
@@ -281,7 +283,9 @@ class App extends Component {
   
   // Check for searchTerm
   displayPosts = () => {
-    return this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
+    const filteredPosts = this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
+
+    return filteredPosts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
   }
 
 
@@ -358,7 +362,7 @@ isLoggedOut = () => { //redirects immediately
 
   render() {
 
-    const {collapsed, user, loading, } = this.state
+    const { collapsed, user, loading } = this.state
     console.log(this.props)
 
     return (
@@ -367,7 +371,7 @@ isLoggedOut = () => { //redirects immediately
         <Header loggedIn={this.isLoggedIn()}/>
 
         <div id='content'>
-          { this.isLoggedIn() ?
+          {/* { this.isLoggedIn() ?
             <NavMenu 
               user={user} 
               loading={loading} 
@@ -376,8 +380,8 @@ isLoggedOut = () => { //redirects immediately
               collapsed={collapsed} 
             />
             : null
-          }
-        <div id='main-container'>
+          } */}
+        <div className='main-container'>
         <Switch>
           <Route exact path="/login" render={() => {
             return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> : <Redirect to="/home" />
@@ -405,26 +409,42 @@ isLoggedOut = () => { //redirects immediately
           />
 
 
-
-
-
-
-
           <Route exact path="/index" render={() => {
             return this.isLoggedOut() ? 
               <Redirect to="/login" /> 
                 :
-              <Index 
-                posts={this.displayPosts()} 
-                tags={this.state.tags} 
-                handleFilter={this.handleFilter} 
-                addLike={this.addLike} 
-                removeLike={this.removeLike} 
-                user={this.state.user} 
-                handleTagClick={this.handleTagClick}
-              />
+                <>
+                  <Filter
+                    handleFilter={this.handleFilter}
+                    tags={this.state.tags}
+                  />
+                  <CardContainer
+                  posts={this.displayPosts()}
+                  addLike={this.addLike}
+                  removeLike={this.removeLike}
+                  user={this.state.user}
+                  handleTagClick={this.handleTagClick}
+                  />
+                </>
+              // <Index 
+              //   posts={this.displayPosts()} 
+              //   tags={this.state.tags} 
+              //   handleFilter={this.handleFilter} 
+              //   addLike={this.addLike} 
+              //   removeLike={this.removeLike} 
+              //   user={this.state.user} 
+              //   handleTagClick={this.handleTagClick}
+              // />
             }}
           />
+
+
+
+
+
+
+
+
 
           <Route exact path="/posts/new" render={() => {
             return this.isLoggedOut() ? 
@@ -513,11 +533,11 @@ isLoggedOut = () => { //redirects immediately
 
         </Switch>
           </div>
-        { this.isLoggedIn() ?
+        {/* { this.isLoggedIn() ?
           <SideBar />
             : 
           null
-        }
+        } */}
         </div>
       </div>
     );
