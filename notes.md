@@ -18,32 +18,37 @@
 
 + App ⭐️
   + Header
-  // { this.isLoggedIn() ? }
-  + SideBar { user, loading } ✅
-  // { Begin Router Switch }
+    + _Logo & Title_
+    + NavMenu
+    + _Search_
+    + UserMenu
+
+// { Begin Router Switch }
+
   + Home ⭐️ { user, posts, loading, handleTabChange }
-    + QuickPost { user } ✅
-    + HomeFilters { handleTabChange }
+    <!-- + QuickPost { user } ✅ -->
+    <!-- + HomeFilters { handleTabChange } -->
+    + FeaturedPost { post }
     + PostFeed { posts } ✅
       + PostCard { post } ✅
     + Alerts/Weather
-    + ChatBox
-  + _PostExpanded (Post show page)_ { post }
+    + PostBar { posts }
+  + PostDetails { post }
     + Tags(?)
   + PostFormContainer ⭐️ New
     + PostForm
     + Tags
-  + PostFormContainer ⭐️ Edit
+  <!-- + PostFormContainer ⭐️ Edit
     + PostForm
-    + Tags
-  + Profile { id, addLike, removeLike, currentUser }
-    + ProfileCard { user }
-    + PostFeed { posts }
-      + PostCard { post }
+    + Tags -->
+  + Profile { id, currentUser }
+    + UserDetails { currentUser, user }
+    + PostList { posts }
+      + PostTile { post }
   + Index ⭐️
     + Filter
     + PostContainer
-      + PostTile
+      + Post
   + Login ⭐️{ handleLogin } ✅
 
   + Loading ???
@@ -99,9 +104,9 @@
   + '/login'
   + '/posts/new'
   + /posts/:id
-  + /posts/:id/edit
+  <!-- + /posts/:id/edit -->
   + /users/:id
-  + /profile/edit
+  <!-- + /profile/edit -->
   + /
 
 ## To-do

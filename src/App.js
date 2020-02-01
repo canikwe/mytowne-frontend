@@ -3,8 +3,8 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 import { Modal } from 'antd'
 import Login from './containers/Login'
-import NavMenu from './components/NavMenu'
-import SideBar from './components/SideBar'
+// import NavMenu from './components/NavMenu'
+// import SideBar from './components/SideBar'
 import Home from './containers/Home'
 import PostShow from './containers/PostShow'
 import PostFormContainer from './containers/PostFormContainer'
@@ -12,11 +12,11 @@ import Profile from './containers/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
 import Header from './components/Header'
-import Filter from './components/Filter'
-import CardContainer from './containers/CardContainer'
+// import Filter from './components/Filter'
+// import CardContainer from './containers/CardContainer'
 // import Footer from './components/Footer'
 import Loading from './components/Loading'
-import Index from './components/Index'
+import Index from './containers/Index'
 import './App.css'
 
 class App extends Component {
@@ -234,9 +234,10 @@ class App extends Component {
 // -------------------- state changing helper methods --------------------
 
   //Converting the filter array to tag names and setting state
-  handleFilter = (filterArr) => {
+  handleFilter = name => value => {
     let vals = []
-    filterArr.forEach(category => vals.push(category.value))
+    debugger
+    value.forEach(category => vals.push(category.value))
     this.setState({ filters: vals })
   }
 
@@ -253,6 +254,19 @@ class App extends Component {
     })
   }
 
+  formatFilters = () => {
+    const { filters } = this.state
+    if (filters.length > 0) {
+      return filters.map(f => ({
+        value: f,
+        label: f
+        })
+      )
+    } else {
+      return null
+    } 
+  }
+
   toggleCollapsed = () => {
     this.setState({ collapsed: !this.state.collapsed })
   }
@@ -260,7 +274,7 @@ class App extends Component {
   
 // -------------------- presentation/rendering helper methods --------------------
   
-  //Filtering POSTS
+  //Filtering POSTS by tags
   handleTagFilter = () => {
     const tagFilter = []
     
@@ -280,6 +294,8 @@ class App extends Component {
       return this.state.posts
     } 
   }
+
+
   
   // Check for searchTerm
   displayPosts = () => {
@@ -362,182 +378,166 @@ isLoggedOut = () => { //redirects immediately
 
   render() {
 
-    const { collapsed, user, loading } = this.state
-    console.log(this.props)
+    // const { collapsed, user, loading } = this.state
+    // console.log(this.props)
 
     return (
-      <div id='main' className={this.state.page}>
-
-        <Header loggedIn={this.isLoggedIn()}/>
-
+      <div className={this.state.page}>
+        <Header loggedIn={this.isLoggedIn()} />
         <div id='content'>
-          {/* { this.isLoggedIn() ?
-            <NavMenu 
-              user={user} 
-              loading={loading} 
-              handleLogout={this.handleLogout} 
-              toggleCollapsed={this.toggleCollapsed} 
-              collapsed={collapsed} 
+
+          <Switch>
+            <Route exact path="/login" render={() => {
+              return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> : <Redirect to="/home" />
+              }} 
             />
-            : null
-          } */}
-        <div className='main-container'>
-        <Switch>
-          <Route exact path="/login" render={() => {
-            return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> : <Redirect to="/home" />
-            }} 
-          />
 
-          <Route exact path='/home' render={() => {
-            return this.isReturningUser() ?
-              <Home
-                user={this.state.user}
-                posts={this.filteredPosts()}
-                handleSubmit={this.createPost}
-                loading={this.state.loading}
-                handleTabChange={this.handleHomeTabChange}
-              />
-              : <Redirect to='/login' />
-            }}
-          />
+            <Route exact path='/home' render={() => {
+              return this.isReturningUser() ?
+                <Home
+                  user={this.state.user}
+                  posts={this.filteredPosts()}
+                  handleSubmit={this.createPost}
+                  loading={this.state.loading}
+                  handleTabChange={this.handleHomeTabChange}
+                />
+                : <Redirect to='/login' />
+              }}
+            />
 
-          <Route exact path="/profile/:id" render={props => {
-            const profileId = parseInt(props.match.params.id)
+            <Route exact path="/profile/:id" render={props => {
+              const profileId = parseInt(props.match.params.id)
 
-            return <Profile id={profileId} />
-            }}
-          />
+              return <Profile id={profileId} />
+              }}
+            />
 
 
-          <Route exact path="/index" render={() => {
-            return this.isLoggedOut() ? 
-              <Redirect to="/login" /> 
-                :
-                <>
-                  <Filter
+            <Route exact path="/index" render={() => {
+              return this.isLoggedOut() ? 
+                <Redirect to="/login" /> 
+                  :
+                  // <div id='index'>
+                  //   <Filter
+                  //     handleFilter={this.handleFilter}
+                  //     tags={this.state.tags}
+                  //   />
+                  //   <CardContainer
+                  //   posts={this.displayPosts()}
+                  //   addLike={this.addLike}
+                  //   removeLike={this.removeLike}
+                  //   user={this.state.user}
+                  //   handleTagClick={this.handleTagClick}
+                  //   />
+                  // </div>
+                  <Index
+                    filters={this.formatFilters()}
                     handleFilter={this.handleFilter}
                     tags={this.state.tags}
+                    posts={this.displayPosts()}
+                    addLike={this.addLike}
+                    removeLike={this.removeLike}
+                    user={this.state.user}
+                    handleTagClick={this.handleTagClick}
                   />
-                  <CardContainer
-                  posts={this.displayPosts()}
-                  addLike={this.addLike}
-                  removeLike={this.removeLike}
-                  user={this.state.user}
-                  handleTagClick={this.handleTagClick}
-                  />
-                </>
-              // <Index 
-              //   posts={this.displayPosts()} 
-              //   tags={this.state.tags} 
-              //   handleFilter={this.handleFilter} 
-              //   addLike={this.addLike} 
-              //   removeLike={this.removeLike} 
-              //   user={this.state.user} 
-              //   handleTagClick={this.handleTagClick}
-              // />
-            }}
-          />
-
-
-
-
-
-
-
-
-
-          <Route exact path="/posts/new" render={() => {
-            return this.isLoggedOut() ? 
-              <Redirect to='/login' /> 
-                :
-              <PostFormContainer 
-                name={"New Post"} 
-                user_id={this.state.user.id} 
-                handleSubmit={this.createPost} 
-                tags={this.state.tags} 
-                post={{}}
-              />
-            }}
-          />
-
-          <Route exact path="/posts/:id/edit" render={props => {
-            const postId = props.match.params.id
-            const post = this.state.posts.find(p => p.id === parseInt(postId))
-
-            if (this.state.loading) {
-              return <Loading />
-            } else if (!post) {
-              
-              Modal.error({
-                title: 'Something went wrong',
-                content: 'That post does not exist!',
-              })
-              return <Redirect to='/home' />
-            } else if (this.isLoggedOut()) {
-              return <Redirect to='/login' />
-            } else {
-              return <PostFormContainer 
-                name={"Edit Post"} 
-                user_id={this.state.user.id} 
-                handleSubmit={this.editPost}
-                handleDelete={this.deletePost} 
-                handleNewTags={this.handleNewTags} 
-                tags={this.state.tags} 
-                post={post} />
+                }
               }
-            }}
-          />
+            />
 
-          <Route exact path="/posts/:id" render={props => {
-            let postId = props.match.params.id
-            let post = this.state.posts.find(p => p.id === parseInt(postId))
 
-            if (this.isLoggedOut()) {
-              return <Redirect to='/login' />
-            } else if (this.state.loading) {
-              return <Loading />
-            } else if (!post) {
-              Modal.error({
-                title: 'Something went wrong',
-                content: 'That post does not exist!',
-              })
-              return <Redirect to='/home' />
-            } else {
-              return <PostShow 
-                post={post} 
-                handleDelete={this.deletePost} 
-                user={this.state.user} 
-                handleTagClick={this.handleTagClick}
-              />
+
+
+
+
+
+
+
+            <Route exact path="/posts/new" render={() => {
+              return this.isLoggedOut() ? 
+                <Redirect to='/login' /> 
+                  :
+                <PostFormContainer 
+                  name={"New Post"} 
+                  user_id={this.state.user.id} 
+                  handleSubmit={this.createPost} 
+                  tags={this.state.tags} 
+                  post={{}}
+                />
               }}
-            }
-          />
+            />
 
-          <Route exact path="/account" render={() => {
-            return this.state.loading ? 
-              <Loading /> 
-                :
-              <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
-            }}
-          />
+            <Route exact path="/posts/:id/edit" render={props => {
+              const postId = props.match.params.id
+              const post = this.state.posts.find(p => p.id === parseInt(postId))
+
+              if (this.state.loading) {
+                return <Loading />
+              } else if (!post) {
+                
+                Modal.error({
+                  title: 'Something went wrong',
+                  content: 'That post does not exist!',
+                })
+                return <Redirect to='/home' />
+              } else if (this.isLoggedOut()) {
+                return <Redirect to='/login' />
+              } else {
+                return <PostFormContainer 
+                  name={"Edit Post"} 
+                  user_id={this.state.user.id} 
+                  handleSubmit={this.editPost}
+                  handleDelete={this.deletePost} 
+                  handleNewTags={this.handleNewTags} 
+                  tags={this.state.tags} 
+                  post={post} />
+                }
+              }}
+            />
+
+            <Route exact path="/posts/:id" render={props => {
+              let postId = props.match.params.id
+              let post = this.state.posts.find(p => p.id === parseInt(postId))
+
+              if (this.isLoggedOut()) {
+                return <Redirect to='/login' />
+              } else if (this.state.loading) {
+                return <Loading />
+              } else if (!post) {
+                Modal.error({
+                  title: 'Something went wrong',
+                  content: 'That post does not exist!',
+                })
+                return <Redirect to='/home' />
+              } else {
+                return <PostShow 
+                  post={post} 
+                  handleDelete={this.deletePost} 
+                  user={this.state.user} 
+                  handleTagClick={this.handleTagClick}
+                />
+                }}
+              }
+            />
+
+            <Route exact path="/account" render={() => {
+              return this.state.loading ? 
+                <Loading /> 
+                  :
+                <EditProfile user={this.state.user} editUser={this.editUser} deleteUser={this.deleteUser} />
+              }}
+            />
 
 
 
-          <Route exact path="*" render={() => {
-            return isEmpty(this.state.user) && !localStorage.token ? 
-              <Redirect to='/login' /> 
-                :
-              <Redirect to='/home' />
-            }} 
-          />
+            <Route exact path="*" render={() => {
+              return isEmpty(this.state.user) && !localStorage.token ? 
+                <Redirect to='/login' /> 
+                  :
+                <Redirect to='/home' />
+              }} 
+            />
 
-        </Switch>
-          </div>
-        {/* { this.isLoggedIn() ?
-          <SideBar />
-            : 
-          null
-        } */}
+          </Switch>
         </div>
       </div>
     );

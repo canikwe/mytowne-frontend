@@ -1,11 +1,11 @@
 import React from 'react'
-import { Card as OtherCard, Avatar } from 'antd'
+// import { Card as OtherCard, Avatar } from 'antd'
 // import Avatar from '../components/Avatar'
-import Tag from '../components/Tag'
-import Likes from '../components/Likes'
+// import Tag from '../components/Tag'
+// import Likes from '../components/Likes'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import { render } from 'react-dom'
+// import { render } from 'react-dom'
 
 class Card extends React.PureComponent {
   constructor(){
@@ -16,7 +16,7 @@ class Card extends React.PureComponent {
   }
 
   displayPostDate = () => {
-    const { post, handleTagClick, user, addLike, removeLike, like } = this.props
+    const { post} = this.props
 
     const postDate = moment(post.created_at)
 
@@ -24,7 +24,7 @@ class Card extends React.PureComponent {
   }
 
   likePost = () => {
-    const { post, handleTagClick, user, addLike, removeLike, like } = this.props
+    const { post, user, addLike, removeLike, like } = this.props
 
     if (like){
       removeLike(like.id)
@@ -47,9 +47,6 @@ class Card extends React.PureComponent {
 
     const { post } = this.props
 
-
-    console.log(post.title, 'width: ', e.target.width, 'height: ', e.target.height)
-
     if (post.likes.length > 2) {
       this.setState({ className: 'big'})
     } 
@@ -64,83 +61,27 @@ class Card extends React.PureComponent {
   }
 
   render() {
-    const { post, handleTagClick, user, addLike, removeLike, like } = this.props
+    const { post } = this.props
+      // , handleTagClick, user, addLike, removeLike, like
     const { className } = this.state
 
     return (
-      <div className={`${className} segment`}>
+      <div className={`${className} segment hover`}>
         <div className='pin'></div>
         <Link to={`/posts/${post.id}`}>
           <img 
             alt={post.title} 
             id={post.title} 
-            className='my-image'
+            className='small card image'
             src={post.img} 
             onError={this.handleMissingImg}
             onLoad={this.updateClass}
-        />
-              </Link>
+          />
+        </Link>
         <div className='details'>
           {post.title}
         </div>
-
       </div>
-        /* <OtherCard
-          hoverable
-          // style={{width: '240px'}}
-          cover={<img alt={post.title} id={post.title} src={post.img} onError={this.handleMissingImg}
-            // style={{ width: '100%' }}
-/>}
-          onLoad={this.updateClass}
-          className={className}
-          size='small'
-        >
-          <OtherCard.Meta title={<Link to={`/posts/${post.id}`}>{post.title}</Link>} description={this.displayPostDate()} />
-          <div className='tag-container'>
-            {post.post_tags.map((tag) => {
-              return <Tag key={tag.id} tag={tag} handleTagClick={handleTagClick} />
-            })}
-          </div>
-        </OtherCard> */
-        //  <div className='card'>
-
-        //   <div className='card-header'>
-        //     <Link to={`/profile/${post.user.id}`}>
-        //       <div className='card-username'>
-        //         <Avatar 
-        //           src={!!post.user.avatar ? post.user.avatar : 'images/avatar_placeholder.png'} 
-        //           alt={post.user.name} 
-        //         />
-        //         <span>{post.user.name}</span>
-        //       </div>
-        //     </Link>
-
-        //     <p className='card-date'>
-        //       { !postDate.isSame(moment(), 'week') ? postDate.calendar(null, {sameElse: 'DD-MMM'}) : postDate.fromNow() }
-        //     </p>
-        //   </div>
-
-        //   <div className='img-container'>
-        //     <Link to={`/posts/${post.id}`}>
-        //       <img src={!!post.img ? post.img : '/images/placeholder.png'} className ='card-image' alt={post.title} />
-        //     </Link>
-        //   </div>
-        //     <div className='card-content'>
-        //       <h4 className='card-title'>{post.title}</h4>
-        //       <Likes
-        //         icon={like ? 'material-icons favorite' : 'material-icons not-favorite'}
-        //         likePost={likePost}
-        //         like={like ? 'favorite' : 'favorite_border'}
-        //         likesCount={post.likes.length}
-        //       />
-        //     </div>
-        //   <hr/>
-        //   <div className='tag-container'>
-        //     {post.post_tags.map((tag) => {
-        //       return <Tag key={tag.id} tag={tag} handleTagClick={ handleTagClick }/>
-        //     })}
-        //   </div>
-        // </div>
     )
   }
 }

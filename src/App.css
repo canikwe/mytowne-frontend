@@ -1,8 +1,8 @@
 /* ------- Page Background Styles ------- */
 
 .homepage {
-  /* background: lightgray; */
-  background-image: url('backgroundMountains.png');
+  background: lightgray;
+  /* background-image: url('backgroundMountains.png'); */
   background-position: 100%;
   background-attachment: fixed;
   background-size: cover;
@@ -15,26 +15,23 @@
   background-size: cover;
 }
 
-#main {
-  width: 100%;
-}
-
 /* -------- Header Styles -------- */
 
-.header {
+#header {
   display: grid;
   grid-template: '. icon header menu . . . . . profile .';
   align-items: end;
   background: white;
   padding: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 0 0 20px 0;
 }
 
-.header-logo {
+#header-logo {
   height: 7vmin;
 }
 
-.header-title {
+#header-title {
   margin: -0.35em
 }
 
@@ -70,7 +67,7 @@
   grid-area: profile;
 }
 
-.header ul {
+#header ul {
   margin-bottom: 1.5em;
   padding-top: 0.5em;
   display: flex;
@@ -85,7 +82,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .header {
+  #header {
     display: flex;
     flex-direction: column;
   }
@@ -106,7 +103,7 @@
   width: 20%;
 }
 
-.main-container {
+#index {
   /* width: 60%; */
   display: flex;
   flex-direction: column;
@@ -315,13 +312,15 @@
 /* --------- Other Styles --------- */
 
 #filter-container {
+  /* display: grid;
+  grid-template: '. filter filter . sort sort . . . .'; */
   width: 100%;
   /* display: flex;
   justify-content: center; */
 }
 
-#filter {
-  width: 50%;
+.filter {
+  width: 40%;
 }
 
 input:focus {

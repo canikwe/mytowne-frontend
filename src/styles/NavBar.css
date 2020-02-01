@@ -22,19 +22,6 @@
   } 
 }
 
-#nav-container ul {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: rgba(88, 158, 234, 0.824);
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
 li#search {
   /* float: right; 
   padding: 11px 5px;

@@ -1,43 +1,27 @@
 import React from 'react'
-import { Menu, Icon, Affix } from 'antd'
-import { Link, withRouter } from 'react-router-dom'
+import { Icon } from 'antd'
+import { Link } from 'react-router-dom'
 
 const NavMenu = (props) => {
-  const { user, loading } = props
-
-  const handleClick = value => {
-    console.log('click ', value)
-  }
-
-  const activeKey = () => props.location.pathname.replace('/', '')
+  // const { user, loading } = props
 
   return (
-
-        <ul>
-          <li>
-            <Link to='/index'>
-              <Icon type='team' />Community Board
-            </Link>
-          </li>
-          <li>
-            <Link to='/posts/new'>
-              <Icon type='form' /> New Post
-            </Link>
-
-          </li>
-          <li>
-            <Icon type='calendar' />Events
-
-          </li>
-        </ul>
-    // </div>
+    <ul>
+      <li>
+        <Link to='/index'>
+          <Icon type='team' />Community Board
+        </Link>
+      </li>
+      <li>
+        <Link to='/posts/new'>
+          <Icon type='form' /> New Post
+        </Link>
+      </li>
+      <li>
+        <Icon type='calendar' />Events
+      </li>
+    </ul>
   )
 }
 
-export default withRouter(NavMenu)
-
-/*
-         <Menu.Item key='logout'>
-              <Icon type='logout' /> <span onClick={handleLogout}>Logout</span>
-            </Menu.Item>
-*/
+export default NavMenu
