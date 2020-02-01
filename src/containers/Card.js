@@ -11,7 +11,7 @@ class Card extends React.PureComponent {
   constructor(){
     super()
     this.state = {
-      className: ''
+      className: 'regular'
     }
   }
 
@@ -52,9 +52,10 @@ class Card extends React.PureComponent {
 
     if (post.likes.length > 2) {
       this.setState({ className: 'big'})
-    } else if (post.img === '') {
-      this.setState({ className: ''})
-    }
+    } 
+    // else if (post.img === '') {
+    //   this.setState({ className: ''})
+    // }
     else if (e.target.width > e.target.height * 1.75) {
       this.setState({ className: 'horizontal' })
     } else if (e.target.height > e.target.width * 1.75) {
@@ -68,6 +69,7 @@ class Card extends React.PureComponent {
 
     return (
       <div className={`${className} segment`}>
+        <div className='pin'></div>
         <Link to={`/posts/${post.id}`}>
           <img 
             alt={post.title} 
@@ -77,10 +79,10 @@ class Card extends React.PureComponent {
             onError={this.handleMissingImg}
             onLoad={this.updateClass}
         />
+              </Link>
         <div className='details'>
           {post.title}
         </div>
-              </Link>
 
       </div>
         /* <OtherCard

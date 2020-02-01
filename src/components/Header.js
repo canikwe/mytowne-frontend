@@ -1,23 +1,46 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Input } from 'antd'
+import NavMenu from '../components/NavMenu'
 import '../styles/NavBar.css'
 
-const Header = ({ loggedIn }) => {
+const Header = ({ loggedIn, stickHeader }) => {
 
+
+  
   return(
-    <div className='header'>
-      <Row type='flex' align='bottom'>
-        <Col span={2} offset={1}>
+    <div className='header' id='nav-container'>
+
+        <div className='item1'>
+
           <img src={require('../helper/cityscape.svg')} alt='home' className='header-logo'/>
-        </Col>
-        <Col span={2}>
+        {/* </Col>
+        <Col span={2}> */}
+      </div>
+        <div className='item2'>
           <Link to='/home'>
             <h1 className='header-title'>myTowne</h1>
           </Link>
-        </Col>
+
+        </div>
+
+        <div className='item3'>
+
+        {/* </Col>
+        <Col span={8}> */}
+          <NavMenu
+            // user={user}
+            // loading={loading}
+
+          />
+
+        {/* </Col> */}
+      </div>
+
+      <div className='item4'>
+        
         { loggedIn ? 
-          <Col span={4} offset={8}>
+          // <Col span={4} offset={8}>
             <div className='search-border'>
               <Input.Search 
                 placeholder='Search...' 
@@ -27,9 +50,10 @@ const Header = ({ loggedIn }) => {
                 id='search'
               />
             </div>
-          </Col>
+          // </Col>
         : null }
-      </Row>
+      {/* </Row> */}
+      </div>
 
     </div>
   )

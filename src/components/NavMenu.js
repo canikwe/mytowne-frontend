@@ -2,45 +2,35 @@ import React from 'react'
 import { Menu, Icon, Affix } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 
-const NavMenu = ({ user, loading, handleLogout, toggleCollapsed, collapsed }) => {
+const NavMenu = (props) => {
+  const { user, loading } = props
 
   const handleClick = value => {
     console.log('click ', value)
   }
 
-  return (
-    <div id='nav-menu'>
+  const activeKey = () => props.location.pathname.replace('/', '')
 
-      <Affix>
-        <Menu
-          onClick={handleClick}
-          // style={{ width: 256 }}
-          defaultSelectedKeys={['home']}
-          defaultOpenKeys={['nav', 'index', 'new']}
-          mode="inline"
-          inlineCollapsed={false}
-        >
-          <Menu.Item key='home'>
-            <Link to='/home'>
-              <Icon type='home' /> Home
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="new-post">
-            <Link to='/posts/new'>
-              <Icon type='form' /> New Post
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="index">
+  return (
+
+        <ul>
+          <li>
             <Link to='/index'>
               <Icon type='team' />Community Board
             </Link>
-          </Menu.Item>
-          <Menu.Item key='events'>
+          </li>
+          <li>
+            <Link to='/posts/new'>
+              <Icon type='form' /> New Post
+            </Link>
+
+          </li>
+          <li>
             <Icon type='calendar' />Events
-          </Menu.Item>
-        </Menu>
-      </Affix>
-    </div>
+
+          </li>
+        </ul>
+    // </div>
   )
 }
 
