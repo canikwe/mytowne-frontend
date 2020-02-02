@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select } from 'antd'
 
-const Filter = ({ tags, handleFilter, filters }) => {
+const Filter = ({ tags, handleFilter, filters, handleSort }) => {
 
   return (
     <div id='filter-container'>
@@ -9,7 +9,7 @@ const Filter = ({ tags, handleFilter, filters }) => {
         <Select
           mode="multiple"
           placeholder="Filter"
-          value={filters}
+          value={filters.tags}
           onChange={handleFilter}
           style={{ width: '100%' }}
         >
@@ -22,13 +22,18 @@ const Filter = ({ tags, handleFilter, filters }) => {
       </div>
       <div className='sort'>
         <Select
-          onChange={console.log}
+          onChange={handleSort}
           placeholder='Sort By'
           style={{ width: '100%' }}
-
         >
-          <Select.Option value='recent'>
-            Recent
+          <Select.Option value=''>
+            None
+          </Select.Option>
+          <Select.Option value='likes'>
+            Likes
+          </Select.Option>
+          <Select.Option value='date'>
+            Date
           </Select.Option>
           <Select.Option value='alpha'>
             Alpha

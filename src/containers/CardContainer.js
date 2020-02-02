@@ -18,7 +18,7 @@ const CardContainer = ({ posts, user, addLike, removeLike, handleTagClick }) => 
           user={user} 
           addLike={addLike} 
           removeLike={removeLike} 
-          handleTagClick={handleTagClick}
+          // handleTagClick={handleTagClick}
           like={like}
         /> 
       }

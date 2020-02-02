@@ -29,8 +29,11 @@ class App extends Component {
     return ({
       user: {},
       posts: [],
-      filters: [],
-      allFilters: [],
+      filters: {
+        tags: [],
+        sort: '',
+        asc: true
+      },
       tags: [],
       loading: true,
       searchInput: '',
@@ -233,7 +236,9 @@ class App extends Component {
 
 // -------------------- state changing helper methods --------------------
 
-  handleFilter = filters => this.setState({ filters })
+  updateFilter = tags => this.setState({ filters: {...this.state.filters, tags} })
+
+  updateSort = sort => this.setState({ filters: {...this.state.filters, sort} })
 
   handleSearch = (e) => this.setState({ searchInput: e.target.value })
 
@@ -242,9 +247,9 @@ class App extends Component {
     this.setState(this.initialState())
   }
 
-  handleTagClick = tag => {
+  handleTagClick = postTag => {
     this.setState({
-      filters: [tag.tag_name]
+      filters: {...this.state.filters, tags: [postTag.tag_name] }
     })
   }
 
@@ -256,15 +261,15 @@ class App extends Component {
 // -------------------- presentation/rendering helper methods --------------------
   
   //Filtering POSTS by tags
-  handleTagFilter = () => {
+  filterByTag = () => {
     const tagFilter = []
     
-    if (this.state.filters.length > 0) {
+    if (this.state.filters.tags.length > 0) {
       this.state.posts.forEach(post => {
         const tagCheck = []
         const tags = post.tags.map(t => t.name) // map all tag names to an unnested array
   
-        this.state.filters.forEach(f => { // check to see if the filter tag is included in the post's tags
+        this.state.filters.tags.forEach(f => { // check to see if the filter tag is included in the post's tags
           tags.includes(f) ? tagCheck.push(true) : tagCheck.push(false)
         })
   
@@ -272,15 +277,35 @@ class App extends Component {
       })
       return tagFilter
     } else {
-      return this.state.posts
+      return [...this.state.posts]
     } 
+  }
+
+  filterBySearch = (posts) => posts.filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase() )) 
+
+  sortPosts = (posts) => {
+    const sortOption = this.state.filters.sort
+
+    switch (sortOption) {
+      case 'date':
+        return posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      case 'alpha':
+        return posts.sort((a, b) => a.title > b.title ? 1 : -1)
+      case 'likes':
+        return posts.sort((a, b) => b.likes.length - a.likes.length)
+      default:
+        return posts
+    }
   }
 
   // Check for searchTerm
   displayPosts = () => {
-    const filteredPosts = this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
+    const tagFilter = this.filterByTag()
+    const searchFilter = this.filterBySearch(tagFilter)
+    
+    return this.sortPosts(searchFilter)
 
-    return filteredPosts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    // return filteredPosts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
   }
 
 
@@ -398,13 +423,14 @@ isLoggedOut = () => { //redirects immediately
                   :
                   <Index
                     filters={this.state.filters}
-                    handleFilter={this.handleFilter}
+                    handleFilter={this.updateFilter}
+                    handleSort={this.updateSort}
                     tags={this.state.tags}
                     posts={this.displayPosts()}
                     addLike={this.addLike}
                     removeLike={this.removeLike}
                     user={this.state.user}
-                    handleTagClick={this.handleTagClick}
+                    // handleTagClick={this.handleTagClick}
                   />
                 }
               }
