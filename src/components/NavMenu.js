@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon } from 'antd'
 import { Link } from 'react-router-dom'
 
-const NavMenu = (props) => {
+const NavMenu = () => {
   // const { user, loading } = props
 
   return (

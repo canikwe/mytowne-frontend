@@ -233,13 +233,7 @@ class App extends Component {
 
 // -------------------- state changing helper methods --------------------
 
-  //Converting the filter array to tag names and setting state
-  handleFilter = name => value => {
-    let vals = []
-    debugger
-    value.forEach(category => vals.push(category.value))
-    this.setState({ filters: vals })
-  }
+  handleFilter = filters => this.setState({ filters })
 
   handleSearch = (e) => this.setState({ searchInput: e.target.value })
 
@@ -252,19 +246,6 @@ class App extends Component {
     this.setState({
       filters: [tag.tag_name]
     })
-  }
-
-  formatFilters = () => {
-    const { filters } = this.state
-    if (filters.length > 0) {
-      return filters.map(f => ({
-        value: f,
-        label: f
-        })
-      )
-    } else {
-      return null
-    } 
   }
 
   toggleCollapsed = () => {
@@ -295,8 +276,6 @@ class App extends Component {
     } 
   }
 
-
-  
   // Check for searchTerm
   displayPosts = () => {
     const filteredPosts = this.handleTagFilter().filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase())) 
@@ -417,21 +396,8 @@ isLoggedOut = () => { //redirects immediately
               return this.isLoggedOut() ? 
                 <Redirect to="/login" /> 
                   :
-                  // <div id='index'>
-                  //   <Filter
-                  //     handleFilter={this.handleFilter}
-                  //     tags={this.state.tags}
-                  //   />
-                  //   <CardContainer
-                  //   posts={this.displayPosts()}
-                  //   addLike={this.addLike}
-                  //   removeLike={this.removeLike}
-                  //   user={this.state.user}
-                  //   handleTagClick={this.handleTagClick}
-                  //   />
-                  // </div>
                   <Index
-                    filters={this.formatFilters()}
+                    filters={this.state.filters}
                     handleFilter={this.handleFilter}
                     tags={this.state.tags}
                     posts={this.displayPosts()}

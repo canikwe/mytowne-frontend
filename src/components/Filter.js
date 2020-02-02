@@ -1,30 +1,39 @@
 import React from 'react';
-import Select from 'react-select';
+import { Select } from 'antd'
 
 const Filter = ({ tags, handleFilter, filters }) => {
-
-  const formattedTags = tags.map(tag => ({
-    value: tag.name,
-    label: tag.name
-    })
-  )
 
   return (
     <div id='filter-container'>
       <div className='filter'>
         <Select
-          textFieldProps={{
-            label: 'Filter By Tags',
-            InputLabelProps: {
-              shrink: true,
-            },
-          }}
-          options={formattedTags}
+          mode="multiple"
+          placeholder="Filter"
           value={filters}
-          onChange={handleFilter('multi')}
-          placeholder="Select Tags"
-          isMulti
-        />
+          onChange={handleFilter}
+          style={{ width: '100%' }}
+        >
+          {tags.map(tag => (
+            <Select.Option key={tag.name} value={tag.name}>
+              {tag.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </div>
+      <div className='sort'>
+        <Select
+          onChange={console.log}
+          placeholder='Sort By'
+          style={{ width: '100%' }}
+
+        >
+          <Select.Option value='recent'>
+            Recent
+          </Select.Option>
+          <Select.Option value='alpha'>
+            Alpha
+          </Select.Option>
+        </Select>
       </div>
     </div>
   )
