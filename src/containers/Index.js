@@ -2,7 +2,7 @@ import React from 'react'
 import Filter from '../components/Filter'
 import CardContainer from './CardContainer'
 
-const Index = ({ posts, handleFilter, handleSort, tags, user, addLike, removeLike, handleTagClick, filters }) => {
+const Index = ({ posts, handleFilter, handleSort, tags, user, addLike, removeLike, handleTagClick, filters, handleDirection }) => {
 
   return (
     <div id='index'>
@@ -11,6 +11,7 @@ const Index = ({ posts, handleFilter, handleSort, tags, user, addLike, removeLik
         tags={tags}
         filters={filters}
         handleSort={handleSort}
+        handleDirection={handleDirection}
       />
       <CardContainer 
         posts={posts} 

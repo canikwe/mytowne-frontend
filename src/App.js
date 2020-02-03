@@ -32,7 +32,7 @@ class App extends Component {
       filters: {
         tags: [],
         sort: '',
-        asc: true
+        direction: 'asc'
       },
       tags: [],
       loading: true,
@@ -242,6 +242,8 @@ class App extends Component {
 
   handleSearch = (e) => this.setState({ searchInput: e.target.value })
 
+  updateFilterDirection = e => this.setState({ filters: {...this.state.filters, direction: e.target.value} })
+
   handleLogout = () => {
     localStorage.clear()
     this.setState(this.initialState())
@@ -284,17 +286,15 @@ class App extends Component {
   filterBySearch = (posts) => posts.filter(p => p.title.toLowerCase().includes(this.state.searchInput.toLowerCase() )) 
 
   sortPosts = (posts) => {
-    const sortOption = this.state.filters.sort
+    const filters = this.state.filters
 
-    switch (sortOption) {
-      case 'date':
-        return posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    switch (filters.sort) {
       case 'alpha':
-        return posts.sort((a, b) => a.title > b.title ? 1 : -1)
+        return filters.direction === 'asc' ? posts.sort((a, b) => a.title > b.title ? 1 : -1) : posts.sort((a, b) => a.title < b.title ? 1 : -1) 
       case 'likes':
-        return posts.sort((a, b) => b.likes.length - a.likes.length)
+        return filters.direction === 'asc' ? posts.sort((a, b) => b.likes.length - a.likes.length) : posts.sort((a, b) => a.likes.length - b.likes.length)
       default:
-        return posts
+        return filters.direction === 'asc' ? posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) : posts.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)) 
     }
   }
 
@@ -430,6 +430,7 @@ isLoggedOut = () => { //redirects immediately
                     addLike={this.addLike}
                     removeLike={this.removeLike}
                     user={this.state.user}
+                    handleDirection={this.updateFilterDirection}
                     // handleTagClick={this.handleTagClick}
                   />
                 }

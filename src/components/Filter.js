@@ -1,7 +1,7 @@
 import React from 'react';
-import { Select } from 'antd'
+import { Select, Radio } from 'antd'
 
-const Filter = ({ tags, handleFilter, filters, handleSort }) => {
+const Filter = ({ tags, handleFilter, filters, handleSort, handleDirection }) => {
 
   return (
     <div id='filter-container'>
@@ -25,20 +25,24 @@ const Filter = ({ tags, handleFilter, filters, handleSort }) => {
           onChange={handleSort}
           placeholder='Sort By'
           style={{ width: '100%' }}
+          value={filters.sort}
         >
-          <Select.Option value=''>
-            None
-          </Select.Option>
           <Select.Option value='likes'>
             Likes
           </Select.Option>
-          <Select.Option value='date'>
-            Date
+          <Select.Option value=''>
+            Most Recent
           </Select.Option>
           <Select.Option value='alpha'>
-            Alpha
+            Title
           </Select.Option>
         </Select>
+      </div>
+      <div className='direction'>
+        <Radio.Group onChange={handleDirection} value={filters.direction}>
+          <Radio value='asc'>Ascending</Radio>
+          <Radio value='desc'>Descending</Radio>
+        </Radio.Group>
       </div>
     </div>
   )
