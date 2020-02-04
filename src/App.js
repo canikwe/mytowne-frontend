@@ -16,7 +16,7 @@ import Header from './components/Header'
 // import CardContainer from './containers/CardContainer'
 // import Footer from './components/Footer'
 import Loading from './components/Loading'
-import Index from './containers/Index'
+import Index from './containers/PostIndex'
 import './App.css'
 
 class App extends Component {
@@ -264,20 +264,17 @@ class App extends Component {
   
   //Filtering POSTS by tags
   filterByTag = () => {
-    const tagFilter = []
     
-    if (this.state.filters.tags.length > 0) {
-      this.state.posts.forEach(post => {
-        const tagCheck = []
+    if (this.state.filters.tags.length) {
+      const filteredPosts = this.state.posts.filter(post => {
         const tags = post.tags.map(t => t.name) // map all tag names to an unnested array
   
-        this.state.filters.tags.forEach(f => { // check to see if the filter tag is included in the post's tags
-          tags.includes(f) ? tagCheck.push(true) : tagCheck.push(false)
+        const missingFilter = this.state.filters.tags.find(f => { // check to see if the filter tag is included in the post's tags
+          return !tags.includes(f)
         })
-  
-        return tagCheck.includes(false) ? null : tagFilter.push(post) // only include post if all filter tags are present
+        return !missingFilter // only include post if there are no missing filters from the post's tags
       })
-      return tagFilter
+      return filteredPosts
     } else {
       return [...this.state.posts]
     } 

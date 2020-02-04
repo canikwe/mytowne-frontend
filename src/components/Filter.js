@@ -5,6 +5,7 @@ const Filter = ({ tags, handleFilter, filters, handleSort, handleDirection }) =>
 
   return (
     <div id='filter-container'>
+      <h3>Community Board</h3>
       <div className='filter'>
         <Select
           mode="multiple"
