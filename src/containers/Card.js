@@ -78,8 +78,23 @@ class Card extends React.PureComponent {
             onLoad={this.updateClass}
           />
         </Link>
+        <div className='post-date'>
+          {this.displayPostDate()}
+        </div>
         <div className='details'>
-          {post.title}
+          <div className='title'>
+            {post.title.slice(0, 40)}...
+          </div>
+          
+          {/* <div className='post-date'>
+            {this.displayPostDate()}
+          </div> */}
+          {/* {
+            className === 'big' ? <div>{post.content}</div> : null
+          } */}
+          <div className='tag-container'>
+            { post.tags.map(t => <span className='tag' key={t.id}>{t.name}</span>) }
+          </div>
         </div>
       </div>
     )

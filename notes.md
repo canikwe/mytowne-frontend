@@ -45,7 +45,7 @@
     + UserDetails { currentUser, user }
     + PostList { posts }
       + PostTile { post }
-  + Index ⭐️
+  + PostIndex ⭐️
     + Filter
     + PostContainer
       + Post
