@@ -49,13 +49,13 @@ class Card extends React.PureComponent {
     console.log(`w: ${e.target.naturalWidth}, h: ${e.target.naturalHeight}`)
     const { post } = this.props
 
-    if (post.likes.length > 2) {
+    if (this.props.className) {
+      this.setState({ className: 'small' })
+    } else if (post.likes.length > 2) {
       this.setState({ className: 'big'})
-    } 
-
-    else if (e.target.naturalWidth > e.target.naturalHeight * 1.75) {
+    } else if (e.target.naturalWidth > e.target.naturalHeight * 1.5) {
       this.setState({ className: 'horizontal' })
-    } else if (e.target.naturalHeight > e.target.naturalWidth * 1.75) {
+    } else if (e.target.naturalHeight > e.target.naturalWidth * 1.5) {
       this.setState({ className: 'vertical' })
     }
   }

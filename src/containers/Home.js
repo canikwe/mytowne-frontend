@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react'
 import { message, Button } from 'antd'
-import QuickPost from '../components/QuickPost'
-import HomeFilters from '../components/HomeFilters'
+// import QuickPost from '../components/QuickPost'
+// import HomeFilters from '../components/HomeFilters'
 import PostFeed from '../containers/PostFeed'
+import SideBar from '../components/SideBar'
+import PostCard from '../components/PostCard'
+import FeaturePost from '../components/FeaturePost'
 
 class Home extends PureComponent {
   constructor(){
@@ -54,31 +57,38 @@ class Home extends PureComponent {
 // --------------- main render ---------------
     
   render(){
-    const { user, loading, handleTabChange } = this.props
+    const { user, loading, handleTabChange, posts } = this.props
     const { content } = this.state
+    console.log(posts[0])
     return (
-      <>
-        <QuickPost 
-          user={user} 
-          submitPost={this.submitPost} 
-          content={content} 
-          handleContentChange={this.handleContentChange}
-        />
-        <HomeFilters 
-          handleTabChange={handleTabChange}
-        />
+      <div id='home'>
+        <FeaturePost loading={loading} post={posts[0]} className='' />
+        <SideBar />
         <PostFeed 
-          posts={this.paginatedPosts()} 
+          posts={posts} 
           loading={loading}
         />
-        <Button 
-          onClick={ this.showMorePosts } 
-          type="primary">
-          More Posts
-        </Button>
-      </>
+      </div>
     )
   }
 }
 
 export default Home
+
+/*
+  <QuickPost
+    user={user}
+    submitPost={this.submitPost}
+    content={content}
+    handleContentChange={this.handleContentChange}
+  />
+  <HomeFilters
+    handleTabChange={handleTabChange}
+  />
+  <Button
+    onClick={ this.showMorePosts }
+    type="primary"
+  >
+    More Posts
+  </Button>
+*/

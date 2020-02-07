@@ -91,9 +91,14 @@
 
 /* ------------- Content styles -------------- */
 #content {
-  display: flex;
+  /* display: flex;
   justify-content: center;
+  width: 100%; */
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 5%;
 }
 
 #sidebar {
@@ -104,13 +109,56 @@
   width: 20%;
 }
 
-#index {
+/* #index {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   padding: 0 5%;
+} */
+
+#home {
+  display: grid;
+  grid-template: 
+    'a a a b b' 20%
+    'a a a b b' 20%
+    'd d d d d' 20%;
+  grid-gap: 20px;
 }
+
+#feature {
+  grid-area: a;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  grid-area: b;
+  width: 100%;
+  height: 100%;
+  background-color: peachpuff;
+}
+
+/* .other {
+  grid-area: c;
+    grid-column: span 2;
+    grid-row: span 3;
+  width: 50%;
+  height: 50%;
+  background-color: purple;
+} */
+
+.posts {
+  grid-area: d;
+  display: grid;
+    grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 250px;
+}
+
+/* .post {
+  grid-column: span 1;
+} */
 
 
 /* ------------- PostCard styles ------------- */
@@ -121,11 +169,12 @@
 
 .post-card-img {
   object-fit: cover;
-  max-height: 300px;
+  /* max-height: 300px; */
+  width: 100%
 }
 
 .post-card-author {
-  padding-left: 16px;
+  /* padding-left: 16px; */
 }
 
 /* Tag CSS Styles */

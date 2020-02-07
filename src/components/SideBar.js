@@ -4,7 +4,7 @@ import ChatBox from '../components/ChatBox'
 
 const SideBar = () => {
   return (
-    <div id='sidebar'>
+    <div className='sidebar'>
       <Weather />
       <ChatBox />
     </div>

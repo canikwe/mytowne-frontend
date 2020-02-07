@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Card, Icon, Avatar } from 'antd'
 import moment from 'moment'
 
-const PostCard = ({ post, loading }) => {
+const PostCard = ({ post, loading, className }) => {
 
   const postDate = () => {
     const date = moment(post.created_at)
@@ -15,8 +15,17 @@ const PostCard = ({ post, loading }) => {
   }
 
   return (
-    <div className='post-card'>
-      <Card 
+   <div className='segment post'>
+     I am a post... I think
+   </div>
+  )
+}
+
+export default PostCard
+
+/*
+ <div className={`post-card${className}`}>
+      <Card
         hoverable
         loading={ loading }
         extra={!loading ? postDate() : null}
@@ -30,9 +39,9 @@ const PostCard = ({ post, loading }) => {
         )}
         cover={(
           !loading ?
-          <img 
-            alt={ post.title } 
-            src={ post.img } 
+          <img
+            alt={ post.title }
+            src={ post.img }
             className='post-card-img'
             onError={handleMissingImg}
           />
@@ -49,7 +58,4 @@ const PostCard = ({ post, loading }) => {
         />
       </Card>
     </div>
-  )
-}
-
-export default PostCard
+*/
