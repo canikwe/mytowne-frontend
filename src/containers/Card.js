@@ -4,7 +4,7 @@ import React from 'react'
 // import Tag from '../components/Tag'
 // import Likes from '../components/Likes'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
+import { displayPostDate } from '../helper/functions'
 // import { render } from 'react-dom'
 
 class Card extends React.PureComponent {
@@ -13,14 +13,6 @@ class Card extends React.PureComponent {
     this.state = {
       className: 'regular'
     }
-  }
-
-  displayPostDate = () => {
-    const { post} = this.props
-
-    const postDate = moment(post.created_at)
-
-    return !postDate.isSame(moment(), 'week') ? postDate.calendar(null, { sameElse: 'DD-MMM' }) : postDate.fromNow()
   }
 
   likePost = () => {
@@ -50,7 +42,7 @@ class Card extends React.PureComponent {
     const { post } = this.props
 
     if (this.props.className) {
-      this.setState({ className: 'small' })
+      this.setState({ className: this.props.className })
     } else if (post.likes.length > 2) {
       this.setState({ className: 'big'})
     } else if (e.target.naturalWidth > e.target.naturalHeight * 1.5) {
@@ -79,7 +71,7 @@ class Card extends React.PureComponent {
           />
         </Link>
         <div className='post-date'>
-          {this.displayPostDate()}
+          {displayPostDate(post.created_at)}
         </div>
         <div className='details'>
           <div className='title'>

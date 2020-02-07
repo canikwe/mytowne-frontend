@@ -114,7 +114,7 @@
   /* font-size: 1em; */
 }
 
-.big > .details > .title {
+.big > .details > .title, #feature > .regular > .details > .title {
   font-size: 1.5em;
   /* width: 100%; */
 }
@@ -131,6 +131,7 @@
   border-top-right-radius: 10px;
 
 }
+
 
 /* Tag Styles */
 
@@ -243,7 +244,6 @@ hr {
   .big > .details > .title {
     font-size: 1em;
   }
-
 }
 
 
