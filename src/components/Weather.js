@@ -4,9 +4,11 @@ import { Card } from 'antd'
 const Weather = () => {
   return (
     <div className='weather'>
-      <Card>
+      <div className='segment'>
         <h3>Weather Box</h3>
-      </Card>
+        <hr />
+        <p>Some random weather data for my fake city!</p>
+      </div>
     </div>
   )
 }

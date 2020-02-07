@@ -362,6 +362,10 @@ class App extends Component {
     this.setState({ homepageFilter: !this.state.homepageFilter })
   }
 
+  displayRecentPosts = () => {
+    return [...this.state.posts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  }
+
 // -------------------- routing helper methods -----------------
 isReturningUser  = () => {
   return !!localStorage.token
@@ -398,6 +402,7 @@ isLoggedOut = () => { //redirects immediately
                 <Home
                   user={this.state.user}
                   posts={this.filteredPosts()}
+                  recentPosts={this.displayRecentPosts()}
                   handleSubmit={this.createPost}
                   loading={this.state.loading}
                   handleTabChange={this.handleHomeTabChange}

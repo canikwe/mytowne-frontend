@@ -1,12 +1,12 @@
 import React from 'react'
-import Weather from '../components/Weather'
-import ChatBox from '../components/ChatBox'
+// import Weather from '../components/Weather'
+import PostList from '../containers/PostList'
 
-const SideBar = () => {
+const SideBar = ({ posts }) => {
   return (
     <div className='sidebar'>
-      <Weather />
-      <ChatBox />
+      {/* <Weather /> */}
+      <PostList posts={posts}/>
     </div>
   )
 }

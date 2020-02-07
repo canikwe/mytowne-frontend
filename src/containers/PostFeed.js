@@ -8,7 +8,7 @@ const PostFeed = ({ posts, loading }) => {
   return (
     <div className='posts'>
       { loading ? 
-        loadingPosts().map(p => <LoadingCard loading={true} />)
+        loadingPosts().map(p => <LoadingCard key={p.id} loading={true} />)
           : 
         posts.slice(1, 5).map(p => <Card key={p.id} post={p} loading={ loading } className='small' />) }
     </div>

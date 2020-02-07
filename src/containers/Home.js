@@ -57,13 +57,13 @@ class Home extends PureComponent {
 // --------------- main render ---------------
     
   render(){
-    const { user, loading, handleTabChange, posts } = this.props
+    const { user, loading, handleTabChange, posts, recentPosts } = this.props
     const { content } = this.state
     console.log(posts[0])
     return (
       <div id='home'>
         <FeaturePost loading={loading} post={posts[0]} className='' />
-        <SideBar />
+        <SideBar posts={recentPosts}/>
         <PostFeed 
           posts={posts} 
           loading={loading}
