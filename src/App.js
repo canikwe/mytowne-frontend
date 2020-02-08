@@ -6,7 +6,7 @@ import Login from './containers/Login'
 // import NavMenu from './components/NavMenu'
 // import SideBar from './components/SideBar'
 import Home from './containers/Home'
-import PostShow from './containers/PostShow'
+import PostDetails from './components/PostDetails'
 import PostFormContainer from './containers/PostFormContainer'
 import Profile from './containers/Profile'
 import EditProfile from './containers/EditProfile'
@@ -418,7 +418,6 @@ isLoggedOut = () => { //redirects immediately
               }}
             />
 
-
             <Route exact path="/index" render={() => {
               return this.isLoggedOut() ? 
                 <Redirect to="/login" /> 
@@ -490,8 +489,8 @@ isLoggedOut = () => { //redirects immediately
             />
 
             <Route exact path="/posts/:id" render={props => {
-              let postId = props.match.params.id
-              let post = this.state.posts.find(p => p.id === parseInt(postId))
+              const postId = props.match.params.id
+              const post = this.state.posts.find(p => p.id === parseInt(postId))
 
               if (this.isLoggedOut()) {
                 return <Redirect to='/login' />
@@ -504,7 +503,7 @@ isLoggedOut = () => { //redirects immediately
                 })
                 return <Redirect to='/home' />
               } else {
-                return <PostShow 
+                return <PostDetails 
                   post={post} 
                   handleDelete={this.deletePost} 
                   user={this.state.user} 

@@ -233,26 +233,27 @@ hr {
   }
 }
 
+/* ----------------------------------- */
 
-
-.post-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.post-details {
+  /* display: flex; */
+  justify-self: center;
+  align-self: center;
+  width: 75%;
 }
 
-.post {
+/* .post {
   background: rgb(255, 255, 255, 0.2);
   border: none;
   box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
   border-radius: 3px;
   width: 75%;
   padding: 2%;
-}
+} */
 
-.post:hover {
+/* .post:hover {
   box-shadow: 0px 1px 3px 0 lightslategray;
-}
+} */
 
 .align-content {
   display: flex;
@@ -261,9 +262,30 @@ hr {
 
 .post-header {
   justify-content: space-between;
+  padding: 10px;
 }
 
 .post-admin {
   margin: 15px 0px 5px 0px;
   justify-content: space-around;
+}
+
+.card-image {
+  width: 100%;
+} 
+
+.post-content {
+  padding: 10px;
+}
+
+.extra-content {
+  padding: 10px;
+}
+
+.comment-container {
+  width: 50%;
+}
+
+.comment {
+  margin-bottom: 10px;
 }
