@@ -63,7 +63,7 @@ class Home extends PureComponent {
     return (
       <div id='home'>
         <div className='top'>
-          <FeaturePost loading={loading} post={posts[0]} className='' />
+          <FeaturePost loading={loading} post={posts[0]} />
           <SideBar posts={recentPosts}/>
         </div>
         <PostFeed 

@@ -6,12 +6,12 @@ const PostListItem = ({ post: { title, img, id, created_at } }) => {
   return (
     <div className='post-item'>
       <img src={img} alt={title} />
-      <span>
+      <div className='list-title'>
         <Link to={`/posts/${id}`}>{ title }</Link>
-        <div className='date'>
-          { displayPostDate(created_at) }
-        </div>
-      </span>
+      </div>
+      <div className='list-content date'>
+        { displayPostDate(created_at) }
+      </div>
     </div>
   )
 }

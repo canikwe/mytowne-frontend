@@ -7,7 +7,7 @@ const FeaturePost = ({ post, loading }) => {
   }
   return (
     <div id='feature'>
-      <Card className='regular' post={post}/>
+      <Card className='regular feature' post={post}/>
     </div>
   )
 }
