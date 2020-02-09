@@ -33,27 +33,42 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick }) => {
     <div className='post-details'>
       <div className='segment' >
         {/* <div> */}
-          <div className='align-content post-header'>
+          <div className='post-header'>
             <div>
               <h2>{post.title}</h2>
             </div>
-            <div className='align-content post-admin'>
+            <div className='post-subheader'>
               
               {post.user.avatar === '' ?
-                <Avatar style={{ backgroundColor: '#fde3cf', verticalAlign: 'middle' }} size="large">
+                <Avatar 
+                  style={{ backgroundColor: '#fde3cf', verticalAlign: 'middle' }} 
+                  size="large"
+                  className='post-avatar'
+                >
                   {post.user.name[0].toUpperCase()}
                 </Avatar>
                 :
                 <Avatar alt={post.user.name} src={post.user.avatar} />
               }
-              <Link to={`/profile/${post.user.id}`}>{post.user.name}</Link>
-              <span>{moment(post.created_at).format('DD-MMM')}</span>
-              <span><Icon type='heart' /></span>
-              <span>
-                <Dropdown overlay={menu} overlayStyle={{width: '100px'}}trigger={['click']}>
-                  <Icon type='more' />
-                </Dropdown>
-              </span>
+              <div className='post-author'>
+                <Link to={`/profile/${post.user.id}`}>{post.user.name}</Link>
+              </div>
+              <div className='post-details-date'>
+                {moment(post.created_at).format('DD-MMM')}
+              </div>
+              <div className='extra'>
+                <span>
+                  <Icon type='message' />
+                </span>
+                <span>
+                  <Icon type='heart' />
+                </span>
+                <span>
+                  <Dropdown overlay={menu} overlayStyle={{width: '100px'}}trigger={['click']}>
+                    <Icon type='more' />
+                  </Dropdown>
+                </span>
+              </div>
             </div>
           </div>
 

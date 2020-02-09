@@ -256,18 +256,47 @@ hr {
 } */
 
 .align-content {
-  display: flex;
+  /* display: flex; */
+  /* flex-direction: column; */
   align-items: center;
 }
 
 .post-header {
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  /* align-items: space-between; */
+  display: grid;
   padding: 10px;
 }
 
-.post-admin {
-  margin: 15px 0px 5px 0px;
-  justify-content: space-around;
+.post-subheader {
+  display: grid;
+  /* grid-template-columns: repeat(10, minmax(15px, 1fr)); */
+  grid-template-columns: 50px 50px 1fr 75px;
+  grid-auto-rows: minmax(15px, auto);
+
+  /* margin: 15px 0px 5px 0px; */
+  /* justify-content: space-around; */
+}
+
+.post-avatar {
+  grid-column: 1/2;
+  grid-row: span 2;
+}
+
+.post-author {
+  grid-column-start: 2;
+}
+
+.post-details-date {
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+.extra {
+  grid-column-start: -2;
+  display: flex;
+  justify-content: space-evenly;
+  /* justify-self: space-around; */
 }
 
 .card-image {
