@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Fetch from '../helper/Fetch'
 import { Redirect } from 'react-router-dom'
 import { Modal } from 'antd'
@@ -6,12 +6,12 @@ import ProfileCard from '../components/ProfileCard'
 import '../styles/Profile.css'
 import PostFeed from '../containers/PostFeed'
 
-class Profile extends Component {
-  constructor(props){
-    super(props)
+class Profile extends PureComponent {
+  constructor(){
+    super()
     this.state = {
       user: {},
-      posts: [],
+      likedPosts: [],
       redirect: false,
       loading: true
     }
@@ -29,7 +29,7 @@ class Profile extends Component {
       if (data.user) {
         this.setState({
           user: data.user,
-          posts: data.posts,
+          likedPosts: data.liked_posts,
           loading: false
         })
       } else {
@@ -50,18 +50,28 @@ class Profile extends Component {
       this.setState({ redirect: true, loading: false })
     })
   }
+
   
   render() {
-    const { user, posts, loading } = this.state
+    const { user, loading, likedPosts } = this.state
+    const { posts } = this.props
 
     if (this.state.redirect) {
       return <Redirect to='/home' />
     } 
     return (
-      <>
-        <ProfileCard loading={loading} user={user} />
-        <PostFeed loading={loading} posts={posts} />
-      </>
+      <div className='profile-container'>
+        <ProfileCard user={user} posts={posts} likedPosts={likedPosts}/>
+        <div className='segment post-nav'>
+          Posts | Likes
+        </div>
+        {posts.map(p => (
+          <div key={p.id} className='segment profile-post'>{p.title}</div>
+          )
+        )}
+        {/* <ProfileCard loading={loading} user={user} /> */}
+        {/* <PostFeed loading={loading} posts={posts} /> */}
+      </div>
     )
   }
 }

@@ -43,8 +43,8 @@
     + Tags -->
   + Profile { id, currentUser }
     + UserDetails { currentUser, user }
-    + PostList { posts }
-      + PostTile { post }
+    <!-- + PostList { posts } -->
+    + PostTile { post } . . . .
   + PostIndex ⭐️
     + Filter
     + PostContainer

@@ -382,6 +382,11 @@ class App extends Component {
     return [...this.state.posts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
   }
 
+  getAuthoredPosts = (id) => {
+    return this.state.posts.filter(p => p.user.id === id)
+  }
+  
+
 // -------------------- routing helper methods -----------------
 isReturningUser  = () => {
   return !!localStorage.token
@@ -402,7 +407,7 @@ isLoggedOut = () => { //redirects immediately
     // const { collapsed, user, loading } = this.state
     // console.log(this.props)
 
-    const { user } = this.state
+    const { user, posts } = this.state
 
     return (
       <div className={this.state.page}>
@@ -432,9 +437,13 @@ isLoggedOut = () => { //redirects immediately
           />
 
           <Route exact path="/profile/:id" render={props => {
+            if (this.isLoggedOut()) {
+              return <Redirect to='/login' />
+            }
             const profileId = parseInt(props.match.params.id)
+            const authoredPosts = this.getAuthoredPosts(profileId)
 
-            return <Profile id={profileId} />
+            return <Profile id={profileId} posts={authoredPosts}/>
             }}
           />
 

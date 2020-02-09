@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
-import { message, Button } from 'antd'
+import { message } from 'antd'
 // import QuickPost from '../components/QuickPost'
 // import HomeFilters from '../components/HomeFilters'
 import PostFeed from '../containers/PostFeed'
 import SideBar from '../components/SideBar'
-import PostCard from '../components/PostCard'
+// import PostCard from '../components/PostTile'
 import FeaturePost from '../components/FeaturePost'
 
 class Home extends PureComponent {
