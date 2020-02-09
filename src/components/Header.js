@@ -5,7 +5,7 @@ import NavMenu from '../components/NavMenu'
 // import Avatar from './Avatar'
 import '../styles/NavBar.css'
 
-const Header = ({ loggedIn, user, handleLogout }) => {
+const Header = ({ user, handleLogout }) => {
 
   const menu = (
     <Menu>
@@ -43,7 +43,7 @@ const Header = ({ loggedIn, user, handleLogout }) => {
       </div>
 
       {/* <div className='search'> */}
-        { loggedIn ? 
+
           <>
             {/* <div className='search-border'>
               <Input.Search 
@@ -64,8 +64,7 @@ const Header = ({ loggedIn, user, handleLogout }) => {
               </Dropdown>
             </div>
           </>
-          : null
-        }
+
       {/* </div> */}
     </div>
   )

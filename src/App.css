@@ -1,6 +1,6 @@
 /* ------- Page Background Styles ------- */
 
-.homepage {
+.default {
   background: lightgray;
   /* background-image: url('backgroundMountains.png'); */
   background-position: 100%;
@@ -21,10 +21,12 @@
 #header {
   display: grid;
   /* grid-template: '. icon header menu . . . . . profile .'; */
-  grid-template-columns: auto auto auto 1fr 100px auto;
+  grid-template-columns: auto auto auto 1fr auto auto;
+  grid-gap: 5px;
   align-items: end;
+  justify-items: start;
   background: white;
-  padding: 5px;
+  padding: 5px 5% 5px 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: 0 0 20px 0;
 }
@@ -34,7 +36,7 @@
 }
 
 #header-title {
-  margin: -0.35em
+  margin-bottom: -0.35em
 }
 
 /* .search-border {
@@ -55,11 +57,13 @@
 .item1 {
   /* grid-area: icon; */
   grid-column-start: 1;
+  width: 100%;
 }
 
 .item2 {
   /* grid-area: header; */
   grid-column-start: 2;
+  justify-self: start;
 }
 
 .item3 {
@@ -75,6 +79,7 @@
 
 .header-menu {
   grid-column-start: -1;
+  font-size: 1.5em
 }
 
 #header ul {
@@ -89,6 +94,10 @@
   overflow: hidden;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+#header ul > li {
+  margin-right: 15px;
 }
 
 @media screen and (max-width: 600px) {

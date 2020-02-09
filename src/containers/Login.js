@@ -27,8 +27,8 @@ class Login extends PureComponent {
       <main id='login'>
         <div className='login-div'>
           <div className='login-header'>
-            <Icon type="login" style={{ color: 'red', fontSize: '2em' }} />
-            <h1>Log In</h1>
+            <img src={require('../helper/cityscape.svg')} alt='home' id='header-logo' />
+            <h1>myTowne</h1>
           </div>
           <div className='login-contents'>
             <form className='login-form'>
