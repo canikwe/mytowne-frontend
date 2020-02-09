@@ -52,7 +52,13 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
                   {post.user.name[0].toUpperCase()}
                 </Avatar>
                 :
-                <Avatar alt={post.user.name} src={post.user.avatar} />
+                <Avatar 
+                  alt={post.user.name} 
+                  src={post.user.avatar} 
+                  size='large'
+                  className='post-avatar'
+                  style={{verticalAlign: 'middle'}}
+                />
               }
               <div className='post-author'>
                 <Link to={`/profile/${post.user.id}`}>{post.user.name}</Link>
