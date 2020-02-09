@@ -109,7 +109,7 @@ class App extends Component {
     .catch(this.catchError)
   }
 
-    //Like Posts
+  // Like Posts
   addLike = (likeData) => {
     Fetch.POST(likeData, 'likes')
     .then(res => {
@@ -130,6 +130,17 @@ class App extends Component {
       })
     })
     .catch(this.catchError)
+  }
+
+  handleLike = (userId, post) => {
+    const like = post.likes.find(l => l.user_id === userId)
+
+    if (like) {
+      this.removeLike(like.id)
+    } else {
+      const likeData = {like: {user_id: userId, post_id: post.id}}
+      this.addLike(likeData)
+    }
   }
   
   editPost = (data, post) => {
@@ -508,6 +519,7 @@ isLoggedOut = () => { //redirects immediately
                   handleDelete={this.deletePost} 
                   user={this.state.user} 
                   handleTagClick={this.handleTagClick}
+                  handleLike={this.handleLike}
                 />
                 }}
               }

@@ -262,20 +262,14 @@ hr {
 }
 
 .post-header {
-  /* justify-content: space-between; */
-  /* align-items: space-between; */
   display: grid;
   padding: 10px;
 }
 
 .post-subheader {
   display: grid;
-  /* grid-template-columns: repeat(10, minmax(15px, 1fr)); */
-  grid-template-columns: 50px 50px 1fr 75px;
+  grid-template-columns: 50px 100px 1fr 75px;
   grid-auto-rows: minmax(15px, auto);
-
-  /* margin: 15px 0px 5px 0px; */
-  /* justify-content: space-around; */
 }
 
 .post-avatar {
@@ -285,6 +279,7 @@ hr {
 
 .post-author {
   grid-column-start: 2;
+  font-weight: bolder;
 }
 
 .post-details-date {

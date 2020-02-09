@@ -2,11 +2,15 @@ import React from 'react'
 import Tag from './Tag'
 import { Link } from 'react-router-dom'
 import { Menu, Dropdown, Icon, Avatar } from 'antd'
-import moment from 'moment'
+import { displayPostDate } from '../helper/functions'
 import '../PostShow.css'
 
-const PostDetails = ({ post, handleDelete, user, handleTagClick }) => {
+const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) => {
   const handleImage = e => e.target.remove()
+
+  const isLiked = () => {
+    return post.likes.find(l => l.user_id === user.id) ? 'filled' : 'outlined'
+  }
 
   const menu = (
     <Menu>
@@ -54,14 +58,14 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick }) => {
                 <Link to={`/profile/${post.user.id}`}>{post.user.name}</Link>
               </div>
               <div className='post-details-date'>
-                {moment(post.created_at).format('DD-MMM')}
+                {displayPostDate(post.created_at)}
               </div>
               <div className='extra'>
                 <span>
                   <Icon type='message' />
                 </span>
-                <span>
-                  <Icon type='heart' />
+                <span onClick={() => handleLike(user.id, post)}>
+                  <Icon type='heart' theme={isLiked()} style={{color: 'red'}}/>
                 </span>
                 <span>
                   <Dropdown overlay={menu} overlayStyle={{width: '100px'}}trigger={['click']}>
