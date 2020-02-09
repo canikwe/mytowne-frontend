@@ -16,7 +16,7 @@ import Header from './components/Header'
 // import CardContainer from './containers/CardContainer'
 // import Footer from './components/Footer'
 import Loading from './components/Loading'
-import Index from './containers/PostIndex'
+import PostIndex from './containers/PostIndex'
 import './App.css'
 
 class App extends Component {
@@ -402,7 +402,7 @@ isLoggedOut = () => { //redirects immediately
     return (
       <div className={this.state.page}>
         <Header loggedIn={this.isLoggedIn()} handleLogout={this.handleLogout} user={user}/>
-        <div id='content'>
+        {/* <div id='content'> */}
 
           <Switch>
             <Route exact path="/login" render={() => {
@@ -435,7 +435,7 @@ isLoggedOut = () => { //redirects immediately
               return this.isLoggedOut() ? 
                 <Redirect to="/login" /> 
                   :
-                  <Index
+                  <PostIndex
                     filters={this.state.filters}
                     handleFilter={this.updateFilter}
                     handleSort={this.updateSort}
@@ -546,7 +546,7 @@ isLoggedOut = () => { //redirects immediately
             />
 
           </Switch>
-        </div>
+        {/* </div> */}
       </div>
     );
   }

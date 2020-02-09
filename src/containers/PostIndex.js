@@ -5,7 +5,7 @@ import CardContainer from './CardContainer'
 const PostIndex = ({ posts, handleFilter, handleSort, tags, user, addLike, removeLike, handleTagClick, filters, handleDirection }) => {
 
   return (
-    <div id='index'>
+    <main id='content'>
       <Filter 
         handleFilter={handleFilter} 
         tags={tags}
@@ -20,7 +20,7 @@ const PostIndex = ({ posts, handleFilter, handleSort, tags, user, addLike, remov
         removeLike={removeLike} 
         // handleTagClick={handleTagClick} 
       />
-    </div>
+    </main>
   )
 
 }

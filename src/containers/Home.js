@@ -61,7 +61,7 @@ class Home extends PureComponent {
     const { content } = this.state
     console.log(posts[0])
     return (
-      <div id='home'>
+      <main id='content'>
         <div className='top'>
           <FeaturePost loading={loading} post={posts[0]} />
           <SideBar posts={recentPosts}/>
@@ -70,7 +70,7 @@ class Home extends PureComponent {
           posts={posts} 
           loading={loading}
         />
-      </div>
+      </main>
     )
   }
 }

@@ -39,9 +39,9 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
   )
 
   return (
-    <div className='post-details'>
-      <div className='segment' >
-        {/* <div> */}
+    <main id='post-details'>
+      <div className='details-container'>
+        <div className='segment' >
           <div className='post-header'>
             <div>
               <h2>{post.title}</h2>
@@ -102,9 +102,10 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
             </div>
           </div>
 
-        {/* </div> */}
+        </div>
       </div>
-    </div>
+    </main>
+
   )
   
 }
