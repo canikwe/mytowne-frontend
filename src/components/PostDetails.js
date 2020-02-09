@@ -15,22 +15,26 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
 
   const menu = (
     <Menu>
-      {user.id === post.user.id ?
-        <>
-          <Menu.Item>
-            <Link to={`/posts/${post.id}/edit`} >
-              Edit
-            </Link> 
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/" onClick={() => handleDelete(post.id)}>
-              Delete
+      <Menu.Item key='2'>Share</Menu.Item>
+    </Menu>
+  )
+
+  const adminMenu = (
+    <Menu>
+      <Menu.Item key='0'>
+        <span>
+          <Link to={`/posts/${post.id}/edit`} >
+            Edit
+              </Link>
+        </span>
+      </Menu.Item>
+      <Menu.Item key='1'>
+        <Link to="/" onClick={() => handleDelete(post.id)}>
+          Delete
             </Link>
-          </Menu.Item>
-          <Menu.Divider />
-        </> : null
-      }
-        <Menu.Item>Share</Menu.Item>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key='2'>Share</Menu.Item>
     </Menu>
   )
 
@@ -58,7 +62,7 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
                   <Icon type='heart' theme={isLiked()} style={{color: 'red'}}/>
                 </span>
                 <span>
-                  <Dropdown overlay={menu} overlayStyle={{width: '100px'}}trigger={['click']}>
+                  <Dropdown overlay={user.id === post.user.id ? adminMenu : menu} overlayStyle={{width: '100px'}}trigger={['click']}>
                     <Icon type='more' />
                   </Dropdown>
                 </span>

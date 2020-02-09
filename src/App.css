@@ -37,11 +37,14 @@
   margin: -0.35em
 }
 
-.search-border {
+/* .search-border {
   border-bottom: grey solid 1px;
   grid-column-start: -2;
-}
+} */
 
+.header-avatar {
+  grid-column-start: -2;
+}
 /* 
 .sticky {
   position: fixed;
@@ -70,7 +73,7 @@
 }
 
 
-.header-avatar {
+.header-menu {
   grid-column-start: -1;
 }
 

@@ -7,23 +7,22 @@ import '../styles/NavBar.css'
 
 const Header = ({ loggedIn, user, handleLogout }) => {
 
-  const [toggle, updateToggle] = useState(false)
-
-  const handleToggle = () => updateToggle(!toggle)
-
   const menu = (
     <Menu>
       <Menu.Item key="0">
         <Icon type='setting' />
-        {/* <Link to='/profile/edit'>Settings</Link> */}
-        <span>Settings</span>
+        <span>
+          <Link to='/account'>Account</Link>
+        </span>
       </Menu.Item>
       <Menu.Item key="1">
+        <Icon type='form' />New Post
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="2">
         <Icon type='logout' />
         <span onClick={handleLogout}>Logout</span>
       </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="3">3rd menu item</Menu.Item>
     </Menu>
   )
   
@@ -46,21 +45,22 @@ const Header = ({ loggedIn, user, handleLogout }) => {
       {/* <div className='search'> */}
         { loggedIn ? 
           <>
-            <div className='search-border'>
+            {/* <div className='search-border'>
               <Input.Search 
                 placeholder='Search...' 
                 onSearch={(v, e) => console.log(v, e)}
                 id='search'
               />
-            </div>
+            </div> */}
             <div className='header-avatar'>
+              <Avatar user={user} />
+            </div>
+            <div className='header-menu'>
               <Dropdown 
                 overlay={menu} 
                 trigger={['click']} 
-                visible={toggle} 
-                onClick={handleToggle}
               >
-                <Avatar user={user} />
+                <Icon type='more' />
               </Dropdown>
             </div>
           </>
