@@ -1,7 +1,8 @@
 import React from 'react'
 import Tag from './Tag'
 import { Link } from 'react-router-dom'
-import { Menu, Dropdown, Icon, Avatar } from 'antd'
+import Avatar from './Avatar'
+import { Menu, Dropdown, Icon } from 'antd'
 import { displayPostDate } from '../helper/functions'
 import '../PostShow.css'
 
@@ -42,24 +43,7 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
               <h2>{post.title}</h2>
             </div>
             <div className='post-subheader'>
-              
-              {post.user.avatar === '' ?
-                <Avatar 
-                  style={{ backgroundColor: '#fde3cf', verticalAlign: 'middle' }} 
-                  size="large"
-                  className='post-avatar'
-                >
-                  {post.user.name[0].toUpperCase()}
-                </Avatar>
-                :
-                <Avatar 
-                  alt={post.user.name} 
-                  src={post.user.avatar} 
-                  size='large'
-                  className='post-avatar'
-                  style={{verticalAlign: 'middle'}}
-                />
-              }
+              <Avatar user={post.user} />
               <div className='post-author'>
                 <Link to={`/profile/${post.user.id}`}>{post.user.name}</Link>
               </div>

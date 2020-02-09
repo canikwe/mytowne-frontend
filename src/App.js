@@ -397,9 +397,11 @@ isLoggedOut = () => { //redirects immediately
     // const { collapsed, user, loading } = this.state
     // console.log(this.props)
 
+    const { user } = this.state
+
     return (
       <div className={this.state.page}>
-        <Header loggedIn={this.isLoggedIn()} />
+        <Header loggedIn={this.isLoggedIn()} handleLogout={this.handleLogout} user={user}/>
         <div id='content'>
 
           <Switch>

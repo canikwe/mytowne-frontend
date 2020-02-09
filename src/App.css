@@ -20,7 +20,8 @@
 
 #header {
   display: grid;
-  grid-template: '. icon header menu . . . . . profile .';
+  /* grid-template: '. icon header menu . . . . . profile .'; */
+  grid-template-columns: auto auto auto 1fr 100px auto;
   align-items: end;
   background: white;
   padding: 5px;
@@ -36,13 +37,9 @@
   margin: -0.35em
 }
 
-#search {
-  background: rgba(76, 175, 80, 0);
-  border: 0;
-}
-
 .search-border {
   border-bottom: grey solid 1px;
+  grid-column-start: -2;
 }
 
 /* 
@@ -53,19 +50,28 @@
 } */
 
 .item1 {
-  grid-area: icon;
+  /* grid-area: icon; */
+  grid-column-start: 1;
 }
 
 .item2 {
-  grid-area: header;
+  /* grid-area: header; */
+  grid-column-start: 2;
 }
 
 .item3 {
-  grid-area: menu;
+  /* grid-area: menu; */
+  grid-column-start: 3;
 }
 
-.item4 {
-  grid-area: profile;
+#search {
+  background: rgba(76, 175, 80, 0);
+  border: 0;
+}
+
+
+.header-avatar {
+  grid-column-start: -1;
 }
 
 #header ul {

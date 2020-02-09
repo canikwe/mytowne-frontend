@@ -1,10 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Input } from 'antd'
+import { Input, Dropdown, Avatar, Menu, Icon } from 'antd'
 import NavMenu from '../components/NavMenu'
+// import Avatar from './Avatar'
 import '../styles/NavBar.css'
 
-const Header = ({ loggedIn }) => {
+const Header = ({ loggedIn, user, handleLogout }) => {
+
+  const [toggle, updateToggle] = useState(false)
+
+  const handleToggle = () => updateToggle(!toggle)
+
+  const menu = (
+    <Menu>
+      <Menu.Item key="0">
+        <Icon type='setting' />
+        {/* <Link to='/profile/edit'>Settings</Link> */}
+        <span>Settings</span>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <Icon type='logout' />
+        <span onClick={handleLogout}>Logout</span>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="3">3rd menu item</Menu.Item>
+    </Menu>
+  )
   
   return(
     <div id='header'>
@@ -22,18 +43,30 @@ const Header = ({ loggedIn }) => {
         <NavMenu />
       </div>
 
-      <div className='item4'>
+      {/* <div className='search'> */}
         { loggedIn ? 
-          <div className='search-border'>
-            <Input.Search 
-              placeholder='Search...' 
-              onSearch={(v, e) => console.log(v, e)}
-              id='search'
-            />
-          </div>
+          <>
+            <div className='search-border'>
+              <Input.Search 
+                placeholder='Search...' 
+                onSearch={(v, e) => console.log(v, e)}
+                id='search'
+              />
+            </div>
+            <div className='header-avatar'>
+              <Dropdown 
+                overlay={menu} 
+                trigger={['click']} 
+                visible={toggle} 
+                onClick={handleToggle}
+              >
+                <Avatar user={user} />
+              </Dropdown>
+            </div>
+          </>
           : null
         }
-      </div>
+      {/* </div> */}
     </div>
   )
 }
