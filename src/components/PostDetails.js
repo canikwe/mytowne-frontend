@@ -13,7 +13,7 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
     return post.likes.find(l => l.user_id === user.id) ? 'filled' : 'outlined'
   }
 
-  const menu = (
+  const defaultMenu = (
     <Menu>
       <Menu.Item key='2'>Share</Menu.Item>
     </Menu>
@@ -25,13 +25,13 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
         <span>
           <Link to={`/posts/${post.id}/edit`} >
             Edit
-              </Link>
+          </Link>
         </span>
       </Menu.Item>
       <Menu.Item key='1'>
         <Link to="/" onClick={() => handleDelete(post.id)}>
           Delete
-            </Link>
+        </Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key='2'>Share</Menu.Item>
@@ -43,30 +43,33 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
       <div className='details-container'>
         <div className='segment' >
           <div className='post-header'>
-            <div>
+            <div className='post-details-title'>
               <h2>{post.title}</h2>
             </div>
+
+            <Avatar user={post.user} />
+
             <div className='post-subheader'>
-              <Avatar user={post.user} />
-              <div className='post-author'>
+              <div className='post-details-author'>
                 <Link to={`/profile/${post.user.id}`}>{post.user.name}</Link>
               </div>
               <div className='post-details-date'>
                 {displayPostDate(post.created_at)}
               </div>
-              <div className='extra'>
-                <span>
-                  <Icon type='message' />
-                </span>
-                <span onClick={() => handleLike(user.id, post)}>
-                  <Icon type='heart' theme={isLiked()} style={{color: 'red'}}/>
-                </span>
-                <span>
-                  <Dropdown overlay={user.id === post.user.id ? adminMenu : menu} overlayStyle={{width: '100px'}}trigger={['click']}>
-                    <Icon type='more' />
-                  </Dropdown>
-                </span>
-              </div>
+            </div>
+
+            <div className='extra'>
+              <span>
+                <Icon type='message' />
+              </span>
+              <span onClick={() => handleLike(user.id, post)}>
+                <Icon type='heart' theme={isLiked()} style={{color: 'red'}}/>
+              </span>
+              <span>
+                <Dropdown overlay={user.id === post.user.id ? adminMenu : defaultMenu} overlayStyle={{width: '100px'}}trigger={['click']}>
+                  <Icon type='more' />
+                </Dropdown>
+              </span>
             </div>
           </div>
 

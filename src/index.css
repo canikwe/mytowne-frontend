@@ -6,9 +6,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-size: cover;
-  background-image: url('./images/backgroundMountains.png');
-  background-attachment: fixed */
 }
 
 code {
@@ -16,11 +13,11 @@ code {
     monospace;
 }
 
-a {
-  color: black;
+.default a {
+  color: rgba(0, 0, 0, 0.65);
   text-decoration: none
 }
 
-a:hover {
-  text-decoration: underline
+.ant-dropdown a {
+  color: rgba(0, 0, 0, 0.65);
 }

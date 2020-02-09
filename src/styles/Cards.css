@@ -269,35 +269,42 @@ hr {
 
 .post-header {
   display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  grid-gap: 5px;
+  align-items: center;
   padding: 10px;
 }
 
-.post-subheader {
-  display: grid;
-  grid-template-columns: 50px 100px 1fr 75px;
-  grid-auto-rows: minmax(15px, auto);
+.post-details-title {
+  grid-column: span 4;
 }
 
 .post-avatar {
   grid-column: 1/2;
-  grid-row: span 2;
+  /* grid-row: span 2; */
 }
 
-.post-author {
+.post-subheader {
   grid-column-start: 2;
+}
+
+.post-details-author {
   font-weight: bolder;
 }
 
 .post-details-date {
-  grid-column-start: 2;
-  grid-row-start: 2;
+  font-weight: lighter;
 }
 
 .extra {
-  grid-column-start: -2;
+  grid-column-start: 4;
   display: flex;
   justify-content: space-evenly;
-  /* justify-self: space-around; */
+  font-size: 1.5em;
+}
+
+.extra > span {
+  margin-left: 5px;
 }
 
 .card-image {
