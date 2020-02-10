@@ -12,7 +12,7 @@ const PostTile = ({ post, handleTagClick }) => {
   // }
 
   return (
-    <div className='segment profile-post'>
+    <div className='segment profile-post animated slideInRight'>
       <div className='post-tile-contents'>
           <div className='tile-item'>
             {post.post_tags.map(pt => <Tag key={pt.id} tag={pt} handleTagClick={handleTagClick}/>)}

@@ -5,6 +5,7 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter as Router } from 'react-router-dom'
 import 'antd/dist/antd.css'
+import 'animate.css'
 
 ReactDOM.render( <Router> <App/> </Router>, document.getElementById('root'))
 

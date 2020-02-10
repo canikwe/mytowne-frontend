@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Fetch from '../helper/Fetch'
 import { Redirect } from 'react-router-dom'
-import { Modal } from 'antd'
+import { Modal, Tabs } from 'antd'
 import ProfileCard from '../components/ProfileCard'
 import PostTile from '../components/PostTile'
 import '../styles/Profile.css'
@@ -14,7 +14,8 @@ class Profile extends PureComponent {
       user: {},
       likedPosts: [],
       redirect: false,
-      loading: true
+      loading: true,
+      displayUserPosts: true,
     }
   }
 
@@ -52,20 +53,29 @@ class Profile extends PureComponent {
     })
   }
 
+  toggleDisplayedPosts = () => this.setState({ displayUserPosts: !this.state.displayUserPosts})
+
   render() {
-    const { user, likedPosts } = this.state
-    const { posts, handleTagClick } = this.props
+    const { user, likedPosts, displayUserPosts } = this.state
+    const { posts: authoredPosts, handleTagClick } = this.props
+
+    const displayedPosts = displayUserPosts ? authoredPosts : likedPosts
 
     if (this.state.redirect) {
       return <Redirect to='/home' />
     } 
     return (
       <div className='profile-container'>
-        <ProfileCard user={user} posts={posts} likedPosts={likedPosts}/>
-        <div className='segment post-nav'>
-          Posts | Likes
+        <ProfileCard user={user} posts={authoredPosts} likedPosts={likedPosts}/>
+
+        <div className='post-nav'>
+          <Tabs defaultActiveKey='1' onChange={this.toggleDisplayedPosts} >
+            <Tabs.TabPane tab='Posts' key='1'></Tabs.TabPane>
+            <Tabs.TabPane tab='Likes' key='2'></Tabs.TabPane>
+          </Tabs>
         </div>
-        { posts.map(p => <PostTile key={p.id} post={p} handleTagClick={handleTagClick} /> )}
+
+        { displayedPosts.map(p => <PostTile key={p.id} post={p} handleTagClick={handleTagClick} /> )}
         {/* <ProfileCard loading={loading} user={user} /> */}
         {/* <PostFeed loading={loading} posts={posts} /> */}
       </div>

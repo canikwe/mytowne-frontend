@@ -62,7 +62,7 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
               <span>
                 <Icon type='message' />
               </span>
-              <span onClick={() => handleLike(user.id, post)}>
+              <span className='clickable' onClick={() => handleLike(user.id, post)}>
                 <Icon type='heart' theme={isLiked()} style={{color: 'red'}}/>
               </span>
               <span>

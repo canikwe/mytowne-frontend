@@ -201,6 +201,10 @@
   font-weight: lighter;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 
 /* ------------- PostCard styles ------------- */
 
@@ -456,6 +460,7 @@ textarea:focus {
 
 .post-nav {
   grid-column: 2/3;
+  max-height: 43px;
 }
 
 .profile-post {
