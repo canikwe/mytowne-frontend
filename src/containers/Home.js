@@ -57,9 +57,9 @@ class Home extends PureComponent {
 // --------------- main render ---------------
     
   render(){
-    const { user, loading, handleTabChange, posts, recentPosts } = this.props
-    const { content } = this.state
-    console.log(posts[0])
+    const { loading,  posts, recentPosts } = this.props
+    // const { content } = this.state
+    // console.log(posts[0])
     return (
       <main id='content'>
         <div className='top'>

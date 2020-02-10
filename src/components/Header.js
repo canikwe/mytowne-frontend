@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { Input, Dropdown, Avatar, Menu, Icon } from 'antd'
+import {  Dropdown, Menu, Icon } from 'antd'
 import NavMenu from '../components/NavMenu'
-// import Avatar from './Avatar'
+import Avatar from './Avatar'
 import '../styles/NavBar.css'
 
 const Header = ({ user, handleLogout }) => {
@@ -53,7 +53,9 @@ const Header = ({ user, handleLogout }) => {
               />
             </div> */}
             <div className='header-avatar'>
-              <Avatar user={user} />
+              <Link to={`/profile/${user.id}`}>
+                <Avatar user={user} />
+              </Link>
             </div>
             <div className='header-menu'>
               <Dropdown 

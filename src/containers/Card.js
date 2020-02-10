@@ -38,7 +38,7 @@ class Card extends React.PureComponent {
   updateClass = e => {
     // debugger
     // console.log(e.target)
-    console.log(`w: ${e.target.naturalWidth}, h: ${e.target.naturalHeight}`)
+    // console.log(`w: ${e.target.naturalWidth}, h: ${e.target.naturalHeight}`)
     const { post } = this.props
 
     if (this.props.className) {

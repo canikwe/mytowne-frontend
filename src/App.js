@@ -407,7 +407,7 @@ isLoggedOut = () => { //redirects immediately
     // const { collapsed, user, loading } = this.state
     // console.log(this.props)
 
-    const { user, posts } = this.state
+    const { user } = this.state
 
     return (
       <div className={this.state.page}>
@@ -443,7 +443,7 @@ isLoggedOut = () => { //redirects immediately
             const profileId = parseInt(props.match.params.id)
             const authoredPosts = this.getAuthoredPosts(profileId)
 
-            return <Profile id={profileId} posts={authoredPosts}/>
+            return <Profile id={profileId} posts={authoredPosts} handleTagClick={this.handleTagClick} />
             }}
           />
 

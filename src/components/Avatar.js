@@ -1,8 +1,9 @@
 import React from 'react'
 import { Avatar as AntAv } from 'antd'
 
-const Avatar = (user) => {
+const Avatar = ({ user }) => {
   if (user.avatar === '') {
+
     return <AntAv
       style={{ backgroundColor: '#fde3cf', verticalAlign: 'middle' }}
       size="large"
@@ -10,11 +11,10 @@ const Avatar = (user) => {
     >
       {user.name[0].toUpperCase()}
     </AntAv>
-
   }
+
   return (
     <AntAv
-      alt={user.name}
       src={user.avatar}
       size='large'
       className='post-avatar'

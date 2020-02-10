@@ -3,7 +3,7 @@ import { Icon, Avatar } from 'antd'
 import moment from 'moment'
 
 const ProfileCard = ({ user, posts, likedPosts }) => {
-  console.log(user)
+  
   return (
     <div className='profile-card segment'>
       <div className='profile-backsplash'>

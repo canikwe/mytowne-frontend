@@ -3,8 +3,9 @@ import Fetch from '../helper/Fetch'
 import { Redirect } from 'react-router-dom'
 import { Modal } from 'antd'
 import ProfileCard from '../components/ProfileCard'
+import PostTile from '../components/PostTile'
 import '../styles/Profile.css'
-import PostFeed from '../containers/PostFeed'
+// import PostFeed from '../containers/PostFeed'
 
 class Profile extends PureComponent {
   constructor(){
@@ -51,10 +52,9 @@ class Profile extends PureComponent {
     })
   }
 
-  
   render() {
-    const { user, loading, likedPosts } = this.state
-    const { posts } = this.props
+    const { user, likedPosts } = this.state
+    const { posts, handleTagClick } = this.props
 
     if (this.state.redirect) {
       return <Redirect to='/home' />
@@ -65,10 +65,7 @@ class Profile extends PureComponent {
         <div className='segment post-nav'>
           Posts | Likes
         </div>
-        {posts.map(p => (
-          <div key={p.id} className='segment profile-post'>{p.title}</div>
-          )
-        )}
+        { posts.map(p => <PostTile key={p.id} post={p} handleTagClick={handleTagClick} /> )}
         {/* <ProfileCard loading={loading} user={user} /> */}
         {/* <PostFeed loading={loading} posts={posts} /> */}
       </div>
