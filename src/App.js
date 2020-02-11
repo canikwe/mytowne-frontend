@@ -249,13 +249,9 @@ class App extends Component {
 
 // -------------------- state changing helper methods --------------------
 
-  updateFilter = tags => this.setState({ filters: {...this.state.filters, tags} })
+  handleSearch = searchInput => this.setState({ searchInput })
 
-  updateSort = sort => this.setState({ filters: {...this.state.filters, sort} })
-
-  handleSearch = (e) => this.setState({ searchInput: e.target.value })
-
-  updateFilterDirection = e => this.setState({ filters: {...this.state.filters, direction: e.target.value} })
+  updateFilters = filters => this.setState({ filters })
 
   handleLogout = () => {
     const defaults = this.initialState()
@@ -407,13 +403,13 @@ isLoggedOut = () => { //redirects immediately
     // const { collapsed, user, loading } = this.state
     // console.log(this.props)
 
-    const { user } = this.state
+    const { user, searchInput } = this.state
 
     return (
       <div className={this.state.page}>
         {
           this.isLoggedIn() ? 
-            <Header handleLogout={this.handleLogout} user={user} /> 
+            <Header handleLogout={this.handleLogout} user={user} handleSearch={this.handleSearch} /> 
           : null
         }
         <Switch>
@@ -453,14 +449,14 @@ isLoggedOut = () => { //redirects immediately
                 :
                 <PostIndex
                   filters={this.state.filters}
-                  handleFilter={this.updateFilter}
-                  handleSort={this.updateSort}
                   tags={this.state.tags}
                   posts={this.displayPosts()}
                   addLike={this.addLike}
                   removeLike={this.removeLike}
                   user={this.state.user}
-                  handleDirection={this.updateFilterDirection}
+                  searchInput={searchInput}
+                  handleSearch={this.handleSearch}
+                  handleFilters={this.updateFilters}
                   // handleTagClick={this.handleTagClick}
                 />
               }

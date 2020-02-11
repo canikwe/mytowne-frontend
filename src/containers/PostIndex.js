@@ -2,16 +2,16 @@ import React from 'react'
 import Filter from '../components/Filter'
 import CardContainer from './CardContainer'
 
-const PostIndex = ({ posts, handleFilter, handleSort, tags, user, addLike, removeLike, handleTagClick, filters, handleDirection }) => {
+const PostIndex = ({ posts, handleFilters, tags, user, addLike, removeLike, handleTagClick, filters, handleSearch, searchInput }) => {
 
   return (
     <main id='content'>
       <Filter 
-        handleFilter={handleFilter} 
         tags={tags}
         filters={filters}
-        handleSort={handleSort}
-        handleDirection={handleDirection}
+        searchInput={searchInput}
+        handleSearch={handleSearch}
+        handleFilters={handleFilters}
       />
       <CardContainer 
         posts={posts} 

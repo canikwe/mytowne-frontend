@@ -21,7 +21,7 @@
 #header {
   display: grid;
   /* grid-template: '. icon header menu . . . . . profile .'; */
-  grid-template-columns: auto auto auto 1fr auto auto;
+  grid-template-columns: auto auto auto 1fr auto auto auto;
   grid-gap: 5px;
   align-items: end;
   justify-items: start;
@@ -39,10 +39,9 @@
   margin-bottom: -0.35em
 }
 
-/* .search-border {
-  border-bottom: grey solid 1px;
-  grid-column-start: -2;
-} */
+.search {
+  grid-column-start: -3;
+}
 
 .header-avatar {
   grid-column-start: -2;
@@ -71,10 +70,10 @@
   grid-column-start: 3;
 }
 
-#search {
+/* #search {
   background: rgba(76, 175, 80, 0);
   border: 0;
-}
+} */
 
 
 .header-menu {
@@ -413,6 +412,10 @@
   width: 100%;
   display: flex;
   justify-content: flex-start;
+}
+
+.search-bar {
+  justify-items: center;
 }
 
 .filter {

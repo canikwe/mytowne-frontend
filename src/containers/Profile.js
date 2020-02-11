@@ -15,7 +15,7 @@ class Profile extends PureComponent {
       likedPosts: [],
       redirect: false,
       loading: true,
-      displayUserPosts: true,
+      defaultPosts: true,
     }
   }
 
@@ -53,13 +53,12 @@ class Profile extends PureComponent {
     })
   }
 
-  toggleDisplayedPosts = () => this.setState({ displayUserPosts: !this.state.displayUserPosts})
+  toggleDisplayedPosts = () => this.setState({ defaultPosts: !this.state.defaultPosts})
 
   render() {
-    const { user, likedPosts, displayUserPosts } = this.state
+    const { user, likedPosts, defaultPosts } = this.state
     const { posts: authoredPosts, handleTagClick } = this.props
-
-    const displayedPosts = displayUserPosts ? authoredPosts : likedPosts
+    const displayedPosts = defaultPosts ? authoredPosts : likedPosts
 
     if (this.state.redirect) {
       return <Redirect to='/home' />
@@ -71,13 +70,12 @@ class Profile extends PureComponent {
         <div className='post-nav'>
           <Tabs defaultActiveKey='1' onChange={this.toggleDisplayedPosts} >
             <Tabs.TabPane tab='Posts' key='1'></Tabs.TabPane>
-            <Tabs.TabPane tab='Likes' key='2'></Tabs.TabPane>
+            <Tabs.TabPane tab='Likes' disabled={!likedPosts.length} key='2'></Tabs.TabPane>
           </Tabs>
         </div>
 
         { displayedPosts.map(p => <PostTile key={p.id} post={p} handleTagClick={handleTagClick} /> )}
-        {/* <ProfileCard loading={loading} user={user} /> */}
-        {/* <PostFeed loading={loading} posts={posts} /> */}
+
       </div>
     )
   }

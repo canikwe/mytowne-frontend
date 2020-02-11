@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {  Dropdown, Menu, Icon } from 'antd'
+import {  Dropdown, Menu, Icon, Input } from 'antd'
 import NavMenu from '../components/NavMenu'
 import Avatar from './Avatar'
 import '../styles/NavBar.css'
 
-const Header = ({ user, handleLogout }) => {
+const Header = ({ user, handleLogout, handleSearch }) => {
 
   const menu = (
     <Menu>
@@ -26,7 +26,7 @@ const Header = ({ user, handleLogout }) => {
     </Menu>
   )
   
-  return(
+  return (
     <div id='header'>
       <div className='item1'>
         <img src={require('../helper/cityscape.svg')} alt='home' id='header-logo'/>
@@ -44,14 +44,14 @@ const Header = ({ user, handleLogout }) => {
 
       {/* <div className='search'> */}
 
-          <>
-            {/* <div className='search-border'>
+          {/* <> */}
+            <div className='search'>
               <Input.Search 
                 placeholder='Search...' 
-                onSearch={(v, e) => console.log(v, e)}
+                onSearch={handleSearch}
                 id='search'
               />
-            </div> */}
+            </div>
             <div className='header-avatar'>
               <Link to={`/profile/${user.id}`}>
                 <Avatar user={user} />
@@ -65,7 +65,7 @@ const Header = ({ user, handleLogout }) => {
                 <Icon type='more' />
               </Dropdown>
             </div>
-          </>
+          {/* </> */}
 
       {/* </div> */}
     </div>
