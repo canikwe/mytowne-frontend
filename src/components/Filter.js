@@ -5,7 +5,7 @@ class Filter extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      advancedFilters: false,
+      advancedFilters: true,
       filters: props.filters,
     }
   }
@@ -16,16 +16,16 @@ class Filter extends PureComponent {
 
   handleLocalFilters = tags => this.setState({filters: { ...this.state.filters, tags }}) 
 
-  handleLocalSort = sort => this.setState({filters: { ...this.state.filters, sort }})
+  handleLocalSort = e => this.setState({filters: { ...this.state.filters, sort: e.target.value }})
 
-  handleLocalDirection = e => this.setState({filters: { ...this.state.filters, direction: e.target.value }})
+  // handleLocalDirection = e => this.setState({filters: { ...this.state.filters, direction: e.target.value }})
 
   submitFilters = () => {
     this.props.handleFilters(this.state.filters)
     this.handleToggle()
   }
 
-  clearFilters = () => this.setState({filters: {tags: [], direction: 'asc', sort: ''}})
+  clearFilters = () => this.setState({filters: {tags: [], sort: ''}})
 
   render() {
     const { tags, searchInput } = this.props
@@ -46,47 +46,55 @@ class Filter extends PureComponent {
             <Icon key="submit" type="check-circle" onClick={this.submitFilters} style={{ fontSize: '1.5em', color: 'rgb(0, 200, 0)'}}/>,
           ]}
         >
+          <div className='advanced-filter-container'>
 
-          <div className='filter'>
-            <Select
-              mode="multiple"
-              placeholder="Filter"
-              value={filters.tags}
-              onChange={this.handleLocalFilters}
-              style={{ width: '100%' }}
-            >
-              {tags.map(tag => (
-                <Select.Option key={tag.id} value={tag.name}>
-                  {tag.name}
+            <div className='filter'>
+              <h3>Filters:</h3>
+              <Select
+                mode="multiple"
+                placeholder="e.g. General, For Sale, etc..."
+                value={filters.tags}
+                onChange={this.handleLocalFilters}
+                style={{ width: '100%', height: '100%' }}
+              >
+                {tags.map(tag => (
+                  <Select.Option key={tag.id} value={tag.name}>
+                    {tag.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </div>
+            <div className='vl'></div>
+            {/* <div className='sort'>
+              <Select
+                onChange={this.handleLocalSort}
+                placeholder='Sort By'
+                style={{ width: '100%' }}
+                value={filters.sort}
+              >
+                <Select.Option value='likes'>
+                  Likes
                 </Select.Option>
-              ))}
-            </Select>
+                <Select.Option value=''>
+                  Most Recent
+                </Select.Option>
+                <Select.Option value='alpha'>
+                  Title
+                </Select.Option>
+              </Select>
+            </div> */}
+            <div className='sort'>
+              <h3>Sort:</h3>
+              <Radio.Group 
+                className='sort-btns'
+                onChange={this.handleLocalSort} value={filters.sort}>
+                <Radio value='new'>Newest</Radio>
+                <Radio value='old'>Oldest</Radio>
+                <Radio value='most'>Most Popular</Radio>
+                <Radio value='least'>Least Popular</Radio>
+              </Radio.Group>
+            </div>
           </div>
-          <div className='sort'>
-            <Select
-              onChange={this.handleLocalSort}
-              placeholder='Sort By'
-              style={{ width: '100%' }}
-              value={filters.sort}
-            >
-              <Select.Option value='likes'>
-                Likes
-              </Select.Option>
-              <Select.Option value=''>
-                Most Recent
-              </Select.Option>
-              <Select.Option value='alpha'>
-                Title
-              </Select.Option>
-            </Select>
-          </div>
-          <div className='direction'>
-            <Radio.Group onChange={this.handleLocalDirection} value={filters.direction}>
-              <Radio value='asc'>Ascending</Radio>
-              <Radio value='desc'>Descending</Radio>
-            </Radio.Group>
-          </div>
-
         </Modal>
       </div>
     )

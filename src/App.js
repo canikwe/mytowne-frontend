@@ -31,8 +31,7 @@ class App extends Component {
       posts: [],
       filters: {
         tags: [],
-        sort: '',
-        direction: 'asc'
+        sort: 'new',
       },
       tags: [],
       loading: true,
@@ -298,12 +297,18 @@ class App extends Component {
     const filters = this.state.filters
 
     switch (filters.sort) {
-      case 'alpha':
-        return filters.direction === 'asc' ? posts.sort((a, b) => a.title > b.title ? 1 : -1) : posts.sort((a, b) => a.title < b.title ? 1 : -1) 
-      case 'likes':
-        return filters.direction === 'asc' ? posts.sort((a, b) => b.likes.length - a.likes.length) : posts.sort((a, b) => a.likes.length - b.likes.length)
+      // case 'alpha':
+      //   return filters.direction === 'asc' ? posts.sort((a, b) => a.title > b.title ? 1 : -1) : posts.sort((a, b) => a.title < b.title ? 1 : -1) 
+      case 'most':
+        return posts.sort((a, b) => b.likes.length - a.likes.length)
+      case 'least':
+        return posts.sort((a, b) => a.likes.length - b.likes.length)
+      case 'new':
+        return posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      case 'old':
+        return posts.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)) 
       default:
-        return filters.direction === 'asc' ? posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) : posts.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)) 
+        return posts
     }
   }
 
