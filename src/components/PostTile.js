@@ -1,6 +1,6 @@
 import React from 'react'
 import Tag from '../components/Tag'
-import { displayPostDate } from '../helper/functions'
+import { displayPostDate, replaceMissingImg } from '../helper/functions'
 import { Link } from 'react-router-dom'
 import { Icon } from 'antd'
 // import moment from 'moment'
@@ -44,7 +44,7 @@ const PostTile = ({ post, handleTagClick }) => {
         </div>
       </div>
       <div className='post-tile-img-container'>
-        <img className='post-tile-img' alt={post.title} src={post.img} />
+        <img className='post-tile-img' alt={post.title} src={post.img} onError={replaceMissingImg}/>
       </div>
    </div>
   )

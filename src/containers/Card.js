@@ -4,7 +4,7 @@ import React from 'react'
 // import Tag from '../components/Tag'
 // import Likes from '../components/Likes'
 import { Link } from 'react-router-dom'
-import { displayPostDate } from '../helper/functions'
+import { displayPostDate, replaceMissingImg } from '../helper/functions'
 // import { render } from 'react-dom'
 
 class Card extends React.PureComponent {
@@ -15,25 +15,21 @@ class Card extends React.PureComponent {
     }
   }
 
-  likePost = () => {
-    const { post, user, addLike, removeLike, like } = this.props
+  // likePost = () => {
+  //   const { post, user, addLike, removeLike, like } = this.props
 
-    if (like){
-      removeLike(like.id)
-    } else {
-      const likeData = {
-        like: {
-          user_id: user.id,
-          post_id: post.id
-        }
-      }
-      addLike(likeData)
-    }
-  }
-
-  handleMissingImg = e => {
-    e.target.src = 'images/placeholder.png'
-  }
+  //   if (like){
+  //     removeLike(like.id)
+  //   } else {
+  //     const likeData = {
+  //       like: {
+  //         user_id: user.id,
+  //         post_id: post.id
+  //       }
+  //     }
+  //     addLike(likeData)
+  //   }
+  // }
 
   updateClass = e => {
     // debugger
@@ -66,7 +62,7 @@ class Card extends React.PureComponent {
             id={post.title} 
             className='small card image'
             src={post.img} 
-            onError={this.handleMissingImg}
+            onError={replaceMissingImg}
             onLoad={this.updateClass}
           />
         </Link>

@@ -99,6 +99,10 @@
   margin-right: 15px;
 }
 
+#header-search-icon {
+  font-size: 1.75em;
+}
+
 @media screen and (max-width: 600px) {
   #header {
     display: flex;

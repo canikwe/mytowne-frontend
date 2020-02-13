@@ -13,13 +13,18 @@ const PostIndex = ({ posts, handleFilters, tags, user, addLike, removeLike, hand
         handleSearch={handleSearch}
         handleFilters={handleFilters}
       />
-      <CardContainer 
-        posts={posts} 
-        user={user} 
-        addLike={addLike} 
-        removeLike={removeLike} 
-        // handleTagClick={handleTagClick} 
-      />
+
+      { posts.length ?
+        <CardContainer 
+          posts={posts} 
+          user={user} 
+          addLike={addLike} 
+          removeLike={removeLike} 
+          // handleTagClick={handleTagClick} 
+        />
+          :
+        <h1>No Posts Found :( </h1>
+      }
     </main>
   )
 

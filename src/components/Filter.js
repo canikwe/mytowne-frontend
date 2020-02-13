@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Select, Radio, Input, Modal, Button } from 'antd'
+import { Select, Radio, Input, Modal, Icon } from 'antd'
 
 class Filter extends PureComponent {
   constructor(props) {
@@ -37,60 +37,57 @@ class Filter extends PureComponent {
         <div className='search-bar'>
           <Input value={searchInput} onChange={this.updateSearchInput} allowClear />
         </div>
-        <h2 onClick={this.handleToggle}>FLTERS</h2>
+        <Icon type='filter' onClick={this.handleToggle} style={{fontSize: '1.75em'}}/>
         <Modal
           visible={advancedFilters}
           onCancel={this.handleToggle}
           footer={[
-            <Button key="clear" onClick={this.clearFilters}>
-              Clear Settings
-            </Button>,
-            <Button key="submit" type="primary" onClick={this.submitFilters}>
-              Submit
-            </Button>,
+            <Icon key="reset" type='undo' onClick={this.clearFilters} style={{fontSize: '1.5em', color: 'grey', marginRight: '10px'}}/>,
+            <Icon key="submit" type="check-circle" onClick={this.submitFilters} style={{ fontSize: '1.5em', color: 'rgb(0, 200, 0)'}}/>,
           ]}
-          >
-        <div className='filter'>
-          <Select
-            mode="multiple"
-            placeholder="Filter"
-            value={filters.tags}
-            onChange={this.handleLocalFilters}
-            style={{ width: '100%' }}
-          >
-            {tags.map(tag => (
-              <Select.Option key={tag.name} value={tag.name}>
-                {tag.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </div>
-        <div className='sort'>
-          <Select
-            onChange={this.handleLocalSort}
-            placeholder='Sort By'
-            style={{ width: '100%' }}
-            value={filters.sort}
-          >
-            <Select.Option value='likes'>
-              Likes
-            </Select.Option>
-            <Select.Option value=''>
-              Most Recent
-            </Select.Option>
-            <Select.Option value='alpha'>
-              Title
-            </Select.Option>
-          </Select>
-        </div>
-        <div className='direction'>
-          <Radio.Group onChange={this.handleLocalDirection} value={filters.direction}>
-            <Radio value='asc'>Ascending</Radio>
-            <Radio value='desc'>Descending</Radio>
-          </Radio.Group>
-        </div>
+        >
 
-          Hello World</Modal>
+          <div className='filter'>
+            <Select
+              mode="multiple"
+              placeholder="Filter"
+              value={filters.tags}
+              onChange={this.handleLocalFilters}
+              style={{ width: '100%' }}
+            >
+              {tags.map(tag => (
+                <Select.Option key={tag.id} value={tag.name}>
+                  {tag.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </div>
+          <div className='sort'>
+            <Select
+              onChange={this.handleLocalSort}
+              placeholder='Sort By'
+              style={{ width: '100%' }}
+              value={filters.sort}
+            >
+              <Select.Option value='likes'>
+                Likes
+              </Select.Option>
+              <Select.Option value=''>
+                Most Recent
+              </Select.Option>
+              <Select.Option value='alpha'>
+                Title
+              </Select.Option>
+            </Select>
+          </div>
+          <div className='direction'>
+            <Radio.Group onChange={this.handleLocalDirection} value={filters.direction}>
+              <Radio value='asc'>Ascending</Radio>
+              <Radio value='desc'>Descending</Radio>
+            </Radio.Group>
+          </div>
+
+        </Modal>
       </div>
     )
   }
