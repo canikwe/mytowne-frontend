@@ -5,7 +5,7 @@ class Filter extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      advancedFilters: true,
+      advancedFilters: false,
       filters: props.filters,
     }
   }
@@ -33,9 +33,15 @@ class Filter extends PureComponent {
     
     return (
       <div id='filter-container'>
-        <h3>Community Board</h3>
+        <h2>Community Board</h2>
         <div className='search-bar'>
-          <Input value={searchInput} onChange={this.updateSearchInput} allowClear />
+          <Input 
+            value={searchInput} 
+            onChange={this.updateSearchInput}
+            placeholder='Search...'
+            allowClear 
+            style={{textAlign: 'center'}}
+          />
         </div>
         <Icon type='filter' onClick={this.handleToggle} style={{fontSize: '1.75em'}}/>
         <Modal
@@ -65,24 +71,7 @@ class Filter extends PureComponent {
               </Select>
             </div>
             <div className='vl'></div>
-            {/* <div className='sort'>
-              <Select
-                onChange={this.handleLocalSort}
-                placeholder='Sort By'
-                style={{ width: '100%' }}
-                value={filters.sort}
-              >
-                <Select.Option value='likes'>
-                  Likes
-                </Select.Option>
-                <Select.Option value=''>
-                  Most Recent
-                </Select.Option>
-                <Select.Option value='alpha'>
-                  Title
-                </Select.Option>
-              </Select>
-            </div> */}
+
             <div className='sort'>
               <h3>Sort:</h3>
               <Radio.Group 

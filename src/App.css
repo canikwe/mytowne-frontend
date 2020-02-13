@@ -411,11 +411,14 @@
 /* --------- Other Styles --------- */
 
 #filter-container {
-  /* display: grid;
-  grid-template: 'filter filter . sort sort . . . .'; */
+  display: grid;
+  grid-template-columns: 20% 1fr 5% 15%;
+  /* grid-template: 'filter filter . sort sort . . . .'; */
+  margin-top: 20px;
   width: 100%;
-  display: flex;
-  justify-content: flex-start;
+  align-items: center;
+  /* display: flex;
+  justify-content: flex-start; */
 }
 
 .search-bar {
