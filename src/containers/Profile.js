@@ -16,11 +16,19 @@ class Profile extends PureComponent {
       redirect: false,
       loading: true,
       defaultPosts: true,
+      editing: false,
     }
   }
 
   componentDidMount = () => {
-    this.getUser()
+      this.getUser()
+  }
+
+  componentDidUpdate = () => {
+    if (this.props.id !== this.state.user.id && !this.state.loading) {
+      console.log('Fetching new user!')
+      this.getUser()
+    }
   }
 
   getUser = () => {
@@ -55,9 +63,11 @@ class Profile extends PureComponent {
 
   toggleDisplayedPosts = () => this.setState({ defaultPosts: !this.state.defaultPosts})
 
+  updateEditing = () => this.setState({ editing: !this.state.editing })
+
   render() {
-    const { user, likedPosts, defaultPosts } = this.state
-    const { posts: authoredPosts, handleTagClick } = this.props
+    const { user, likedPosts, defaultPosts, editing } = this.state
+    const { posts: authoredPosts, handleTagClick, editable } = this.props
     const displayedPosts = defaultPosts ? authoredPosts : likedPosts
 
     if (this.state.redirect) {
@@ -65,7 +75,14 @@ class Profile extends PureComponent {
     } 
     return (
       <div className='profile-container'>
-        <ProfileCard user={user} posts={authoredPosts} likedPosts={likedPosts}/>
+        <ProfileCard 
+          user={user} 
+          posts={authoredPosts} 
+          likedPosts={likedPosts}
+          editable={editable}
+          handleEdit={this.updateEditing}
+          editing={editing}
+        />
 
         <div className='post-nav'>
           <Tabs defaultActiveKey='1' onChange={this.toggleDisplayedPosts} >

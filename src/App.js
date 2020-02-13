@@ -442,9 +442,15 @@ isLoggedOut = () => { //redirects immediately
               return <Redirect to='/login' />
             }
             const profileId = parseInt(props.match.params.id)
+            const editable = user.id === profileId ? true : false
             const authoredPosts = this.getAuthoredPosts(profileId)
 
-            return <Profile id={profileId} posts={authoredPosts} handleTagClick={this.handleTagClick} />
+            return <Profile 
+              id={profileId} 
+              posts={authoredPosts} handleTagClick={this.handleTagClick}
+              editable={editable}
+              {...props}
+              />
             }}
           />
 

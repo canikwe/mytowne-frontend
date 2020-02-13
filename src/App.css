@@ -533,6 +533,12 @@ textarea:focus {
   margin: 0 0 15px 0;
 }
 
+.edit-subheader {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .profile-name {
   margin: 0 0 -5px 0;
   text-align: center;

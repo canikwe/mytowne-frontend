@@ -1,8 +1,8 @@
 import React from 'react'
-import { Icon, Avatar } from 'antd'
+import { Icon, Avatar, Input } from 'antd'
 import moment from 'moment'
 
-const ProfileCard = ({ user, posts, likedPosts }) => {
+const ProfileCard = ({ user, posts, likedPosts, editable, handleEdit, editing }) => {
   
   return (
     <div className='profile-card segment'>
@@ -17,7 +17,15 @@ const ProfileCard = ({ user, posts, likedPosts }) => {
           <Avatar size={120} src={user.avatar}/>
         </div>
         <div className='profile-subheader'>
-          <h2 className='profile-name'>{user.name}</h2>
+          {
+            editing ? 
+            <Input />
+              :
+            <div className='edit-subheader'>
+              <h2 className='profile-name'>{user.name}</h2>
+              { editable ? <Icon type='edit' onClick={handleEdit} /> : null}
+            </div>
+          }
           <div>
             Member since: {moment(user.created_at).format('MMMM YYYY')}
           </div>
