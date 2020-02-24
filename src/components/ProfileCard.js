@@ -1,5 +1,6 @@
 import React from 'react'
 import { Icon, Avatar, Input } from 'antd'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 const ProfileCard = ({ user, posts, likedPosts, editable, handleEdit, editing }) => {
@@ -17,15 +18,12 @@ const ProfileCard = ({ user, posts, likedPosts, editable, handleEdit, editing })
           <Avatar size={120} src={user.avatar}/>
         </div>
         <div className='profile-subheader'>
-          {
-            editing ? 
-            <Input />
-              :
-            <div className='edit-subheader'>
-              <h2 className='profile-name'>{user.name}</h2>
-              { editable ? <Icon type='edit' onClick={handleEdit} /> : null}
-            </div>
-          }
+
+          <div className='edit-subheader'>
+            <h2 className='profile-name'>{user.name}</h2>
+              {editable ? <Link to='/account'><Icon type='edit' onClick={handleEdit} /></Link> : null}
+          </div>
+          
           <div>
             Member since: {moment(user.created_at).format('MMMM YYYY')}
           </div>
@@ -35,6 +33,12 @@ const ProfileCard = ({ user, posts, likedPosts, editable, handleEdit, editing })
           <div>{likedPosts.length} Liked posts</div>
           <div>15 Followers</div>
         </div>
+
+          <div className='followed-tags'>
+
+
+          </div>
+
         <div className='friend'>
           <Icon type="user-add" />
         </div>

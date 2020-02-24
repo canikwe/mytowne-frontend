@@ -42,7 +42,7 @@ class Header extends PureComponent {
   )
   
   render() {
-    const  { user, handleSearch } = this.props
+    const  { user } = this.props
   
     return (
       <div id='header'>
