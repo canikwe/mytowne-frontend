@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom'
 import { Icon } from 'antd'
 // import moment from 'moment'
 
-const PostTile = ({ post, handleTagClick }) => {
+const PostTile = ({ post, handleTagClick, delay }) => {
 
   // const handleMissingImg = e => {
   //   e.target.src = 'images/placeholder.png'
   // }
 
   return (
-    <div className='segment profile-post animated slideInRight'>
+    <div className={`segment profile-post animated slideInRight delay-${delay}`}>
       <div className='post-tile-contents'>
           <div className='tile-item'>
             {post.post_tags.map(pt => <Tag key={pt.id} tag={pt} handleTagClick={handleTagClick}/>)}

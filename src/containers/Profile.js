@@ -91,7 +91,7 @@ class Profile extends PureComponent {
           </Tabs>
         </div>
 
-        { displayedPosts.map(p => <PostTile key={p.id} post={p} handleTagClick={handleTagClick} /> )}
+        { displayedPosts.map((p, i) => <PostTile key={p.id} post={p} handleTagClick={handleTagClick} delay={i + 1}/> )}
 
       </div>
     )

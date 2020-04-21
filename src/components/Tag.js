@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Tag = ({ tag, handleTagClick }) => {
   return (
-    <Link to='/index'>
+    <Link to='/posts'>
       <span onClick={() => handleTagClick(tag)} className='tag'> {tag.tag_name} </span>
     </Link>
   )

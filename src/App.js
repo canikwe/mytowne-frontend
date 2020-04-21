@@ -14,7 +14,7 @@ import Fetch from './helper/Fetch'
 import Header from './components/Header'
 // import Filter from './components/Filter'
 // import CardContainer from './containers/CardContainer'
-// import Footer from './components/Footer'
+import Footer from './components/Footer'
 import Loading from './components/Loading'
 import PostIndex from './containers/PostIndex'
 import './App.css'
@@ -454,7 +454,7 @@ isLoggedOut = () => { //redirects immediately
             }}
           />
 
-          <Route exact path="/index" render={() => {
+          <Route exact path="/posts" render={() => {
             return this.isLoggedOut() ? 
               <Redirect to="/login" /> 
                 :
@@ -569,6 +569,7 @@ isLoggedOut = () => { //redirects immediately
           />
 
         </Switch>
+        <Footer />
       </div>
     );
   }

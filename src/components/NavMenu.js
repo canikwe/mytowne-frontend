@@ -8,7 +8,7 @@ const NavMenu = () => {
   return (
     <ul>
       <li>
-        <Link to='/index'>
+        <Link to='/posts'>
           <Icon type='team' />Community Board
         </Link>
       </li>

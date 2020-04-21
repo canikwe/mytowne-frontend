@@ -1,5 +1,6 @@
 import React from 'react'
 import '../styles/Footer.css'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return(
@@ -8,23 +9,37 @@ const Footer = () => {
         <h3>
           About the Site
         </h3>
-        <p>Con panna kopi-luwak chicory frappuccino at rich caramelization. Beans dark cream aged trifecta est as beans siphon wings latte. Variety, coffee latte robust iced coffee café au lait. And whipped and grounds, macchiato, fair trade, shop mazagran grounds organic percolator. Arabica medium spoon saucer fair trade extraction americano irish.</p>
+        <p>myTowne is a community bulletin board. Get to know your neighbors by posting welcome messages. Stay up to day on events and news happening in your town. Curate your homepage by specifying the tags/community members you want to follow.</p>
       </div>
 
       <div id='footer-links'>
         <h3>
-          Links
+          Site Links
         </h3>
         <ul>
           <li>
-            Some Link
+            <Link to='/'>Home</Link>
           </li>
           <li>
-            Some other link
+            <Link to='/posts'>Community Board</Link>
+          </li>
+          <li>
+            <Link to='/account'>Account</Link>
+          </li>
+          <li>
+            <Link to='/profile'>Profile</Link>
+          </li>
+          <li>
+            <a href='https://github.com/canikwe/mytowne-frontend'>Frontent Github Repo</a>
+          </li>
+          <li>
+            <a href='https://github.com/canikwe/mytowne-backend'>Backend Github Repo</a>
           </li>
         </ul>
       </div>
-      Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+      <div id='footer-credits'>
+        Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+      </div>
     </div>
   )
 }

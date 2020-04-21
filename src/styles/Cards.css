@@ -309,6 +309,8 @@ hr {
 
 .card-image {
   width: 100%;
+  max-height: 50vh;
+  object-fit: cover;
 } 
 
 .post-content {

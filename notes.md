@@ -117,3 +117,19 @@
 + Add more validation messages as the user interacts with the site (i.e. New post created! Profle edited! etc.)
 + Fetch NewsFeed with the token, not with sorting through all posts
 + Validate current user before allowing PostTag updates, likes, or follows
+
++ Finish carousel styling
++ Add comments
++ Link all tags clicks to community board and update filters at the same time
+<!-- + Update postshow images (set max size based on window size) -->
++ Stagger animations for profile view
++ Avatar initials when no profile photo
+<!-- + Add footer -->
++ New/Edit form not showing?
++ Fix all links (make sure they go somewhere or comment out for now)
++ Fix tags styling on new/edit form
++ Add events
++ Add follow
+  + Decide what that means in terms of displayed posts
++ Active storage
++ Action cable

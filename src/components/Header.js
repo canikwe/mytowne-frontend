@@ -18,7 +18,7 @@ class Header extends PureComponent {
   submitSearch = term => {
     this.handleToggle()
     this.props.handleSearch(term)
-    this.props.history.push('/index')
+    this.props.history.push('/posts')
   }
 
   
