@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import Avatar from './Avatar'
 import { Menu, Dropdown, Icon } from 'antd'
 import { displayPostDate } from '../helper/functions'
+import Comment from './Comment'
 import '../PostShow.css'
+import CommentsContainer from '../containers/CommentsContainer'
 
 const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) => {
   const handleImage = e => e.target.remove()
@@ -94,15 +96,8 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
 
             <textarea placeholder='Add a Comment!'></textarea>
 
-            <h3>Comments:</h3>
-            <div className='comment-container'>
-              <div className='comment'>
-                <Icon type='message' /> <span className='segment'>Hello</span>
-              </div>
-              <div className='comment'>
-                <Icon type='message' /> <span className='segment'>Goodbye</span>
-              </div>
-            </div>
+            <CommentsContainer comments={post.comments}/>
+
           </div>
 
         </div>
