@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import Avatar from './Avatar'
 import { Menu, Dropdown, Icon } from 'antd'
 import { displayPostDate } from '../helper/functions'
-import Comment from './Comment'
 import '../PostShow.css'
 import CommentsContainer from '../containers/CommentsContainer'
 
