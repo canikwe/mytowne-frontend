@@ -20,6 +20,7 @@ const CommentsContainer = ({ comments, createComment, user_id, post_id }) => {
             createComment={createComment}
             user_id={user_id}
             post_id={post_id}
+            parent_id={c.id}
           />
         ))
       }

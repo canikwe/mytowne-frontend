@@ -18,6 +18,7 @@ class CommentEditor extends PureComponent {
     const { value } = this.state
 
     submitCommentText(value)
+    this.setState({ value: '' })
   }
 
   render() {

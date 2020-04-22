@@ -6,6 +6,7 @@ import { Menu, Dropdown, Icon } from 'antd'
 import { displayPostDate } from '../helper/functions'
 import '../PostShow.css'
 import CommentsContainer from '../containers/CommentsContainer'
+import CommentEditor from './CommentEditor'
 
 const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike, createComment }) => {
   const handleImage = e => e.target.remove()
@@ -38,6 +39,10 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike, cre
       <Menu.Item key='2'>Share</Menu.Item>
     </Menu>
   )
+
+  const submitCommentText = text => {
+    createComment({ comment: { text, user_id: user.id, post_id: post.id, parent_id: null } })
+  }
 
   return (
     <main id='post-details'>
@@ -93,7 +98,8 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike, cre
 
             <hr />
 
-            <textarea placeholder='Add a Comment!'></textarea>
+            {/* <textarea placeholder='Add a Comment!'></textarea> */}
+            <CommentEditor submitCommentText={submitCommentText} />
 
             <CommentsContainer 
               comments={post.comments} 

@@ -27,8 +27,9 @@ class MyComment extends PureComponent {
   submitCommentText = text => {
 
     const { createComment, user_id, post_id, parent_id } = this.props
-
-    createComment({ comment: { text, user_id, post_id, parent_id } })
+    const commentData = { comment: { text, user_id, post_id, parent_id } }
+    console.log(commentData)
+    createComment(commentData)
     this.setState({ replyToggle: false })
   }
 
