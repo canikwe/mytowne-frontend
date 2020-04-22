@@ -23,8 +23,17 @@ class MyComment extends PureComponent {
 
   handleReplyToggle = () => this.setState({ replyToggle: !this.state.replyToggle })
 
+
+  submitCommentText = text => {
+
+    const { createComment, user_id, post_id, parent_id } = this.props
+
+    createComment({ comment: { text, user_id, post_id, parent_id } })
+    this.setState({ replyToggle: false })
+  }
+
   render() {
-    const { comment, allComments } = this.props
+    const { comment, allComments, createComment, user_id, post_id } = this.props
     const { replyToggle } = this.state
     if (replyToggle) console.log('Toggle is on!')
 
@@ -51,10 +60,24 @@ class MyComment extends PureComponent {
           datetime={displayPostDate(comment.created_at)}
         >
         {
-          replyToggle ? <CommentEditor /> : null
+            replyToggle ? (
+              <CommentEditor 
+                submitCommentText={this.submitCommentText}
+              />
+            ) : null
         }
         {
-          this.childComments().map(c => <MyComment key={c.id} comment={c} allComments={allComments} />)
+          this.childComments().map(c => (
+            <MyComment 
+              key={c.id} 
+              comment={c} 
+              allComments={allComments}
+              createComment={createComment}
+              user_id={user_id}
+              post_id={post_id}
+              parent_id={c.id}
+            />
+          ))
         }
         </Comment>
       </>

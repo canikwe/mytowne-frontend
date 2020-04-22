@@ -7,7 +7,7 @@ import { displayPostDate } from '../helper/functions'
 import '../PostShow.css'
 import CommentsContainer from '../containers/CommentsContainer'
 
-const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) => {
+const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike, createComment }) => {
   const handleImage = e => e.target.remove()
 
   const isLiked = () => {
@@ -95,7 +95,12 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike }) =
 
             <textarea placeholder='Add a Comment!'></textarea>
 
-            <CommentsContainer comments={post.comments}/>
+            <CommentsContainer 
+              comments={post.comments} 
+              createComment={createComment}
+              user_id={user.id}
+              post_id={post.id}
+            />
 
           </div>
 

@@ -171,6 +171,18 @@ class App extends Component {
     .catch(this.catchError)
   }
 
+  // ------------ Post Comments --------------
+
+  createComment = (commentData) => {
+    // console.log(commentData)
+    Fetch.POST(commentData, 'comments')
+    .then(post => {
+      const posts = this.state.posts.map(p => p.id === post.id ? post : p)
+      this.setState({ posts })
+    })
+    .catch(this.catchError)
+  }
+
   editUser = (data, userId) => {
     Fetch.PATCH(data, userId, 'users/')
     .then(user => {
@@ -545,6 +557,7 @@ isLoggedOut = () => { //redirects immediately
                 user={this.state.user} 
                 handleTagClick={this.handleTagClick}
                 handleLike={this.handleLike}
+                createComment={this.createComment}
               />
               }}
             }
