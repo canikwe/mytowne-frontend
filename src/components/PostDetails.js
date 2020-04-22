@@ -66,6 +66,7 @@ const PostDetails = ({ post, handleDelete, user, handleTagClick, handleLike, cre
 
             <div className='extra'>
               <span>
+                {post.comments.length}
                 <Icon type='message' />
               </span>
               <span className='clickable' onClick={() => handleLike(user.id, post)}>

@@ -12,7 +12,7 @@ const PostTile = ({ post, handleTagClick, delay }) => {
   // }
 
   return (
-    <div className={`segment profile-post animated slideInRight delay-${delay}`}>
+    <div className={`segment profile-post animated fadeInRight delay-${delay}`}>
       <div className='post-tile-contents'>
           <div className='tile-item'>
             {post.post_tags.map(pt => <Tag key={pt.id} tag={pt} handleTagClick={handleTagClick}/>)}
@@ -37,7 +37,7 @@ const PostTile = ({ post, handleTagClick, delay }) => {
           {displayPostDate(post.created_at)}
         </div>
         <div className='post-tile-comments'>
-          10 comments
+          {post.comments.length} Comments
         </div>
         <div className='post-tile-likes'>
           {post.likes.length} <Icon type='heart' />
