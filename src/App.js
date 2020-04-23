@@ -79,6 +79,7 @@ class App extends Component {
   fetchPosts = () => {
     Fetch.GET('posts')
     .then(posts => {
+      
       this.setState({
       posts: posts,
       loading: false
