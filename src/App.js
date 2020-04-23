@@ -354,7 +354,7 @@ class App extends Component {
   recentPosts = () => {
     return [...this.state.posts].sort((a, b) => {
       return new Date(b.created_at) - new Date(a.created_at)
-    }).slice(0, 10)      
+    }).slice(0, 5)      
   }
 
 // ------------------------ methods to render newsfeed posts ------------------------
@@ -393,7 +393,7 @@ class App extends Component {
   }
 
   displayRecentPosts = () => {
-    return [...this.state.posts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    return this.recentPosts().sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
   }
 
   getAuthoredPosts = (id) => {
