@@ -5,7 +5,7 @@ import { message } from 'antd'
 import PostFeed from '../containers/PostFeed'
 import SideBar from '../components/SideBar'
 // import PostCard from '../components/PostTile'
-import FeaturePost from '../components/FeaturePost'
+import Feature from '../components/Feature'
 
 class Home extends PureComponent {
   constructor(){
@@ -62,10 +62,10 @@ class Home extends PureComponent {
     // console.log(posts[0])
     return (
       <main id='content'>
-        <div className='top'>
-          <FeaturePost loading={loading} post={posts[0]} />
-          <SideBar posts={recentPosts}/>
-        </div>
+        {/* <div className='top'> */}
+        <Feature loading={loading} />
+          {/* <SideBar posts={recentPosts}/> */}
+        {/* </div> */}
         <PostFeed 
           posts={posts} 
           loading={loading}

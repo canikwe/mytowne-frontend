@@ -16,6 +16,10 @@
   background-size: cover;
 }
 
+section.ant-layout {
+  background-color: transparent;
+}
+
 /* -------- Header Styles -------- */
 
 #header {
@@ -26,13 +30,17 @@
   align-items: end;
   justify-items: start;
   background: white;
-  padding: 5px 5% 5px 5px;
+  padding: 0 50px;
+  width: 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: 0 0 20px 0;
+  /* margin: 0 0 20px 0; */
+}
+header.ant-layout-header {
+  padding: 0;
 }
 
 #header-logo {
-  height: 7vmin;
+  height: 12vmin;
 }
 
 #header-title {
@@ -104,10 +112,10 @@
 }
 
 @media screen and (max-width: 600px) {
-  #header {
+  /* #header {
     display: flex;
     flex-direction: column;
-  }
+  } */
 }
 
 /* ------------- Content styles -------------- */
@@ -131,22 +139,41 @@
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-auto-rows: minmax(150px, auto);
+  grid-auto-rows: repeat(auto-fit, minmax(150px, 1fr));
   margin-bottom: 20px;
 }
 
 .feature {
-  height: 450px
+  height: 160px;
+  line-height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
-#feature {
+/* #feature-container {
   grid-column: span 4;
+  grid-row: span 4;
   width: 100%;
+  height: 100%;
+} */
+
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 300px;
+  line-height: 300px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
 }
 
 .sidebar {
   grid-column: span 2;
+  grid-row: span 4;
   width: 100%;
   height: auto;
 }

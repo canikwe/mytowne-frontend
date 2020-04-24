@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { Modal } from 'antd'
+import { Modal, Layout } from 'antd'
+
 import Login from './containers/Login'
-// import NavMenu from './components/NavMenu'
+import NavMenu from './components/NavMenu'
 // import SideBar from './components/SideBar'
 import Home from './containers/Home'
 import PostDetails from './components/PostDetails'
@@ -11,10 +12,10 @@ import PostFormContainer from './containers/PostFormContainer'
 import Profile from './containers/Profile'
 import EditProfile from './containers/EditProfile'
 import Fetch from './helper/Fetch'
-import Header from './components/Header'
+import MyHeader from './components/Header'
 // import Filter from './components/Filter'
 // import CardContainer from './containers/CardContainer'
-import Footer from './components/Footer'
+import MyFooter from './components/Footer'
 import Loading from './components/Loading'
 import PostIndex from './containers/PostIndex'
 import './App.css'
@@ -417,19 +418,41 @@ isLoggedOut = () => { //redirects immediately
 // -------------------- main render method --------------------
 
   render() {
+    const { Header, Content, Footer, Sider } = Layout
 
     // const { collapsed, user, loading } = this.state
     // console.log(this.props)
 
-    const { user, searchInput } = this.state
+    const { user, searchInput, collapsed } = this.state
 
     return (
       <div className={this.state.page}>
-        {
+        {/* {
           this.isLoggedIn() ? 
             <Header handleLogout={this.handleLogout} user={user} handleSearch={this.handleSearch} /> 
           : null
-        }
+        } */}
+        <Layout>
+          { this.isLoggedIn() ?
+          <Sider
+            breakpoint="lg"
+            collapsedWidth="0"
+            // trigger={<button onClick={this.toggleCollapsed}>Collapse</button>}
+            // collapsible
+            // collapsed={this.collapsed}
+          >
+              <NavMenu handleSearch={this.handleSearch} />
+          </Sider>
+          : null
+          }
+          <Layout className="site-layout">
+            { this.isLoggedIn() ? 
+              <Header>
+                <MyHeader handleLogout={this.handleLogout} user={user} handleSearch={this.handleSearch} /> 
+              </Header>
+              : null
+            }
+            <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
         <Switch>
           <Route exact path="/login" render={() => {
             return this.isLoggedOut() ? <Login handleLogin={this.handleLogin}/> : <Redirect to="/home" />
@@ -583,7 +606,13 @@ isLoggedOut = () => { //redirects immediately
           />
 
         </Switch>
-        <Footer />
+            </Content>
+          <Footer>
+
+        <MyFooter />
+          </Footer>
+          </Layout>
+        </Layout>
       </div>
     );
   }

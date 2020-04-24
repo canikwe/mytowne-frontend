@@ -47,7 +47,7 @@ class Header extends PureComponent {
     return (
       <div id='header'>
         <div className='item1'>
-          <img src={require('../helper/cityscape.svg')} alt='home' id='header-logo'/>
+          {/* <img src={require('../helper/cityscape.svg')} alt='home' id='header-logo'/> */}
         </div>
 
         <div className='item2'>
@@ -56,14 +56,14 @@ class Header extends PureComponent {
           </Link>
         </div>
 
-        <div className='item3'>
+        {/* <div className='item3'>
           <NavMenu />
-        </div>
+        </div> */}
 
         {/* <div className='search'> */}
 
             {/* <> */}
-              <div className='search'>
+              {/* <div className='search'>
                 {
                   this.state.search ? 
                     <Input.Search 
@@ -77,7 +77,7 @@ class Header extends PureComponent {
                       <Icon type='search' onClick={this.handleToggle}/>
                     </div>
                 }
-              </div>
+              </div> */}
               <div className='header-avatar'>
                 <Link to={`/profile/${user.id}`}>
                   <Avatar user={user} />
