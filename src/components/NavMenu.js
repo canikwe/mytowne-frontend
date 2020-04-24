@@ -48,22 +48,6 @@ const NavMenu = ({handleSearch, history}) => {
             <span className="nav-text">New Post</span>
           </Link>
         </Menu.Item>
-        <Menu.Item key="5">
-          <CloudOutlined />
-          <span className="nav-text">nav 5</span>
-        </Menu.Item>
-        <Menu.Item key="6">
-          <AppstoreOutlined />
-          <span className="nav-text">nav 6</span>
-        </Menu.Item>
-        <Menu.Item key="7">
-          <TeamOutlined />
-          <span className="nav-text">nav 7</span>
-        </Menu.Item>
-        <Menu.Item key="8">
-          <ShopOutlined />
-          <span className="nav-text">nav 8</span>
-        </Menu.Item>
       </Menu>
     </>
   )

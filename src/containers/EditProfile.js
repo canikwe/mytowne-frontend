@@ -1,19 +1,29 @@
 import React, { PureComponent } from 'react'
+import { Tag } from 'antd'
 
 class EditProfile extends PureComponent {
   constructor(props) {
     super(props)
-    const { name, birth_date, email, username, avatar, bio } = props.user
+    const { name, birth_date, email, username, avatar, bio, followed_tags } = props.user
 
     this.state = {
-      name, birth_date, email, username, avatar, bio
+      name, birth_date, email, username, avatar, bio, tag_ids: followed_tags
     }
   }
 
   handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
+    if (typeof e === 'number') {
+      const { tag_ids } = this.state
+      const newFollowedTags = tag_ids.indexOf(e) === -1 ? [...tag_ids, e] : tag_ids.filter(t => t !== e)
+      console.log(newFollowedTags)
+      this.setState({
+        tag_ids: newFollowedTags
+      })
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value
+      })
+    }
   }
 
   handleSave = () => {
@@ -21,7 +31,8 @@ class EditProfile extends PureComponent {
   }
 
   render() {
-    const { name,username, email, birth_date, avatar, bio } = this.state
+    const { name,username, email, birth_date, avatar, bio, tag_ids } = this.state
+    const { tags } = this.props
     return(
       <div id='profile-form-container'>
         <h1>
@@ -78,10 +89,13 @@ class EditProfile extends PureComponent {
             <div className='input'>
               <textarea name='bio' value={ bio } onChange={this.handleChange} rows='8' cols='50' />
             </div>
+            <h3>Select Followed Tags for your Post Feed 🎉</h3>
+            {
+              tags.map(t => <Tag.CheckableTag key={t.id} checked={tag_ids.indexOf(t.id) > -1} onChange={() => this.handleChange(t.id)}>{t.name}</Tag.CheckableTag>)
+            }
             
           </div>
         </div>
-
         <button className='btn' onClick={this.handleSave}>Save Changes</button>        
       </div >
 
