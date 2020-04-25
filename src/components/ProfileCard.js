@@ -31,7 +31,7 @@ const ProfileCard = ({ user, posts, likedPosts, editable, handleEdit, editing })
         <div className='profile-stats'>
           <div>{posts.length} Authored posts</div>
           <div>{likedPosts.length} Liked posts</div>
-          <div>15 Followers</div>
+          <div>{user.follower_ids ? `${user.follower_ids.length} Followers` : null}</div>
         </div>
 
           <div className='followed-tags'>
