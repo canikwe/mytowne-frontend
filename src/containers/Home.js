@@ -1,10 +1,6 @@
 import React, { PureComponent } from 'react'
 import { message } from 'antd'
-// import QuickPost from '../components/QuickPost'
-// import HomeFilters from '../components/HomeFilters'
 import PostFeed from '../containers/PostFeed'
-import SideBar from '../components/SideBar'
-// import PostCard from '../components/PostTile'
 import Feature from '../components/Feature'
 
 class Home extends PureComponent {
@@ -57,15 +53,11 @@ class Home extends PureComponent {
 // --------------- main render ---------------
     
   render(){
-    const { loading,  posts, recentPosts } = this.props
-    // const { content } = this.state
-    // console.log(posts[0])
+    const { loading,  posts } = this.props
+
     return (
       <main id='content'>
-        {/* <div className='top'> */}
         <Feature loading={loading} />
-          {/* <SideBar posts={recentPosts}/> */}
-        {/* </div> */}
         <PostFeed 
           posts={posts} 
           loading={loading}
@@ -76,21 +68,3 @@ class Home extends PureComponent {
 }
 
 export default Home
-
-/*
-  <QuickPost
-    user={user}
-    submitPost={this.submitPost}
-    content={content}
-    handleContentChange={this.handleContentChange}
-  />
-  <HomeFilters
-    handleTabChange={handleTabChange}
-  />
-  <Button
-    onClick={ this.showMorePosts }
-    type="primary"
-  >
-    More Posts
-  </Button>
-*/

@@ -89,7 +89,7 @@ class EditProfile extends PureComponent {
             <div className='input'>
               <textarea name='bio' value={ bio } onChange={this.handleChange} rows='8' cols='50' />
             </div>
-            <h3>Select Followed Tags for your Post Feed 🎉</h3>
+            <h3>Select Followed Tags for your Post Feed <span role='img' aria-label='confetti'>🎉</span></h3>
             {
               tags.map(t => <Tag.CheckableTag key={t.id} checked={tag_ids.indexOf(t.id) > -1} onChange={() => this.handleChange(t.id)}>{t.name}</Tag.CheckableTag>)
             }

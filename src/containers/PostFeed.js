@@ -2,11 +2,9 @@ import React from 'react'
 import { List, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
 import { HeartOutlined, MessageOutlined } from '@ant-design/icons'
-// import Card from '../containers/Card'
 import { replaceMissingImg, displayPostDate } from '../helper/functions'
 
 const PostFeed = ({ posts, loading }) => {
-  const loadingPosts = () => [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
   
   return (
     <div className='posts'>

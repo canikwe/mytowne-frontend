@@ -1,5 +1,4 @@
 import React from 'react'
-import Card from '../containers/Card'
 import { Carousel } from 'antd'
 
 const Feature = ({ loading }) => {
@@ -9,7 +8,6 @@ const Feature = ({ loading }) => {
   
   return (
     <div id='feature-container'>
-      {/* <Card className='regular feature' post={post}/> */}
       <Carousel autoplay>
         <div className='feature'>
           <h3>Welcome</h3>

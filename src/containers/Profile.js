@@ -1,78 +1,27 @@
 import React, { PureComponent } from 'react'
-import Fetch from '../helper/Fetch'
 import { Redirect } from 'react-router-dom'
-import { Modal, Tabs } from 'antd'
+import { Tabs } from 'antd'
 import ProfileCard from '../components/ProfileCard'
 import PostTile from '../components/PostTile'
 import '../styles/Profile.css'
-// import PostFeed from '../containers/PostFeed'
 
 class Profile extends PureComponent {
   constructor(){
     super()
     this.state = {
-      // user: {},
-      // likedPosts: [],
       redirect: false,
-      // loading: true,
       defaultPosts: true,
       editing: false,
     }
   }
 
-  // componentDidMount = () => {
-  //     this.getUser()
-  // }
-
-  // componentDidUpdate = () => {
-  //   if (this.props.id !== this.state.user.id && !this.state.loading) {
-  //     console.log('Fetching new user!')
-  //     this.getUser()
-  //   }
-  // }
-
-  // getUser = () => {
-  //   const userId = this.props.id
-
-  //   Fetch.GET(`users/${userId}`)
-  //   .then(data => {
-  //     if (data.user) {
-  //       this.setState({
-  //         user: data.user,
-  //         likedPosts: data.liked_posts,
-  //         loading: false
-  //       })
-  //     } else {
-  //       Modal.error({
-  //         title: 'Something went wrong',
-  //         content: 'That user cannot be found!',
-  //       })
-  //       this.setState({ redirect: true, loading: false })
-  //     }
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-
-  //     Modal.error({
-  //       title: 'Something went wrong',
-  //       content: err.message,
-  //     })
-  //     this.setState({ redirect: true, loading: false })
-  //   })
-  // }
-
-  // followUser = userObj => {
-  //   Fetch.POST(userObj, 'user_follows')
-  //   .then(console.log)
-  // }
 
   toggleDisplayedPosts = () => this.setState({ defaultPosts: !this.state.defaultPosts})
 
   updateEditing = () => this.setState({ editing: !this.state.editing })
 
   render() {
-    // const { user, likedPosts, defaultPosts, editing } = this.state
-    const { defaultPosts, editing } = this.state
+    const { defaultPosts } = this.state
     const { authoredPosts, handleTagClick, editable, user, currentUserId, likedPosts, followUser } = this.props
     const displayedPosts = defaultPosts ? authoredPosts : likedPosts
 
@@ -88,7 +37,6 @@ class Profile extends PureComponent {
           likedPosts={likedPosts}
           editable={editable}
           handleEdit={this.updateEditing}
-          // editing={editing}
           followUser={followUser}
         />
 

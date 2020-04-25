@@ -1,15 +1,8 @@
 import React from 'react'
-import { Icon, Menu, Input, Affix } from 'antd'
+import { Menu, Input } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
   TeamOutlined,
-  UserOutlined,
-  UploadOutlined,
-  VideoCameraOutlined,
   FormOutlined
 } from '@ant-design/icons'
 

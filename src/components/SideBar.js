@@ -1,13 +1,9 @@
 import React from 'react'
-// import Weather from '../components/Weather'
-import PostList from '../containers/PostList'
 import { List, Avatar } from 'antd'
 
 const ActivityFeed = ({ posts }) => {
   return (
     <div className='sidebar'>
-      {/* <Weather /> */}
-      {/* <PostList posts={posts}/> */}
       <List
         itemLayout="horizontal"
         dataSource={posts}
