@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { Redirect } from 'react-router-dom'
 import { Tabs } from 'antd'
 import ProfileCard from '../components/ProfileCard'
 import PostTile from '../components/PostTile'
@@ -9,7 +8,6 @@ class Profile extends PureComponent {
   constructor(){
     super()
     this.state = {
-      redirect: false,
       defaultPosts: true,
       editing: false,
     }
@@ -25,8 +23,8 @@ class Profile extends PureComponent {
     const { authoredPosts, handleTagClick, editable, user, currentUserId, likedPosts, followUser } = this.props
     const displayedPosts = defaultPosts ? authoredPosts : likedPosts
 
-    if (this.state.redirect) {
-      return <Redirect to='/home' />
+    if (!user) {
+      return <h1>Loading...</h1>
     } 
     return (
       <div className='profile-container'>

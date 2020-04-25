@@ -5,10 +5,6 @@ import moment from 'moment'
 
 const ProfileCard = ({ user, currentUserId, likedPosts, posts, editable, handleEdit, editing, followUser }) => {
   
-  if (!user) {
-    return <h1>Loading...</h1>
-  }
-
   return (
     <div className='profile-card segment'>
       <div className='profile-backsplash'>
@@ -37,12 +33,6 @@ const ProfileCard = ({ user, currentUserId, likedPosts, posts, editable, handleE
           <div>{likedPosts.length} Liked posts</div>
           <div>{`${user.follower_ids.length} Followers`}</div>
         </div>
-
-          <div className='followed-tags'>
-
-
-          </div>
-
         <div className='friend'>
           <Icon type="user-add" onClick={() => followUser({follower_id: currentUserId, followed_id: user.id})} />
         </div>
@@ -52,22 +42,3 @@ const ProfileCard = ({ user, currentUserId, likedPosts, posts, editable, handleE
 }
 
 export default ProfileCard
-
-// ProfileCard.defaultProps = {
-//   user: {}
-// }
-
-//   < Card
-// loading = { loading }
-// size = 'small'
-// cover = {< img alt = 'cover' src = 'https://images.pexels.com/photos/9044/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' style = {{ maxHeight: '200px' }}/>}
-// style = {{ marginBottom: '10px' }}
-//     >
-//   <Card.Meta
-//     title={<h3 style={{ marginTop: '-5px', position: 'relative', zIndex: '1' }}>{user.name}</h3>}
-//     avatar={<Avatar src={user.avatar} size={64} style={{ marginTop: '-30px' }} />}
-//     description={<p style={{ marginTop: '-20px' }}>Member since August 2018</p>}
-//   />
-
-// { user.bio !== '' ? 'Status: ' + user.bio : 'Status: Lorem ipsum dolor sit amet, consectetur adipiscing elit.' }
-//     </Card >

@@ -318,8 +318,10 @@ header.ant-layout-header {
   max-width: 100%;
 }
 
-@media screen and (min-width: 30em) {
-
+@media screen and (max-width: 600px) {
+  .profile-contents {
+    flex-direction: column;
+  }
   .react-tags__search {
     /* this will become the offsetParent for suggestions */
     position: relative;
@@ -505,31 +507,26 @@ textarea:focus {
 /* ----------Profile styles--------------- */
 
 .profile-container {
-  padding: 0 15%;
-  display: grid;
-  grid-template-columns: 35% auto;
-  grid-auto-rows: minmax(30px, 1fr);
-  grid-gap: 20px;
+  padding: 0 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile-card {
-  grid-column: 1/2;
-  grid-row: span 7;
+  
 }
 
-.profile-card > .segment {
-  max-height: 300px;
-
+.profile-card.segment {
+  max-height: 200px;
 }
 
 .post-nav {
-  grid-column: 2/3;
   max-height: 43px;
 }
 
 .profile-post {
-  grid-column: 2/3;
-  grid-row: span 3;
+  margin: 10px 0;
   display: grid;
   grid-template-columns: 70% 30%;
   /* grid-auto-rows: minmax(30px, auto); */
@@ -540,7 +537,8 @@ textarea:focus {
 /* ---------- profile card ------------- */
 
 .profile-backsplash {
-  height: 35%;
+  height: 100px;
+  width: 100%;
 }
 .profile-backsplash > img {
   width: 100%;
@@ -551,15 +549,16 @@ textarea:focus {
 
 .profile-contents {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
+  /* justify-content: flex-start; */
   height: auto;
 }
 
-.profile-contents > * { flex: 1; }
+.profile-contents > * { flex: 2; }
 
 .profile-avatar {
-  margin-top: -60px;
+  margin: -60px 0 10px 10px;
 }
 
 .profile-subheader {
@@ -574,7 +573,7 @@ textarea:focus {
 
 .profile-name {
   margin: 0 0 -5px 0;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .profile-stats {
