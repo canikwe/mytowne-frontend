@@ -39,7 +39,8 @@ class App extends Component {
       searchInput: '',
       page: '',
       homepageFilter: true,
-      collapsed: false
+      collapsed: false,
+      allUsers: []
     })
   }
 
@@ -49,6 +50,7 @@ class App extends Component {
       this.fetchCurrentUser()
       this.fetchPosts()
       this.fetchTags()
+      this.fetchAllUsers()
     } else {
       this.setState({ page: 'login' })
     }
@@ -98,6 +100,11 @@ class App extends Component {
       this.setState({ tags })
     })
     .catch(this.catchError)
+  }
+
+  fetchAllUsers = () => {
+    Fetch.GET('users')
+    .then(allUsers => this.setState({ allUsers }))
   }
 
   createPost = data => {
@@ -216,6 +223,27 @@ class App extends Component {
     })
   }
 
+  followUser = userFollowObj => {
+    Fetch.POST(userFollowObj, 'user_follows')
+      .then(userFollow => {
+        let allUsers
+        let user
+        if (!this.state.user.follow_ids.includes(userFollow.followed_id)) {
+          user = {...this.state.user, follow_ids: [...this.state.user.follow_ids, userFollow.followed_id]}
+          allUsers = this.state.allUsers.map(u => {
+            if (u.id === userFollow.follower_id) {
+              return {...u, follow_ids: [...u.follow_ids, userFollow.follower_id]}
+            }
+            if (u.id === userFollow.followed_id) {
+              return {...u, follower_ids: [...u.follower_ids, userFollow.followed_id]}
+            }
+            return u
+          })
+          this.setState({ user, allUsers })
+        }
+      })
+  }
+
   handleLogin = (data) => {
     // debugger
     Fetch.POST(data, 'login')
@@ -228,6 +256,7 @@ class App extends Component {
         this.setState({ user: data.user, page: 'default' })
         this.fetchPosts(data.jwt)
         this.fetchTags()
+        this.fetchAllUsers()
       }
     })
     .catch(this.catchError)
@@ -401,6 +430,10 @@ class App extends Component {
     return this.state.posts.filter(p => p.user.id === id)
   }
 
+  getLikedPosts = (id) => {
+    return this.state.posts.filter(p => p.likes.find(l => l.user_id === id))
+  }
+
 // -------------------- routing helper methods -----------------
 isReturningUser  = () => {
   return !!localStorage.token
@@ -422,7 +455,7 @@ isLoggedOut = () => { //redirects immediately
     // const { collapsed, user, loading } = this.state
     // console.log(this.props)
 
-    const { user, searchInput, tags } = this.state
+    const { user, searchInput, tags, allUsers } = this.state
 
     return (
       <div className={this.state.page}>
@@ -471,13 +504,21 @@ isLoggedOut = () => { //redirects immediately
                   const profileId = parseInt(props.match.params.id)
                   const editable = user.id === profileId ? true : false
                   const authoredPosts = this.getAuthoredPosts(profileId)
-
-                  return <Profile 
-                    id={profileId} 
-                    posts={authoredPosts} handleTagClick={this.handleTagClick}
-                    editable={editable}
-                    {...props}
-                    />
+                  const profUser = allUsers.find(u => u.id === profileId)
+                  const likedPosts = this.getLikedPosts(profileId)
+                  
+                  return (
+                    <Profile 
+                      id={profileId}
+                      user={profUser}
+                      currentUserId={user.id}
+                      likedPosts={likedPosts}
+                      followUser={this.followUser}
+                      authoredPosts={authoredPosts} 
+                      handleTagClick={this.handleTagClick}
+                      editable={editable}
+                      {...props}
+                    />)
                   }}
                 />
 

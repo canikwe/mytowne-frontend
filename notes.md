@@ -119,7 +119,7 @@
 + Validate current user before allowing PostTag updates, likes, or follows
 
 + Finish carousel styling
-+ Add comments
+<!-- + Add comments -->
 + Link all tags clicks to community board and update filters at the same time
 <!-- + Update postshow images (set max size based on window size) -->
 + Stagger animations for profile view
@@ -133,3 +133,4 @@
   + Decide what that means in terms of displayed posts
 + Active storage
 + Action cable
+

@@ -3,8 +3,12 @@ import { Icon, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
-const ProfileCard = ({ user, posts, likedPosts, editable, handleEdit, editing }) => {
+const ProfileCard = ({ user, currentUserId, likedPosts, posts, editable, handleEdit, editing, followUser }) => {
   
+  if (!user) {
+    return <h1>Loading...</h1>
+  }
+
   return (
     <div className='profile-card segment'>
       <div className='profile-backsplash'>
@@ -31,7 +35,7 @@ const ProfileCard = ({ user, posts, likedPosts, editable, handleEdit, editing })
         <div className='profile-stats'>
           <div>{posts.length} Authored posts</div>
           <div>{likedPosts.length} Liked posts</div>
-          <div>{user.follower_ids ? `${user.follower_ids.length} Followers` : null}</div>
+          <div>{`${user.follower_ids.length} Followers`}</div>
         </div>
 
           <div className='followed-tags'>
@@ -40,7 +44,7 @@ const ProfileCard = ({ user, posts, likedPosts, editable, handleEdit, editing })
           </div>
 
         <div className='friend'>
-          <Icon type="user-add" />
+          <Icon type="user-add" onClick={() => followUser({follower_id: currentUserId, followed_id: user.id})} />
         </div>
       </div>
     </div>
